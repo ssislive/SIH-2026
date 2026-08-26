@@ -64,7 +64,15 @@ CREATE TABLE IF NOT EXISTS transactions (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- 6. Grievances & Disputes Table
+-- 6. OTP Storage Table
+CREATE TABLE IF NOT EXISTS otp_store (
+    phone TEXT PRIMARY KEY,
+    otp TEXT NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 7. Grievances & Disputes Table
 CREATE TABLE IF NOT EXISTS grievances (
     id TEXT PRIMARY KEY,
     transaction_id TEXT REFERENCES transactions(id),

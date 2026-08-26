@@ -5,7 +5,6 @@ import helmet from "helmet";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import connectMongo from "./config/mongo.js";
-import { connectRedis } from "./config/redis.js";
 import { initializeSchema } from "./config/turso.js";
 
 // Routes
@@ -50,12 +49,6 @@ const startServer = async () => {
     await connectMongo();
   } catch (error) {
     console.error("MongoDB connection failed (continuing without it):", error.message);
-  }
-
-  try {
-    await connectRedis();
-  } catch (error) {
-    console.error("Redis connection failed (continuing without it):", error.message);
   }
 
   try {
