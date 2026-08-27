@@ -1,0 +1,191 @@
+================================================================================
+          KRISHISETU API - TEST COMMANDS
+================================================================================
+
+HOW TO TEST:
+- Option A: Copy-paste curl commands in terminal
+- Option B: Use Postman app (instructions below)
+
+================================================================================
+1. TERMINAL (curl) COMMANDS
+================================================================================
+
+# Health Check
+curl http://localhost:5000
+
+# ---- PUBLIC APIs (no login needed) ----
+
+# Get market prices for Nashik Onion
+curl "http://localhost:5000/api/market/prices?district=Nashik&commodity=Onion"
+
+# Get all prices for Nashik
+curl "http://localhost:5000/api/market/prices?district=Nashik"
+
+# Net realization comparison (20 quintals)
+curl "http://localhost:5000/api/market/net-realization?district=Nashik&commodity=Onion&quantity=20"
+
+# ---- AUTH APIs ----
+
+# Send OTP (replace phone number)
+curl -X POST http://localhost:5000/api/auth/send-otp -H "Content-Type: application/json" -d "{\"phone\":\"9876543210\"}"
+
+# Verify OTP (replace OTP from above response)
+curl -X POST http://localhost:5000/api/auth/verify-otp -H "Content-Type: application/json" -d "{\"phone\":\"9876543210\",\"otp\":\"XXXXXX\",\"name\":\"Ramesh Patil\",\"role\":\"FARMER\",\"district\":\"Nashik\"}"
+
+# Get current user (paste your token)
+curl -X GET http://localhost:5000/api/auth/me -H "Authorization: Bearer YOUR_TOKEN"
+
+# ---- FARMER APIs (login as FARMER first) ----
+
+# Create a lot
+curl -X POST http://localhost:5000/api/farmer/lots -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_TOKEN" -d "{\"commodity\":\"Onion\",\"variety\":\"Nashik Red\",\"quantity_quintals\":20,\"quality_grade\":\"Grade-A\",\"expected_price\":1950}"
+
+# Get my lots
+curl -X GET http://localhost:5000/api/farmer/lots/my-lots -H "Authorization: Bearer YOUR_TOKEN"
+
+# Get farmer summary
+curl -X GET http://localhost:5000/api/farmer/summary -H "Authorization: Bearer YOUR_TOKEN"
+
+# ---- FPO APIs (login as FPO first) ----
+
+# Get available lots
+curl "http://localhost:5000/api/fpo/available-lots?district=Nashik&commodity=Onion" -H "Authorization: Bearer FPO_TOKEN"
+
+# Aggregate lots
+curl -X POST http://localhost:5000/api/fpo/aggregate -H "Content-Type: application/json" -H "Authorization: Bearer FPO_TOKEN" -d "{\"farmerLotIds\":[\"LOT_ID_1\",\"LOT_ID_2\"],\"reservePrice\":1800,\"pickupLocation\":\"Nashik APMC\",\"qualityGrade\":\"Grade-A\"}"
+
+# Get bulk lots
+curl -X GET http://localhost:5000/api/fpo/bulk-lots -H "Authorization: Bearer FPO_TOKEN"
+
+# ---- RECOMMENDATION API ----
+
+# Get recommendations for a bulk lot
+curl "http://localhost:5000/api/recommendations/BULK_LOT_ID" -H "Authorization: Bearer YOUR_TOKEN"
+
+
+================================================================================
+2. POSTMAN SETUP
+================================================================================
+
+STEP 1: Create a new Collection named "KrishiSetu API"
+
+STEP 2: Add these requests:
+
+REQUEST 1 - Health Check
+  Method: GET
+  URL:    http://localhost:5000
+  Auth:   None
+
+REQUEST 2 - Market Prices
+  Method: GET
+  URL:    http://localhost:5000/api/market/prices?district=Nashik&commodity=Onion
+  Auth:   None
+
+REQUEST 3 - Net Realization
+  Method: GET
+  URL:    http://localhost:5000/api/market/net-realization?district=Nashik&commodity=Onion&quantity=20
+  Auth:   None
+
+REQUEST 4 - Send OTP
+  Method: POST
+  URL:    http://localhost:5000/api/auth/send-otp
+  Auth:   None
+  Body:   raw -> JSON
+  {
+    "phone": "9876543210"
+  }
+
+REQUEST 5 - Verify OTP
+  Method: POST
+  URL:    http://localhost:5000/api/auth/verify-otp
+  Auth:   None
+  Body:   raw -> JSON
+  {
+    "phone": "9876543210",
+    "otp": "PASTE_OTP_HERE",
+    "name": "Ramesh Patil",
+    "role": "FARMER",
+    "district": "Nashik"
+  }
+  * Copy the token from response
+
+REQUEST 6 - Get Profile
+  Method: GET
+  URL:    http://localhost:5000/api/auth/me
+  Auth:   Bearer Token -> paste your JWT token
+
+REQUEST 7 - Create Lot
+  Method: POST
+  URL:    http://localhost:5000/api/farmer/lots
+  Auth:   Bearer Token -> paste your JWT token
+  Body:   raw -> JSON
+  {
+    "commodity": "Onion",
+    "variety": "Nashik Red",
+    "quantity_quintals": 20,
+    "quality_grade": "Grade-A",
+    "expected_price": 1950
+  }
+
+REQUEST 8 - My Lots
+  Method: GET
+  URL:    http://localhost:5000/api/farmer/lots/my-lots
+  Auth:   Bearer Token -> paste your JWT token
+
+REQUEST 9 - Farmer Summary
+  Method: GET
+  URL:    http://localhost:5000/api/farmer/summary
+  Auth:   Bearer Token -> paste your JWT token
+
+REQUEST 10 - Available Lots (FPO)
+  Method: GET
+  URL:    http://localhost:5000/api/fpo/available-lots?district=Nashik&commodity=Onion
+  Auth:   Bearer Token -> paste FPO JWT token
+
+REQUEST 11 - Bulk Lots (FPO)
+  Method: GET
+  URL:    http://localhost:5000/api/fpo/bulk-lots
+  Auth:   Bearer Token -> paste FPO JWT token
+
+REQUEST 12 - Recommendations
+  Method: GET
+  URL:    http://localhost:5000/api/recommendations/BULK_LOT_ID
+  Auth:   Bearer Token -> paste your JWT token
+
+
+================================================================================
+3. POSTMAN ENVIRONMENT VARIABLE (optional)
+================================================================================
+
+After getting a token, create an Environment:
+  Key:   token
+  Value: your JWT token here
+
+Then in Authorization tab, use: Bearer Token -> {{token}}
+
+
+================================================================================
+4. EXPECTED RESPONSES
+================================================================================
+
+Health Check:
+  {"message":"Welcome to KrishiSetu Backend API"}
+
+Send OTP:
+  {"success":true,"message":"OTP sent successfully","otp":"123456"}
+
+Verify OTP:
+  {"success":true,"token":"eyJhb...","user":{"id":"...","name":"Ramesh Patil","role":"FARMER"}}
+
+Market Prices:
+  {"success":true,"price":{"district":"Nashik","commodity":"Onion","price":1600,...}}
+
+Net Realization:
+  {"recommended":"KrishiSetu FPO Aggregated Bulk Sale","scenarios":[...],"summary":{"additionalIncome":4800}}
+
+Create Lot:
+  {"success":true,"lot":{"id":"...","commodity":"Onion","status":"LISTED"}}
+
+================================================================================
+                          END OF TEST COMMANDS
+================================================================================
