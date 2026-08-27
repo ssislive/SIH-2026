@@ -1,6 +1,6 @@
-// Mock Mandi / APMC Market Prices
-// In production, this would fetch from eNAM, Agmarknet APIs
-// For hackathon demo, we use realistic hardcoded data
+
+
+// Mock data for market prices in different districts and commodities
 
 const mockMarketPrices = {
   Nashik: {

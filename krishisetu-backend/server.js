@@ -11,6 +11,8 @@ import { initializeSchema } from "./config/turso.js";
 import authRoutes from "./routes/auth.js";
 import farmerRoutes from "./routes/farmer.js";
 import fpoRoutes from "./routes/fpo.js";
+import marketRoutes from "./routes/market.js";
+import recommendationRoutes from "./routes/recommendations.js";
 
 dotenv.config();
 
@@ -39,6 +41,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/farmer", farmerRoutes);
 app.use("/api/fpo", fpoRoutes);
+app.use("/api/market", marketRoutes);
+app.use("/api/recommendations", recommendationRoutes);
 
 // Start Server & Connect Databases
 const PORT = process.env.PORT || 5000;
@@ -70,7 +74,10 @@ const startServer = async () => {
     console.log("   GET  /api/farmer/summary");
     console.log("   GET  /api/fpo/available-lots");
     console.log("   POST /api/fpo/aggregate");
-    console.log("   GET  /api/fpo/bulk-lots\n");
+    console.log("   GET  /api/fpo/bulk-lots");
+    console.log("   GET  /api/market/prices");
+    console.log("   GET  /api/market/net-realization");
+    console.log("   GET  /api/recommendations/:bulkId\n");
   });
 };
 
