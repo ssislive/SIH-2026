@@ -1,0 +1,113 @@
+================================================================================
+          KRISHISETU BACKEND - SETUP & RUN COMMANDS
+================================================================================
+
+PREREQUISITES (one-time setup on new laptop):
+----------------------------------------------
+1. Install Node.js from https://nodejs.org (LTS version)
+2. Allow PowerShell scripts (run once):
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+   (Type Y and press Enter)
+3. Whitelist your IP on MongoDB Atlas:
+   Go to cloud.mongodb.com > Network Access > Add Current IP Address
+
+
+STEP-BY-STEP COMMANDS:
+-----------------------
+
+# 1. Clone the repo
+git clone <repo-url>
+cd SIH-2026
+
+# 2. Go to backend folder
+cd krishisetu-backend
+
+# 3. Install dependencies
+npm install
+
+# 4. Copy or create .env file with your credentials
+#    (See .env template below)
+
+# 5. Start Backend Server
+npm run dev
+
+# 6. You should see:
+#    MongoDB Connected: cluster.mongodb.net
+#    Turso schema initialized successfully
+#    KrishiSetu Backend running on http://localhost:5000
+
+# 7. Open another terminal - Test the server
+curl http://localhost:5000
+#    Should return: {"message":"Welcome to KrishiSetu Backend API"}
+
+
+TESTING THE APIs:
+-----------------
+
+# Send OTP (replace phone with your number)
+curl -X POST http://localhost:5000/api/auth/send-otp ^
+  -H "Content-Type: application/json" ^
+  -d "{\"phone\":\"9876543210\"}"
+
+# Verify OTP & Register as Farmer (use OTP from response above)
+curl -X POST http://localhost:5000/api/auth/verify-otp ^
+  -H "Content-Type: application/json" ^
+  -d "{\"phone\":\"9876543210\",\"otp\":\"XXXXXX\",\"name\":\"Ramesh Patil\",\"role\":\"FARMER\",\"district\":\"Nashik\"}"
+# Copy the "token" from response for next commands
+
+# Create a Lot (replace YOUR_TOKEN with token from above)
+curl -X POST http://localhost:5000/api/farmer/lots ^
+  -H "Content-Type: application/json" ^
+  -H "Authorization: Bearer YOUR_TOKEN" ^
+  -d "{\"commodity\":\"Onion\",\"variety\":\"Nashik Red\",\"quantity_quintals\":20,\"quality_grade\":\"Grade-A\",\"expected_price\":1950}"
+
+# Get My Lots
+curl -X GET http://localhost:5000/api/farmer/lots/my-lots ^
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+# Get Farmer Summary
+curl -X GET http://localhost:5000/api/farmer/summary ^
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+
+.env FILE TEMPLATE:
+-------------------
+PORT=5000
+NODE_ENV=development
+
+# Turso DB Credentials
+TURSO_DATABASE_URL="libsql://your-db-name.turso.io"
+TURSO_AUTH_TOKEN="your-turso-jwt-token"
+
+# MongoDB Credentials
+MONGO_URI="mongodb+srv://username:password@cluster.mongodb.net/krishisetu?retryWrites=true&w=majority"
+
+# JWT Secret
+JWT_SECRET="krishisetu_super_secret_jwt_key_2026"
+JWT_EXPIRES_IN="7d"
+
+# Razorpay / Payment Gateway Sandbox
+RAZORPAY_KEY_ID="rzp_test_mock_key"
+RAZORPAY_KEY_SECRET="rzp_test_mock_secret"
+
+# Frontend Origin for CORS
+FRONTEND_URL="http://localhost:3000"
+
+
+TROUBLESHOOTING:
+----------------
+Problem: "Execution of scripts is disabled on this system"
+Fix:     Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+Problem: "MongoDB connection failed"
+Fix:     Go to cloud.mongodb.com > Network Access > Add IP Address > Add Current IP
+
+Problem: "npm error Missing script: dev"
+Fix:     Make sure you are in the krishisetu-backend folder (not the parent folder)
+
+Problem: "Turso error"
+Fix:     Check your .env Turso credentials are correct
+
+================================================================================
+                          END OF COMMANDS FILE
+================================================================================
