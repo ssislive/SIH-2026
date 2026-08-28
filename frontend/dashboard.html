@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrishiSetu - Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            KrishiSetu
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html" class="active">
+                Dashboard
+            </a>
+
+            <a href="market-prices.html">
+                Market Prices
+            </a>
+
+            <a href="#">
+                My Lots
+            </a>
+
+            <a href="#">
+                Buyers
+            </a>
+
+            <a href="#">
+                Live Bidding
+            </a>
+
+            <a href="#">
+                Logistics
+            </a>
+
+            <a href="#">
+                Transactions
+            </a>
+
+            <a href="#">
+                Notifications
+            </a>
+
+            <a href="#">
+                Profile
+            </a>
+
+        </nav>
+
+        <button
+            type="button"
+            id="logout-button"
+            class="logout-button">
+
+            Logout
+
+        </button>
+
+    </aside>
+
+
+    <main class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1>Dashboard</h1>
+
+                <p>
+                    Market overview and selling opportunities
+                </p>
+
+            </div>
+
+            <div class="user-section">
+
+                <div class="connection-status">
+
+                    <span></span>
+
+                    Online
+
+                </div>
+
+                <div class="user-name">
+                    Farmer
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="welcome-section">
+
+            <h2>
+                Good Morning, <span id="user-name">Farmer</span>
+            </h2>
+
+            <p>
+                Here is today's market overview for your crops.
+            </p>
+
+        </section>
+
+
+        <section class="summary-cards">
+
+            <div class="summary-card">
+
+                <p>Today's Best Price</p>
+
+                <h2 id="best-price">
+                    ₹0
+                </h2>
+
+                <span>
+                    Per Quintal
+                </span>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <p>Active Lots</p>
+
+                <h2 id="active-lots">
+                    0
+                </h2>
+
+                <span>
+                    Currently Listed
+                </span>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <p>Active Bids</p>
+
+                <h2 id="active-bids">
+                    0
+                </h2>
+
+                <span>
+                    On Your Lots
+                </span>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <p>Pending Transactions</p>
+
+                <h2 id="pending-transactions">
+                    0
+                </h2>
+
+                <span>
+                    Need Attention
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Current Market Prices</h2>
+
+                    <p>
+                        Latest prices from nearby markets
+                    </p>
+
+                </div>
+
+                <a href="market-prices.html">
+                    View All Markets
+                </a>
+
+            </div>
+
+
+            <div class="market-card">
+
+                <div class="crop-info">
+
+                    <h3 id="crop-name">
+                        Tomato
+                    </h3>
+
+                    <p>
+                        Today's market price
+                    </p>
+
+                </div>
+
+
+                <div class="price-info">
+
+                    <strong id="crop-price">
+                        ₹0
+                    </strong>
+
+                    <span id="price-change">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <div class="data-time">
+                    Updated recently
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-grid">
+
+
+            <div class="dashboard-section chart-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>Price Trend</h2>
+
+                        <p>
+                            Recent market price movement
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas id="price-chart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-section recommendation-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>Sale Recommendation</h2>
+
+                        <p>
+                            Based on current market conditions
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="recommendation-content">
+
+                    <p class="recommendation-label">
+                        Recommendation
+                    </p>
+
+                    <h2 id="recommendation">
+                        MONITOR
+                    </h2>
+
+                    <p id="recommendation-text">
+                        Market information will appear here.
+                    </p>
+
+
+                    <div class="confidence">
+
+                        <div class="confidence-header">
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong id="confidence-value">
+                                0%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="confidence-bar">
+
+                            <div id="confidence-progress"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Buyer Demand</h2>
+
+                    <p>
+                        Buyers currently looking for produce
+                    </p>
+
+                </div>
+
+                <a href="#">
+                    View Buyers
+                </a>
+
+            </div>
+
+
+            <div id="buyer-demand-list">
+
+                <p class="empty-message">
+                    Loading buyer demand...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Active Bids</h2>
+
+                    <p>
+                        Current offers on your lots
+                    </p>
+
+                </div>
+
+                <a href="#">
+                    View Bids
+                </a>
+
+            </div>
+
+
+            <div id="active-bids-list">
+
+                <p class="empty-message">
+                    Loading active bids...
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="js/api.js"></script>
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

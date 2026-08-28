@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrishiSetu - Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <header class="top-bar">
+
+        <div class="logo">
+            KrishiSetu
+        </div>
+
+        <p>
+            Agricultural Market Intelligence Platform
+        </p>
+
+    </header>
+
+
+    <main class="login-page">
+
+        <section class="login-box">
+
+            <div class="login-heading">
+
+                <h1>Welcome Back</h1>
+
+                <p>
+                    Sign in to access your market dashboard.
+                </p>
+
+            </div>
+
+
+            <!-- User Role -->
+
+            <div class="form-group">
+
+                <label>Login as</label>
+
+                <div class="role-buttons">
+
+                    <button
+                        type="button"
+                        class="role-button active"
+                        data-role="farmer">
+
+                        Farmer / FPO
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="role-button"
+                        data-role="buyer">
+
+                        Buyer
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Mobile Number -->
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Enter your mobile number"
+                    maxlength="10">
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <div class="password-header">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <a href="#">
+                        Forgot password?
+                    </a>
+
+                </div>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password">
+
+            </div>
+
+
+            <!-- Remember Me -->
+
+            <div class="remember-me">
+
+                <input
+                    type="checkbox"
+                    id="remember">
+
+                <label for="remember">
+                    Remember me
+                </label>
+
+            </div>
+
+
+            <!-- Login -->
+
+            <button
+                type="button"
+                id="login-button"
+                class="login-button">
+
+                Sign In
+
+            </button>
+
+
+            <div class="divider">
+
+                <span></span>
+
+                <p>OR</p>
+
+                <span></span>
+
+            </div>
+
+
+            <!-- OTP -->
+
+            <button
+                type="button"
+                id="otp-button"
+                class="otp-button">
+
+                Login with OTP
+
+            </button>
+
+
+            <!-- Registration -->
+
+            <p class="register-text">
+
+                Don't have an account?
+
+                <a href="#">
+                    Create an account
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

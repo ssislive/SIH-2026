@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrishiSetu - Market Prices</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/market-prices.css">
+
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            KrishiSetu
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="market-prices.html" class="active">
+                Market Prices
+            </a>
+
+            <a href="#">
+                My Lots
+            </a>
+
+            <a href="#">
+                Buyers
+            </a>
+
+            <a href="#">
+                Live Bidding
+            </a>
+
+            <a href="#">
+                Logistics
+            </a>
+
+            <a href="#">
+                Transactions
+            </a>
+
+            <a href="#">
+                Notifications
+            </a>
+
+            <a href="#">
+                Profile
+            </a>
+
+        </nav>
+
+        <button
+            type="button"
+            id="logout-button"
+            class="logout-button">
+
+            Logout
+
+        </button>
+
+    </aside>
+
+
+    <main class="market-page">
+
+        <header class="market-header">
+
+            <div>
+
+                <h1>Market Prices</h1>
+
+                <p>
+                    Compare current mandi prices and market trends.
+                </p>
+
+            </div>
+
+            <div class="connection-status">
+
+                <span></span>
+
+                Live Data
+
+            </div>
+
+        </header>
+
+
+        <section class="filters">
+
+            <div class="filter-group">
+
+                <label for="crop">
+                    Crop
+                </label>
+
+                <select id="crop">
+
+                    <option value="tomato">
+                        Tomato
+                    </option>
+
+                    <option value="onion">
+                        Onion
+                    </option>
+
+                    <option value="potato">
+                        Potato
+                    </option>
+
+                    <option value="wheat">
+                        Wheat
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="state">
+                    State
+                </label>
+
+                <select id="state">
+
+                    <option value="maharashtra">
+                        Maharashtra
+                    </option>
+
+                    <option value="uttar-pradesh">
+                        Uttar Pradesh
+                    </option>
+
+                    <option value="madhya-pradesh">
+                        Madhya Pradesh
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="district">
+                    District
+                </label>
+
+                <select id="district">
+
+                    <option value="pune">
+                        Pune
+                    </option>
+
+                    <option value="nashik">
+                        Nashik
+                    </option>
+
+                    <option value="nagpur">
+                        Nagpur
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="market">
+                    Market
+                </label>
+
+                <select id="market">
+
+                    <option value="all">
+                        All Markets
+                    </option>
+
+                    <option value="pune">
+                        Pune Market
+                    </option>
+
+                    <option value="nashik">
+                        Nashik Market
+                    </option>
+
+                    <option value="mumbai">
+                        Mumbai Market
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="apply-filters"
+                class="filter-button">
+
+                Apply Filters
+
+            </button>
+
+        </section>
+
+
+        <section class="price-summary">
+
+            <div class="price-summary-card">
+
+                <p>Best Current Price</p>
+
+                <h2 id="best-current-price">
+                    ₹3,200
+                </h2>
+
+                <span>
+                    Per Quintal
+                </span>
+
+            </div>
+
+
+            <div class="price-summary-card">
+
+                <p>Average Price</p>
+
+                <h2 id="average-price">
+                    ₹3,050
+                </h2>
+
+                <span>
+                    Across selected markets
+                </span>
+
+            </div>
+
+
+            <div class="price-summary-card">
+
+                <p>Lowest Price</p>
+
+                <h2 id="lowest-price">
+                    ₹2,850
+                </h2>
+
+                <span>
+                    Per Quintal
+                </span>
+
+            </div>
+
+
+            <div class="price-summary-card">
+
+                <p>Highest Price</p>
+
+                <h2 id="highest-price">
+                    ₹3,350
+                </h2>
+
+                <span>
+                    Per Quintal
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <div class="freshness">
+
+            <span class="freshness-dot"></span>
+
+            <span id="data-freshness">
+                Market data updated 2 minutes ago
+            </span>
+
+        </div>
+
+
+        <section class="market-content">
+
+            <div class="market-chart-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>Price Trend</h2>
+
+                        <p>
+                            Historical and expected price movement
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="market-chart">
+
+                    <canvas id="market-price-chart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="market-chart-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>Market Comparison</h2>
+
+                        <p>
+                            Current tomato prices across markets
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="market-chart comparison-chart">
+
+                    <canvas id="market-comparison-chart"></canvas>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="market-table-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Market Price Details</h2>
+
+                    <p>
+                        Latest available mandi information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Market</th>
+                            <th>Commodity</th>
+                            <th>Min Price</th>
+                            <th>Max Price</th>
+                            <th>Modal Price</th>
+                            <th>Arrival Volume</th>
+                            <th>Updated</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="market-table-body">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="js/api.js"></script>
+
+    <script src="js/market-prices.js"></script>
+
+</body>
+
+</html>
