@@ -13,6 +13,12 @@ import farmerRoutes from "./routes/farmer.js";
 import fpoRoutes from "./routes/fpo.js";
 import marketRoutes from "./routes/market.js";
 import recommendationRoutes from "./routes/recommendations.js";
+import buyerRoutes from "./routes/buyer.js";
+import logisticsRoutes from "./routes/logistics.js";
+import paymentRoutes from "./routes/payments.js";
+import qrRoutes from "./routes/qr.js";
+import grievanceRoutes from "./routes/grievance.js";
+import { initSocket } from "./services/socketService.js";
 
 dotenv.config();
 
@@ -43,6 +49,11 @@ app.use("/api/farmer", farmerRoutes);
 app.use("/api/fpo", fpoRoutes);
 app.use("/api/market", marketRoutes);
 app.use("/api/recommendations", recommendationRoutes);
+app.use("/api/buyer", buyerRoutes);
+app.use("/api/logistics", logisticsRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/qr", qrRoutes);
+app.use("/api/grievance", grievanceRoutes);
 
 // Start Server & Connect Databases
 const PORT = process.env.PORT || 5000;
@@ -61,6 +72,9 @@ const startServer = async () => {
     console.error("Turso schema init failed (continuing without it):", error.message);
   }
 
+  // Initialize Socket.io
+  initSocket(httpServer);
+
   httpServer.listen(PORT, () => {
     console.log(`\n🚀 KrishiSetu Backend running on http://localhost:${PORT}`);
     console.log(`   Environment: ${process.env.NODE_ENV || "development"}`);
@@ -77,7 +91,13 @@ const startServer = async () => {
     console.log("   GET  /api/fpo/bulk-lots");
     console.log("   GET  /api/market/prices");
     console.log("   GET  /api/market/net-realization");
-    console.log("   GET  /api/recommendations/:bulkId\n");
+    console.log("   GET  /api/recommendations/:bulkId");
+    console.log("   GET  /api/buyer/lots");
+    console.log("   POST /api/logistics/assign");
+    console.log("   POST /api/payments/mock-pay");
+    console.log("   POST /api/qr/generate/:bulkLotId");
+    console.log("   POST /api/grievance/create\n");
+    console.log("🔌 Socket.io: ws://localhost:${PORT}\n");
   });
 };
 
