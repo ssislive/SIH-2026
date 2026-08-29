@@ -1,0 +1,302 @@
+================================================================================
+          KRISHISETU - BACKEND IMPLEMENTATION PLAN & ARCHITECTURE
+             Smart India Hackathon (SIH) Prototype Engineering
+================================================================================
+
+PROJECT: KrishiSetu (Trusted Farm-Gate Sales & Net-Price Discovery Platform)
+CORE GOAL: Bridge market visibility to safe execution via net realization calculation,
+           FPO aggregation, live bidding, trust layer, and payment tracking.
+
+TECH STACK ARCHITECTURE:
+- Backend Runtime:       Node.js + Express.js (REST APIs, WebSockets)
+- Primary SQL Database:  Turso (libSQL, Edge-distributed SQLite)
+- Document / Log Store:  MongoDB (Bid histories, logs, grievance evidence)
+- Real-time Engine:      Socket.io (Live bidding rooms, price push alerts)
+- ML / Calculation Engine: Node.js Engine (Net realization & scoring)
+- Authentication:        JWT + OTP-based Mobile Auth (OTP stored in Turso)
+- Payments:              UPI / Razorpay Sandbox Simulator
+
+================================================================================
+1. TEAM ROLES & WORKSTREAM ASSIGNMENTS
+================================================================================
+
+[Lead / Dev 1] - System Architecture, Turso Database, Core Auth, FPO Aggregation
+  - Initialize project scaffolding, Express server, and environment configuration.
+  - Setup Turso (libSQL) schemas, connection clients, and seed scripts.
+  - Build Auth APIs (OTP generation, JWT signing, role-based access control).
+  - Implement Farmer Produce Listing APIs and FPO Lot Aggregation APIs.
+  - Coordinate integration with Frontend Lead.
+
+[Backend Dev 2] - Market Intelligence, Net Realization Engine
+  - Build Mandi & APMC Price Service (Mocked/eNAM/Agmarknet data).
+  - Implement the Net Realization Engine algorithm in Node.js.
+  - Build the Multi-Criteria Recommendation Engine (Sale Score algorithm).
+  - Write unit tests for pricing calculations and edge cases.
+
+[Backend Dev 3] - Real-Time Bidding, Logistics, Payments, QR & Grievance
+  - Setup Socket.io server for real-time buyer-FPO room-based bidding.
+  - Implement QR Code Generation and scanning verification logic.
+  - Build Logistics Coordination & Delivery State Machine APIs.
+  - Implement UPI/Razorpay payment initiation and webhook/status tracker.
+  - Build Grievance Ticketing, Evidence Uploads, and Buyer Trust Score calculation.
+
+================================================================================
+2. STEP-BY-STEP IMPLEMENTATION TIMELINE (HACKATHON EXECUTION)
+================================================================================
+
+--------------------------------------------------------------------------------
+PHASE 0: SCAFFOLDING & DATABASE SETUP (Hours 0 - 4) ✅ COMPLETED
+--------------------------------------------------------------------------------
+Task 0.1: Initialize Repository Structure ✅
+  krishisetu-backend/
+  ├── config/             # Turso, MongoDB client configurations
+  ├── controllers/        # Route controllers (Auth, Farmer, FPO, Buyer, Market)
+  ├── middleware/         # Auth, validation, error handler, role verification
+  ├── models/             # Turso SQL schemas, MongoDB Mongoose models
+  ├── routes/             # Express API routes
+  ├── services/           # Net Realization, Socket.io, QR, Payment logic
+  ├── utils/              # Helper functions, logger, response wrappers
+  ├── scripts/            # Database seed scripts for the demo scenario
+  ├── server.js           # Server entry point
+  └── package.json
+
+Task 0.2: Configure Database Connections ✅
+  - Install dependencies:
+    npm install express @libsql/client dotenv cors helmet jsonwebtoken
+    npm install mongoose socket.io qrcode razorpay uuid
+  - Setup Turso libSQL connection in config/turso.js.
+  - Setup MongoDB connection in config/mongo.js.
+  - OTP storage uses Turso otp_store table (no Redis needed).
+
+--------------------------------------------------------------------------------
+PHASE 1: DATABASE SCHEMAS & MODELS (Hours 4 - 8) ✅ COMPLETED
+--------------------------------------------------------------------------------
+Task 1.1: Turso SQL Schema Migration (models/schema.sql) ✅
+  Tables:
+  - users            (id, name, phone, role, district, state, trust_score)
+  - farmer_lots      (id, farmer_id, commodity, variety, quantity, grade, status)
+  - fpo_bulk_lots    (id, fpo_id, commodity, total_quantity, reserve_price, status)
+  - fpo_lot_mappings (bulk_lot_id, farmer_lot_id)
+  - transactions     (id, bulk_lot_id, buyer_id, gross/net amounts, payment_status)
+  - otp_store        (phone, otp, expires_at) — replaces Redis for OTP storage
+  - grievances       (id, transaction_id, issue_type, status)
+
+Task 1.2: MongoDB Mongoose Models ✅
+  - BidLog.js       (bulkLotId, buyerId, bidAmount, timestamp)
+  - EvidenceLog.js  (transactionId, photos, weighmentSlip, remarks)
+
+Task 1.3: Auth Module ✅
+  - services/otpService.js       — Generate OTP, store/verify in Turso
+  - services/authService.js      — JWT sign/verify, user CRUD in Turso
+  - controllers/authController.js — sendOTP, verifyOTPHandler, getMe
+  - routes/auth.js               — POST /send-otp, /verify-otp, GET /me
+  - middleware/auth.js            — JWT verification middleware
+  - middleware/roleCheck.js       — Role-based access control
+
+Task 1.4: Farmer Module ✅
+  - controllers/farmerController.js — createLot, getMyLots, getFarmerSummary
+  - routes/farmer.js
+
+Task 1.5: FPO Module ✅
+  - controllers/fpoController.js — getAvailableLots, aggregateLots, getBulkLots
+  - routes/fpo.js
+
+--------------------------------------------------------------------------------
+PHASE 2: MARKET INTELLIGENCE & NET REALIZATION (Hours 8 - 14) ✅ COMPLETED
+--------------------------------------------------------------------------------
+Task 2.1: Market Price Service ✅
+  - services/marketPriceService.js — Mock mandi prices (5 districts, 6 commodities)
+  - controllers/marketController.js
+  - routes/market.js — GET /prices, GET /net-realization
+
+Task 2.2: Net Realization Engine ✅
+  - services/netRealizationEngine.js
+  - Compares 3 scenarios: Mandi vs Direct Buyer vs FPO Bulk Sale
+  - Demo numbers: ₹1,580 vs ₹1,670 vs ₹1,820 per quintal
+
+Task 2.3: Recommendation Engine ✅
+  - services/recommendationEngine.js — Multi-criteria scoring
+  - controllers/recommendationController.js
+  - routes/recommendations.js — GET /:bulkId
+  - Factors: net price (40%), payment speed (20%), trust (20%), distance (10%), urgency (10%)
+
+Task 2.4: Demo Seed Script ✅
+  - scripts/seedDemoData.js — 5 farmers, 2 FPOs, 3 buyers, 5 lots, 1 bulk lot
+
+--------------------------------------------------------------------------------
+PHASE 3: REAL-TIME BIDDING, LOGISTICS, PAYMENTS (Hours 14 - 24) 🔲 TODO
+--------------------------------------------------------------------------------
+Task 3.1: Socket.io Real-Time Bidding
+  - services/socketService.js — Room-based bidding (join_lot_room, place_bid)
+  - Events: join_lot_room, place_bid, bid_updated, fpo_accept_deal
+  - Bid logging to MongoDB BidLog model
+
+Task 3.2: QR Code Generation & Verification
+  - services/qrService.js — Generate QR for bulk lots
+  - controllers/qrController.js — GET /qr/verify/:bulkLotId
+
+Task 3.3: Logistics Coordination
+  - services/logisticsService.js — Delivery state machine
+  - controllers/logisticsController.js
+  - POST /assign, PATCH /status
+  - States: SCHEDULED → PICKED_UP → DELIVERED
+
+Task 3.4: Payment Module
+  - services/paymentService.js — Razorpay sandbox mock
+  - controllers/paymentController.js
+  - POST /mock-pay, GET /status/:id
+  - Payment flow: PENDING → INITIATED → ESCROW_HELD → PAID
+
+Task 3.5: Grievance System
+  - controllers/grievanceController.js
+  - POST /create
+  - Issue types: QUALITY_DISPUTE, PAYMENT_DELAY, WEIGHT_DISCREPANCY, LOGISTICS_DELAY
+
+Task 3.6: Buyer Module
+  - controllers/buyerController.js — List lots, place bids, view transactions
+  - routes/buyer.js
+
+--------------------------------------------------------------------------------
+PHASE 4: TESTING & DEMO PREP (Hours 24 - 30) 🔲 TODO
+--------------------------------------------------------------------------------
+Task 4.1: Unit tests for net realization engine
+Task 4.2: API integration testing
+Task 4.3: Demo script execution (10-step flow from Slide 9)
+Task 4.4: Error handling and edge cases
+Task 4.5: Documentation and API reference
+
+================================================================================
+3. COMPLETE API CONTRACT REFERENCE
+================================================================================
+
+AUTH MODULE:
+  POST   /api/auth/send-otp           Body: { phone }
+  POST   /api/auth/verify-otp         Body: { phone, otp, role, district, name }
+  GET    /api/auth/me                 Headers: Bearer <token>
+
+FARMER MODULE:
+  POST   /api/farmer/lots             Body: { commodity, variety, quantity_quintals, quality_grade, harvest_date, urgency_days, expected_price }
+  GET    /api/farmer/lots/my-lots     Headers: Bearer <farmer_token>
+  GET    /api/farmer/summary          Headers: Bearer <farmer_token>
+
+FPO AGGREGATION MODULE:
+  GET    /api/fpo/available-lots      Query: ?district=Nashik&commodity=Onion
+  POST   /api/fpo/aggregate           Body: { farmerLotIds: [], reservePrice, pickupLocation, qualityGrade }
+  GET    /api/fpo/bulk-lots           Headers: Bearer <fpo_token>
+
+PRICE & RECOMMENDATION MODULE:
+  GET    /api/market/prices           Query: ?commodity=Onion&district=Nashik
+  GET    /api/market/net-realization  Query: ?district=Nashik&commodity=Onion&quantity=20
+  GET    /api/recommendations/:bulkId Returns ranked net returns & explainability text
+
+LIVE BIDDING & REAL-TIME:
+  WS     /socket.io                   Events: join_lot_room, place_bid, bid_updated, fpo_accept_deal
+
+LOGISTICS & QR MODULE:
+  POST   /api/logistics/assign        Body: { transactionId, transporterId, pickupTime }
+  PATCH  /api/logistics/status        Body: { transactionId, status }
+  GET    /api/qr/verify/:bulkLotId    Returns digital lot verification metadata
+
+PAYMENT & TRUST MODULE:
+  POST   /api/payments/mock-pay       Body: { transactionId, amount }
+  GET    /api/payments/status/:id     Returns payment status and farmer split breakdown
+  POST   /api/grievance/create        Body: { transactionId, issueType, description, evidenceUrl }
+
+================================================================================
+4. CRITICAL DEMO NUMBERS VERIFICATION (SLIDE 9 & 11 COMPLIANCE)
+================================================================================
+Sale Scenario: 20 quintals of Grade-A Onion in Nashik
+
+Option 1: Nearby Mandi
+- Gross Price:        ₹1,600 / quintal
+- Deductions & Costs:  ₹20 / quintal
+- Net Return:         ₹1,580 / quintal
+
+Option 2: Individual Direct Buyer
+- Gross Price:        ₹1,950 / quintal
+- Deductions & Costs: ₹280 / quintal (High individual transport)
+- Net Return:         ₹1,670 / quintal
+
+Option 3: KrishiSetu FPO Aggregated Bulk Sale (WINNER)
+- Gross Price:        ₹1,950 / quintal
+- Deductions & Costs: ₹130 / quintal (Bulk shared transport)
+- Net Return:         ₹1,820 / quintal
+
+FINAL IMPACT DELIVERED:
+- Net Advantage per quintal:  ₹1,820 - ₹1,580 = +₹240 / quintal
+- Farmer Additional Income:   ₹240 * 20 quintals = +₹4,800 total profit
+- Buyer Reliability Rating:   92%
+- Payment Settlement Time:    Within 24 hours of delivery confirmation
+
+================================================================================
+5. ENVIRONMENT VARIABLES TEMPLATE (.env)
+================================================================================
+PORT=5000
+NODE_ENV=development
+
+# Turso DB Credentials
+TURSO_DATABASE_URL="libsql://your-db-name.turso.io"
+TURSO_AUTH_TOKEN="your-turso-jwt-token"
+
+# MongoDB Credentials
+MONGO_URI="mongodb+srv://user:pass@cluster.mongodb.net/krishisetu?retryWrites=true&w=majority"
+
+# JWT Secret
+JWT_SECRET="krishisetu_super_secret_jwt_key_2026"
+JWT_EXPIRES_IN="7d"
+
+# Razorpay / Payment Gateway Sandbox
+RAZORPAY_KEY_ID="rzp_test_mock_key"
+RAZORPAY_KEY_SECRET="rzp_test_mock_secret"
+
+# Frontend Origin for CORS
+FRONTEND_URL="http://localhost:3000"
+
+NOTE: Redis is NOT used. OTP storage uses Turso otp_store table.
+
+================================================================================
+6. PROJECT STRUCTURE (FINAL)
+================================================================================
+
+krishisetu-backend/
+├── config/
+│   ├── mongo.js              # MongoDB Atlas connection
+│   └── turso.js              # Turso libSQL connection + schema init
+├── controllers/
+│   ├── authController.js     # OTP send/verify, user profile
+│   ├── farmerController.js   # Lot CRUD, farmer summary
+│   ├── fpoController.js      # Available lots, aggregate, bulk lots
+│   ├── marketController.js   # Market prices, net realization
+│   └── recommendationController.js  # Ranked recommendations
+├── middleware/
+│   ├── auth.js               # JWT token verification
+│   └── roleCheck.js          # Role-based access control
+├── models/
+│   ├── schema.sql            # Turso tables (7 tables)
+│   └── mongo/
+│       ├── BidLog.js         # Bidding history (MongoDB)
+│       └── EvidenceLog.js    # Grievance evidence (MongoDB)
+├── routes/
+│   ├── auth.js               # /api/auth/*
+│   ├── farmer.js             # /api/farmer/*
+│   ├── fpo.js                # /api/fpo/*
+│   ├── market.js             # /api/market/*
+│   └── recommendations.js    # /api/recommendations/*
+├── services/
+│   ├── otpService.js         # OTP generation + Turso storage
+│   ├── authService.js        # JWT + user management
+│   ├── marketPriceService.js # Mock mandi prices
+│   ├── netRealizationEngine.js  # 3-way price comparison
+│   └── recommendationEngine.js  # Multi-criteria scoring
+├── scripts/
+│   └── seedDemoData.js       # Demo data seeder
+├── utils/                    # (empty, ready for Phase 3)
+├── server.js                 # Express + Socket.io entry point
+├── package.json
+├── .env
+├── SETUP_COMMANDS.txt        # Setup guide for new laptop
+├── TEST_COMMANDS.txt         # API test commands
+└── BACKEND_PLAN.txt          # This file
+================================================================================
+                          END OF IMPLEMENTATION PLAN
+================================================================================
