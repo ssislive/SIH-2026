@@ -2,28 +2,50 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KrishiSetu - Market Prices</title>
+    <meta
+        name="description"
+        content="Check agricultural market prices across India with KrishiSetu."
+    >
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Market Prices | KrishiSetu</title>
+
     <link rel="stylesheet" href="css/market-prices.css">
-
 </head>
 
 <body>
 
-    <aside class="sidebar">
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
-        <div class="sidebar-logo">
-            KrishiSetu
-        </div>
+    <header class="market-header">
 
-        <nav>
+        <a href="index.html" class="brand">
+
+            <div class="brand-mark">
+                KS
+            </div>
+
+            <div class="brand-text">
+
+                <span class="brand-name">
+                    KrishiSetu
+                </span>
+
+                <span class="brand-tagline">
+                    Connecting farmers to opportunity
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <nav class="main-nav" id="mainNav">
 
             <a href="dashboard.html">
                 Dashboard
@@ -34,251 +56,245 @@
             </a>
 
             <a href="#">
-                My Lots
+                Sell Produce
+            </a>
+
+            <a href="achievement.html">
+                Achievements
             </a>
 
             <a href="#">
-                Buyers
-            </a>
-
-            <a href="#">
-                Live Bidding
-            </a>
-
-            <a href="#">
-                Logistics
-            </a>
-
-            <a href="#">
-                Transactions
-            </a>
-
-            <a href="#">
-                Notifications
-            </a>
-
-            <a href="#">
-                Profile
+                Support
             </a>
 
         </nav>
 
+
+        <div class="header-right">
+
+            <button
+                class="notification-button"
+                id="notificationButton"
+                aria-label="Notifications"
+            >
+                ♧
+                <span></span>
+            </button>
+
+            <div class="user-avatar">
+                F
+            </div>
+
+        </div>
+
+
         <button
-            type="button"
-            id="logout-button"
-            class="logout-button">
-
-            Logout
-
+            class="mobile-menu-button"
+            id="mobileMenuButton"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
 
-    </aside>
+    </header>
 
 
-    <main class="market-page">
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
 
-        <header class="market-header">
+    <main class="market-main">
 
-            <div>
 
-                <h1>Market Prices</h1>
+        <!-- =================================================
+             INTRO
+             ================================================= -->
+
+        <section class="market-intro">
+
+            <div class="intro-content">
+
+                <p class="eyebrow">
+                    KNOW YOUR MARKET
+                </p>
+
+                <h1>
+                    Market prices,
+                    <span>made simple.</span>
+                </h1>
 
                 <p>
-                    Compare current mandi prices and market trends.
+                    Check current agricultural prices across
+                    markets in India and make better decisions
+                    about when and where to sell your produce.
                 </p>
 
             </div>
 
-            <div class="connection-status">
 
-                <span></span>
+            <div class="intro-image">
 
-                Live Data
+                <!--
+                    IMAGE PLACEHOLDER
+
+                    If you later add a market image, place it
+                    inside assets/images and connect it here.
+
+                    Example:
+                    assets/images/market-prices.jpg
+                -->
+
+                <div class="image-placeholder">
+
+                    <span class="market-symbol">
+                        ₹
+                    </span>
+
+                    <strong>
+                        Today's Market
+                    </strong>
+
+                    <small>
+                        Prices from markets across India
+                    </small>
+
+                </div>
 
             </div>
 
-        </header>
+        </section>
 
 
-        <section class="filters">
+        <!-- =================================================
+             SEARCH + FILTERS
+             ================================================= -->
+
+        <section class="market-controls">
+
+            <div class="search-box">
+
+                <span>
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    id="cropSearch"
+                    placeholder="Search for a crop..."
+                    autocomplete="off"
+                >
+
+            </div>
+
 
             <div class="filter-group">
 
-                <label for="crop">
-                    Crop
-                </label>
+                <select id="stateFilter">
 
-                <select id="crop">
-
-                    <option value="tomato">
-                        Tomato
+                    <option value="all">
+                        All States
                     </option>
 
-                    <option value="onion">
-                        Onion
+                    <option value="Maharashtra">
+                        Maharashtra
                     </option>
 
-                    <option value="potato">
-                        Potato
+                    <option value="Punjab">
+                        Punjab
+                    </option>
+
+                    <option value="Uttar Pradesh">
+                        Uttar Pradesh
+                    </option>
+
+                    <option value="Madhya Pradesh">
+                        Madhya Pradesh
+                    </option>
+
+                    <option value="Gujarat">
+                        Gujarat
+                    </option>
+
+                    <option value="Karnataka">
+                        Karnataka
+                    </option>
+
+                    <option value="West Bengal">
+                        West Bengal
+                    </option>
+
+                </select>
+
+
+                <select id="cropFilter">
+
+                    <option value="all">
+                        All Crops
                     </option>
 
                     <option value="wheat">
                         Wheat
                     </option>
 
-                </select>
-
-            </div>
-
-
-            <div class="filter-group">
-
-                <label for="state">
-                    State
-                </label>
-
-                <select id="state">
-
-                    <option value="maharashtra">
-                        Maharashtra
+                    <option value="rice">
+                        Rice
                     </option>
 
-                    <option value="uttar-pradesh">
-                        Uttar Pradesh
+                    <option value="onion">
+                        Onion
                     </option>
 
-                    <option value="madhya-pradesh">
-                        Madhya Pradesh
+                    <option value="cotton">
+                        Cotton
+                    </option>
+
+                    <option value="maize">
+                        Maize
                     </option>
 
                 </select>
 
             </div>
-
-
-            <div class="filter-group">
-
-                <label for="district">
-                    District
-                </label>
-
-                <select id="district">
-
-                    <option value="pune">
-                        Pune
-                    </option>
-
-                    <option value="nashik">
-                        Nashik
-                    </option>
-
-                    <option value="nagpur">
-                        Nagpur
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="filter-group">
-
-                <label for="market">
-                    Market
-                </label>
-
-                <select id="market">
-
-                    <option value="all">
-                        All Markets
-                    </option>
-
-                    <option value="pune">
-                        Pune Market
-                    </option>
-
-                    <option value="nashik">
-                        Nashik Market
-                    </option>
-
-                    <option value="mumbai">
-                        Mumbai Market
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <button
-                type="button"
-                id="apply-filters"
-                class="filter-button">
-
-                Apply Filters
-
-            </button>
 
         </section>
 
 
-        <section class="price-summary">
+        <!-- =================================================
+             LOCATION INFORMATION
+             ================================================= -->
 
-            <div class="price-summary-card">
+        <section class="market-location">
 
-                <p>Best Current Price</p>
+            <div class="location-left">
 
-                <h2 id="best-current-price">
-                    ₹3,200
-                </h2>
+                <div class="location-icon">
+                    +
+                </div>
 
-                <span>
-                    Per Quintal
-                </span>
+                <div>
 
-            </div>
+                    <span>
+                        SHOWING PRICES FOR
+                    </span>
 
+                    <strong id="selectedLocation">
+                        All India
+                    </strong>
 
-            <div class="price-summary-card">
-
-                <p>Average Price</p>
-
-                <h2 id="average-price">
-                    ₹3,050
-                </h2>
-
-                <span>
-                    Across selected markets
-                </span>
+                </div>
 
             </div>
 
 
-            <div class="price-summary-card">
+            <div class="update-info">
 
-                <p>Lowest Price</p>
-
-                <h2 id="lowest-price">
-                    ₹2,850
-                </h2>
+                <span class="live-dot"></span>
 
                 <span>
-                    Per Quintal
-                </span>
-
-            </div>
-
-
-            <div class="price-summary-card">
-
-                <p>Highest Price</p>
-
-                <h2 id="highest-price">
-                    ₹3,350
-                </h2>
-
-                <span>
-                    Per Quintal
+                    Sample data • Ready for backend connection
                 </span>
 
             </div>
@@ -286,125 +302,453 @@
         </section>
 
 
-        <div class="freshness">
+        <!-- =================================================
+             PRICE CARDS
+             ================================================= -->
 
-            <span class="freshness-dot"></span>
+        <section class="prices-section">
 
-            <span id="data-freshness">
-                Market data updated 2 minutes ago
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        TODAY'S PRICES
+                    </p>
+
+                    <h2>
+                        Agricultural commodities
+                    </h2>
+
+                </div>
+
+                <span id="resultCount">
+                    6 crops
+                </span>
+
+            </div>
+
+
+            <div
+                class="price-grid"
+                id="priceGrid"
+            >
+
+                <!-- =================================================
+                     WHEAT
+                     ================================================= -->
+
+                <article
+                    class="price-card"
+                    data-crop="wheat"
+                    data-state="Maharashtra"
+                >
+
+                    <div class="crop-card-top">
+
+                        <div class="crop-image wheat-image">
+                            W
+                        </div>
+
+                        <span class="trend positive">
+                            ↑ 4.2%
+                        </span>
+
+                    </div>
+
+                    <p class="crop-category">
+                        CEREAL
+                    </p>
+
+                    <h3>
+                        Wheat
+                    </h3>
+
+                    <p class="market-name">
+                        Lasalgaon, Maharashtra
+                    </p>
+
+                    <div class="price-row">
+
+                        <strong>
+                            ₹2,450
+                        </strong>
+
+                        <span>
+                            / quintal
+                        </span>
+
+                    </div>
+
+                    <p class="updated">
+                        Updated 10 min ago
+                    </p>
+
+                </article>
+
+
+                <!-- =================================================
+                     RICE
+                     ================================================= -->
+
+                <article
+                    class="price-card"
+                    data-crop="rice"
+                    data-state="West Bengal"
+                >
+
+                    <div class="crop-card-top">
+
+                        <div class="crop-image rice-image">
+                            R
+                        </div>
+
+                        <span class="trend positive">
+                            ↑ 2.1%
+                        </span>
+
+                    </div>
+
+                    <p class="crop-category">
+                        CEREAL
+                    </p>
+
+                    <h3>
+                        Basmati Rice
+                    </h3>
+
+                    <p class="market-name">
+                        Bardhaman, West Bengal
+                    </p>
+
+                    <div class="price-row">
+
+                        <strong>
+                            ₹8,700
+                        </strong>
+
+                        <span>
+                            / quintal
+                        </span>
+
+                    </div>
+
+                    <p class="updated">
+                        Updated 8 min ago
+                    </p>
+
+                </article>
+
+
+                <!-- =================================================
+                     ONION
+                     ================================================= -->
+
+                <article
+                    class="price-card"
+                    data-crop="onion"
+                    data-state="Maharashtra"
+                >
+
+                    <div class="crop-card-top">
+
+                        <div class="crop-image onion-image">
+                            O
+                        </div>
+
+                        <span class="trend positive">
+                            ↑ 3.6%
+                        </span>
+
+                    </div>
+
+                    <p class="crop-category">
+                        VEGETABLE
+                    </p>
+
+                    <h3>
+                        Red Onion
+                    </h3>
+
+                    <p class="market-name">
+                        Nashik, Maharashtra
+                    </p>
+
+                    <div class="price-row">
+
+                        <strong>
+                            ₹2,180
+                        </strong>
+
+                        <span>
+                            / quintal
+                        </span>
+
+                    </div>
+
+                    <p class="updated">
+                        Updated 12 min ago
+                    </p>
+
+                </article>
+
+
+                <!-- =================================================
+                     COTTON
+                     ================================================= -->
+
+                <article
+                    class="price-card"
+                    data-crop="cotton"
+                    data-state="Gujarat"
+                >
+
+                    <div class="crop-card-top">
+
+                        <div class="crop-image cotton-image">
+                            C
+                        </div>
+
+                        <span class="trend negative">
+                            ↓ 1.1%
+                        </span>
+
+                    </div>
+
+                    <p class="crop-category">
+                        FIBRE CROP
+                    </p>
+
+                    <h3>
+                        Cotton
+                    </h3>
+
+                    <p class="market-name">
+                        Rajkot, Gujarat
+                    </p>
+
+                    <div class="price-row">
+
+                        <strong>
+                            ₹7,120
+                        </strong>
+
+                        <span>
+                            / quintal
+                        </span>
+
+                    </div>
+
+                    <p class="updated">
+                        Updated 15 min ago
+                    </p>
+
+                </article>
+
+
+                <!-- =================================================
+                     MAIZE
+                     ================================================= -->
+
+                <article
+                    class="price-card"
+                    data-crop="maize"
+                    data-state="Karnataka"
+                >
+
+                    <div class="crop-card-top">
+
+                        <div class="crop-image maize-image">
+                            M
+                        </div>
+
+                        <span class="trend positive">
+                            ↑ 1.8%
+                        </span>
+
+                    </div>
+
+                    <p class="crop-category">
+                        CEREAL
+                    </p>
+
+                    <h3>
+                        Maize
+                    </h3>
+
+                    <p class="market-name">
+                        Davangere, Karnataka
+                    </p>
+
+                    <div class="price-row">
+
+                        <strong>
+                            ₹2,280
+                        </strong>
+
+                        <span>
+                            / quintal
+                        </span>
+
+                    </div>
+
+                    <p class="updated">
+                        Updated 9 min ago
+                    </p>
+
+                </article>
+
+
+                <!-- =================================================
+                     MUSTARD
+                     ================================================= -->
+
+                <article
+                    class="price-card"
+                    data-crop="mustard"
+                    data-state="Rajasthan"
+                >
+
+                    <div class="crop-card-top">
+
+                        <div class="crop-image mustard-image">
+                            M
+                        </div>
+
+                        <span class="trend negative">
+                            ↓ 0.7%
+                        </span>
+
+                    </div>
+
+                    <p class="crop-category">
+                        OILSEED
+                    </p>
+
+                    <h3>
+                        Mustard Seed
+                    </h3>
+
+                    <p class="market-name">
+                        Jaipur, Rajasthan
+                    </p>
+
+                    <div class="price-row">
+
+                        <strong>
+                            ₹5,120
+                        </strong>
+
+                        <span>
+                            / quintal
+                        </span>
+
+                    </div>
+
+                    <p class="updated">
+                        Updated 17 min ago
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- No results -->
+
+            <div
+                id="noResults"
+                class="no-results"
+            >
+
+                <strong>
+                    No crops found
+                </strong>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HELPFUL INFORMATION
+             ================================================= -->
+
+        <section class="market-tip">
+
+            <div class="tip-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <p class="eyebrow">
+                    A LITTLE TIP
+                </p>
+
+                <h2>
+                    Compare before you sell.
+                </h2>
+
+                <p>
+                    Prices can vary between markets. Checking
+                    nearby markets may help you find a better
+                    opportunity for your produce.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="market-footer">
+
+        <div>
+
+            <strong>
+                KrishiSetu
+            </strong>
+
+            <span>
+                Connecting farmers to opportunity
             </span>
 
         </div>
 
 
-        <section class="market-content">
+        <div class="footer-links">
 
-            <div class="market-chart-section">
+            <a href="#">
+                About
+            </a>
 
-                <div class="section-header">
+            <a href="#">
+                Support
+            </a>
 
-                    <div>
+            <a href="#">
+                Privacy
+            </a>
 
-                        <h2>Price Trend</h2>
+            <span>
+                © 2026
+            </span>
 
-                        <p>
-                            Historical and expected price movement
-                        </p>
+        </div>
 
-                    </div>
+    </footer>
 
-                </div>
-
-
-                <div class="market-chart">
-
-                    <canvas id="market-price-chart"></canvas>
-
-                </div>
-
-            </div>
-
-
-            <div class="market-chart-section">
-
-                <div class="section-header">
-
-                    <div>
-
-                        <h2>Market Comparison</h2>
-
-                        <p>
-                            Current tomato prices across markets
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="market-chart comparison-chart">
-
-                    <canvas id="market-comparison-chart"></canvas>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="market-table-section">
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2>Market Price Details</h2>
-
-                    <p>
-                        Latest available mandi information
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="table-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-                            <th>Market</th>
-                            <th>Commodity</th>
-                            <th>Min Price</th>
-                            <th>Max Price</th>
-                            <th>Modal Price</th>
-                            <th>Arrival Volume</th>
-                            <th>Updated</th>
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="market-table-body">
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script src="js/api.js"></script>
 
     <script src="js/market-prices.js"></script>
 

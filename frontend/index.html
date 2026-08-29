@@ -2,141 +2,564 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <!-- Makes the page responsive on phones, tablets and laptops -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KrishiSetu - Agricultural Market Platform</title>
+    <title>KrishiSetu | Empowering Farmers</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Landing page stylesheet -->
     <link rel="stylesheet" href="css/index.css">
-
 </head>
 
 <body>
 
-    <header class="home-header">
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
 
-        <div class="home-logo">
-            KrishiSetu
-        </div>
+    <header class="site-header">
 
-        <nav class="home-nav">
+        <nav class="navbar">
 
-            <a href="#home">
-                Home
+            <!-- Website logo / brand -->
+            <a href="index.html" class="brand">
+
+                <div class="brand-mark">
+                    KS
+                </div>
+
+                <div class="brand-text">
+                    <span class="brand-name">KrishiSetu</span>
+                    <span class="brand-tagline">Connecting farmers to opportunity</span>
+                </div>
+
             </a>
 
-            <a href="#features">
-                Features
-            </a>
 
-            <a href="#how-it-works">
-                How It Works
-            </a>
+            <!-- Main navigation -->
+            <div class="nav-links" id="navLinks">
 
-            <a href="market-prices.html">
-                Market Prices
-            </a>
+                <a href="index.html" class="nav-link active">
+                    Home
+                </a>
 
-            <a href="login.html" class="nav-login">
-                Login
-            </a>
+                <a href="market-prices.html" class="nav-link">
+                    Market Prices
+                </a>
+
+                <a href="dashboard.html" class="nav-link">
+                    Dashboard
+                </a>
+
+                <a href="achievement.html" class="nav-link">
+                    Achievements
+                </a>
+
+                <a href="#" class="nav-link">
+                    About Us
+                </a>
+
+            </div>
+
+
+            <!-- Navigation actions -->
+            <div class="nav-actions">
+
+                <a href="login.html" class="login-link">
+                    Login
+                </a>
+
+                <a href="login.html" class="nav-cta">
+                    Get Started
+                </a>
+
+            </div>
+
+
+            <!-- Mobile menu button -->
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
         </nav>
 
     </header>
 
 
+    <!-- =====================================================
+         HERO SECTION
+         ===================================================== -->
+
     <main>
 
+        <section class="hero">
 
-        <section class="hero" id="home">
+            <!--
+                HERO IMAGE
 
+                This is ONLY a background image.
+                No buttons, text or website elements are inside it.
+
+                Image location:
+                frontend/assets/images/landing-hero.png
+            -->
+            <div class="hero-image"></div>
+
+            <!-- Dark layer makes text readable -->
+            <div class="hero-overlay"></div>
+
+
+            <!-- Hero text -->
             <div class="hero-content">
 
-                <p class="hero-label">
-                    AGRICULTURAL MARKET INTELLIGENCE
-                </p>
+                <span class="hero-label">
+                    Better markets. Better opportunities.
+                </span>
 
                 <h1>
-                    Better market access.
-                    Better selling decisions.
+                    Empowering Farmers
+                    <span>to Connect &amp; Grow</span>
                 </h1>
 
                 <p class="hero-description">
-
-                    KrishiSetu helps farmers and FPOs understand
-                    market prices, discover verified buyers and
-                    make informed decisions about when and where
-                    to sell their produce.
-
+                    KrishiSetu bridges the gap between Indian farmers
+                    and modern markets. Discover market prices,
+                    connect with buyers and make better decisions
+                    for your harvest.
                 </p>
 
 
-                <div class="hero-buttons">
+                <div class="hero-actions">
 
-                    <a
-                        href="login.html"
-                        class="primary-button">
-
-                        Get Started
-
+                    <a href="login.html" class="primary-button">
+                        Start Selling Today
+                        <span class="button-arrow">→</span>
                     </a>
 
-                    <a
-                        href="#how-it-works"
-                        class="secondary-button">
+                    <a href="#how-it-works" class="secondary-button">
+                        See How It Works
+                    </a>
 
+                </div>
+
+
+                <div class="hero-note">
+                    <span class="note-dot"></span>
+                    Built for farmers across India
+                </div>
+
+            </div>
+
+
+            <!-- Small location indicator -->
+            <div class="hero-location">
+
+                <span class="location-label">
+                    COVERAGE
+                </span>
+
+                <span class="location-value">
+                    PAN INDIA
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MISSION
+             ================================================= -->
+
+        <section class="mission-section">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Our Mission
+                    </p>
+
+                    <h2>
+                        Bringing the farmer
+                        <span>closer to the market.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="mission-content">
+
+                    <p class="mission-text">
+                        Farmers should not have to depend on
+                        complicated systems to understand where
+                        their produce can get the best opportunity.
+                    </p>
+
+                    <p class="mission-text">
+                        KrishiSetu brings market information,
+                        buyers and selling opportunities together
+                        in one simple platform designed with the
+                        farmer in mind.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             WHAT WE OFFER
+             ================================================= -->
+
+        <section class="offers-section">
+
+            <div class="section-container">
+
+                <div class="section-heading centered">
+
+                    <p class="eyebrow">
+                        What We Offer
+                    </p>
+
+                    <h2>
+                        From harvest
+                        <span>to opportunity.</span>
+                    </h2>
+
+                    <p class="section-description">
+                        Simple tools designed to help farmers
+                        make informed decisions and reach better
+                        markets.
+                    </p>
+
+                </div>
+
+
+                <div class="offer-grid">
+
+
+                    <!-- Market prices -->
+                    <article class="offer-card market-card">
+
+                        <span class="card-number">
+                            01
+                        </span>
+
+                        <div class="offer-icon">
+                            ₹
+                        </div>
+
+                        <h3>
+                            Market Prices
+                        </h3>
+
+                        <p>
+                            Understand current agricultural
+                            prices across markets and make
+                            informed selling decisions.
+                        </p>
+
+                        <a href="market-prices.html" class="card-link">
+                            Explore prices →
+                        </a>
+
+                    </article>
+
+
+                    <!-- Buyers -->
+                    <article class="offer-card buyer-card">
+
+                        <span class="card-number">
+                            02
+                        </span>
+
+                        <div class="offer-icon">
+                            ♡
+                        </div>
+
+                        <h3>
+                            Verified Buyers
+                        </h3>
+
+                        <p>
+                            Discover potential buyers and
+                            build trusted connections for
+                            your produce.
+                        </p>
+
+                        <a href="#" class="card-link">
+                            Find buyers →
+                        </a>
+
+                    </article>
+
+
+                    <!-- Sell -->
+                    <article class="offer-card sell-card">
+
+                        <span class="card-number">
+                            03
+                        </span>
+
+                        <div class="offer-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            Sell Your Produce
+                        </h3>
+
+                        <p>
+                            Create a digital listing for your
+                            harvest and receive offers from
+                            interested buyers.
+                        </p>
+
+                        <a href="dashboard.html" class="card-link">
+                            Start selling →
+                        </a>
+
+                    </article>
+
+
+                    <!-- Support -->
+                    <article class="offer-card logistics-card">
+
+                        <span class="card-number">
+                            04
+                        </span>
+
+                        <div class="offer-icon">
+                            ?
+                        </div>
+
+                        <h3>
+                            Farmer Support
+                        </h3>
+
+                        <p>
+                            Get access to useful information
+                            and support throughout your
+                            selling journey.
+                        </p>
+
+                        <a href="#" class="card-link">
+                            Learn more →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INDIA-WIDE SECTION
+             ================================================= -->
+
+        <section class="india-section">
+
+            <div class="india-container">
+
+                <div class="india-content">
+
+                    <p class="eyebrow">
+                        Across India
+                    </p>
+
+                    <h2>
+                        From your village
+                        <span>to the right market.</span>
+                    </h2>
+
+                    <p>
+                        KrishiSetu is designed to work across
+                        India's agricultural regions, helping
+                        farmers discover relevant markets,
+                        prices and opportunities.
+                    </p>
+
+
+                    <div class="location-flow">
+
+                        <div class="flow-item">
+                            <strong>Farmer</strong>
+                            <span>Your harvest</span>
+                        </div>
+
+                        <span class="flow-arrow">→</span>
+
+                        <div class="flow-item">
+                            <strong>Market</strong>
+                            <span>Price discovery</span>
+                        </div>
+
+                        <span class="flow-arrow">→</span>
+
+                        <div class="flow-item">
+                            <strong>Buyer</strong>
+                            <span>Better opportunity</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Decorative visual -->
+                <div class="india-visual">
+
+                    <div class="india-visual-content">
+
+                        <span class="visual-small-text">
+                            ONE PLATFORM
+                        </span>
+
+                        <strong>
+                            Farmers<br>
+                            Across India
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HOW IT WORKS
+             ================================================= -->
+
+        <section class="how-section" id="how-it-works">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
                         How It Works
+                    </p>
 
-                    </a>
+                    <h2>
+                        Four simple steps.
+                    </h2>
 
-                </div>
-
-            </div>
-
-
-            <div class="hero-summary">
-
-                <div class="summary-item">
-
-                    <strong>
-                        Market Prices
-                    </strong>
-
-                    <span>
-                        Compare nearby markets
-                    </span>
+                    <p class="section-description">
+                        A straightforward journey from
+                        registration to selling your produce.
+                    </p>
 
                 </div>
 
 
-                <div class="summary-item">
-
-                    <strong>
-                        Verified Buyers
-                    </strong>
-
-                    <span>
-                        Find suitable demand
-                    </span>
-
-                </div>
+                <div class="steps">
 
 
-                <div class="summary-item">
+                    <div class="step">
 
-                    <strong>
-                        Smarter Decisions
-                    </strong>
+                        <span class="step-number">
+                            01
+                        </span>
 
-                    <span>
-                        Use market insights
-                    </span>
+                        <div class="step-content">
+
+                            <h3>
+                                Register &amp; Verify
+                            </h3>
+
+                            <p>
+                                Create your account and provide
+                                basic details to get started.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <span class="step-number">
+                            02
+                        </span>
+
+                        <div class="step-content">
+
+                            <h3>
+                                Check Market Prices
+                            </h3>
+
+                            <p>
+                                Explore agricultural prices and
+                                understand current market trends.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <span class="step-number">
+                            03
+                        </span>
+
+                        <div class="step-content">
+
+                            <h3>
+                                List Your Produce
+                            </h3>
+
+                            <p>
+                                Add your crop, quantity and other
+                                basic information to create a listing.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <span class="step-number">
+                            04
+                        </span>
+
+                        <div class="step-content">
+
+                            <h3>
+                                Connect &amp; Sell
+                            </h3>
+
+                            <p>
+                                Connect with potential buyers and
+                                complete the selling process.
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -145,350 +568,147 @@
         </section>
 
 
-
-        <section class="features-section" id="features">
-
-            <div class="section-intro">
-
-                <p class="section-label">
-                    PLATFORM FEATURES
-                </p>
-
-                <h2>
-                    Everything needed to make
-                    better market decisions.
-                </h2>
-
-                <p>
-                    From price discovery to transactions,
-                    the platform brings the important
-                    parts of the selling process together.
-                </p>
-
-            </div>
-
-
-            <div class="feature-grid">
-
-                <article class="feature-card">
-
-                    <h3>
-                        Market Prices
-                    </h3>
-
-                    <p>
-                        View current mandi prices and
-                        compare rates across nearby markets.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Price Trends
-                    </h3>
-
-                    <p>
-                        Understand recent price movement
-                        before deciding when to sell.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Sale Recommendations
-                    </h3>
-
-                    <p>
-                        Get data-based suggestions on
-                        whether to sell now or monitor prices.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Verified Buyers
-                    </h3>
-
-                    <p>
-                        Discover buyers based on crop,
-                        quantity, quality and location.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Crop Lots
-                    </h3>
-
-                    <p>
-                        Create and manage produce lots
-                        for buyers to discover.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Offers and Bids
-                    </h3>
-
-                    <p>
-                        Receive offers and participate in
-                        transparent negotiations.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Logistics
-                    </h3>
-
-                    <p>
-                        Coordinate transport and storage
-                        for selected transactions.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <h3>
-                        Transaction Tracking
-                    </h3>
-
-                    <p>
-                        Follow delivery, payment and
-                        transaction status from one place.
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-
-        <section class="process-section" id="how-it-works">
-
-            <div class="section-intro">
-
-                <p class="section-label">
-                    HOW IT WORKS
-                </p>
-
-                <h2>
-                    A simple path from produce
-                    to the right buyer.
-                </h2>
-
-            </div>
-
-
-            <div class="process-list">
-
-
-                <div class="process-item">
-
-                    <span>
-                        01
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Check Market Prices
-                        </h3>
-
-                        <p>
-                            Compare current prices and
-                            market conditions.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="process-item">
-
-                    <span>
-                        02
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Understand the Opportunity
-                        </h3>
-
-                        <p>
-                            Review price trends and
-                            selling recommendations.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="process-item">
-
-                    <span>
-                        03
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Create Your Lot
-                        </h3>
-
-                        <p>
-                            Add your crop, quantity,
-                            quality and expected price.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="process-item">
-
-                    <span>
-                        04
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Find the Right Buyer
-                        </h3>
-
-                        <p>
-                            Match your produce with
-                            suitable verified buyers.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="process-item">
-
-                    <span>
-                        05
-                    </span>
-
-                    <div>
-
-                        <h3>
-                            Complete the Transaction
-                        </h3>
-
-                        <p>
-                            Manage offers, logistics,
-                            delivery and payment tracking.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </section>
-
-
+        <!-- =================================================
+             FINAL CTA
+             ================================================= -->
 
         <section class="cta-section">
 
-            <div>
+            <div class="cta-container">
 
-                <p class="section-label">
-                    GET STARTED
-                </p>
+                <div class="cta-content">
 
-                <h2>
-                    Make your next selling decision
-                    with better information.
-                </h2>
+                    <p class="eyebrow">
+                        Your next opportunity
+                    </p>
 
-                <p>
-                    Join a platform designed to connect
-                    farmers, FPOs and verified buyers.
-                </p>
+                    <h2>
+                        Your harvest deserves
+                        <span>a better market.</span>
+                    </h2>
+
+                    <p>
+                        Join KrishiSetu and take the first step
+                        towards a simpler digital marketplace.
+                    </p>
+
+                    <a href="login.html" class="primary-button">
+                        Get Started
+                        <span class="button-arrow">→</span>
+                    </a>
+
+                </div>
 
             </div>
 
-
-            <a
-                href="login.html"
-                class="primary-button">
-
-                Get Started
-
-            </a>
-
         </section>
-
 
     </main>
 
 
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
 
-    <footer class="home-footer">
+    <footer class="site-footer">
 
-        <div>
-            <strong>KrishiSetu</strong>
+        <div class="footer-container">
 
-            <p>
-                Agricultural Market Intelligence Platform
-            </p>
+            <div class="footer-brand">
+
+                <div class="brand footer-logo">
+
+                    <div class="brand-mark">
+                        KS
+                    </div>
+
+                    <div class="brand-text">
+
+                        <span class="brand-name">
+                            KrishiSetu
+                        </span>
+
+                        <span class="brand-tagline">
+                            Connecting farmers to opportunity
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <p>
+                    Connecting Indian farmers with better
+                    market opportunities through simple
+                    digital tools.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div class="footer-column">
+
+                    <h4>
+                        Platform
+                    </h4>
+
+                    <a href="market-prices.html">
+                        Market Prices
+                    </a>
+
+                    <a href="dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a href="#">
+                        Marketplace
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>
+                        Company
+                    </h4>
+
+                    <a href="#">
+                        About Us
+                    </a>
+
+                    <a href="#">
+                        Support
+                    </a>
+
+                    <a href="#">
+                        Contact
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
 
 
-        <div class="footer-links">
+        <div class="footer-bottom">
 
-            <a href="login.html">
-                Login
-            </a>
+            <span>
+                © 2026 KrishiSetu
+            </span>
 
-            <a href="market-prices.html">
-                Market Prices
-            </a>
-
-            <a href="#">
-                Contact
-            </a>
+            <span>
+                Built for Indian farmers
+            </span>
 
         </div>
 
     </footer>
 
 
-    <script src="js/main.js"></script>
+    <!-- Landing page JavaScript -->
     <script src="js/index.js"></script>
 
 </body>

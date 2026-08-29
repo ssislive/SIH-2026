@@ -1,298 +1,290 @@
-const marketData = [
-    {
-        market: "Pune",
-        crop: "Tomato",
-        minPrice: 2850,
-        maxPrice: 3350,
-        modalPrice: 3200,
-        arrival: "184 Tonnes",
-        updated: "2 min ago"
-    },
-    {
-        market: "Nashik",
-        crop: "Tomato",
-        minPrice: 2750,
-        maxPrice: 3200,
-        modalPrice: 3050,
-        arrival: "142 Tonnes",
-        updated: "4 min ago"
-    },
-    {
-        market: "Mumbai",
-        crop: "Tomato",
-        minPrice: 2900,
-        maxPrice: 3400,
-        modalPrice: 3250,
-        arrival: "216 Tonnes",
-        updated: "5 min ago"
-    },
-    {
-        market: "Nagpur",
-        crop: "Tomato",
-        minPrice: 2700,
-        maxPrice: 3150,
-        modalPrice: 3000,
-        arrival: "128 Tonnes",
-        updated: "7 min ago"
+/* =========================================================
+   KRISHISETU MARKET PRICES
+   ========================================================= */
+
+
+/* =========================================================
+   GET ELEMENTS
+   ========================================================= */
+
+const cropSearch =
+    document.getElementById("cropSearch");
+
+const stateFilter =
+    document.getElementById("stateFilter");
+
+const cropFilter =
+    document.getElementById("cropFilter");
+
+const priceCards =
+    document.querySelectorAll(".price-card");
+
+const noResults =
+    document.getElementById("noResults");
+
+const resultCount =
+    document.getElementById("resultCount");
+
+const selectedLocation =
+    document.getElementById("selectedLocation");
+
+const mobileMenuButton =
+    document.getElementById("mobileMenuButton");
+
+const mainNav =
+    document.getElementById("mainNav");
+
+const notificationButton =
+    document.getElementById("notificationButton");
+
+
+/* =========================================================
+   FILTER MARKET PRICES
+   ========================================================= */
+
+function filterPrices() {
+
+    // Get the values entered by the farmer
+    const searchText =
+        cropSearch.value.toLowerCase().trim();
+
+    const selectedState =
+        stateFilter.value;
+
+    const selectedCrop =
+        cropFilter.value;
+
+
+    let visibleCards = 0;
+
+
+    priceCards.forEach(function (card) {
+
+        const cropName =
+            card.querySelector("h3")
+                .textContent
+                .toLowerCase();
+
+        const cardCrop =
+            card.getAttribute("data-crop");
+
+        const cardState =
+            card.getAttribute("data-state");
+
+
+        /* -------------------------------------------------
+           CHECK SEARCH
+           ------------------------------------------------- */
+
+        const matchesSearch =
+            cropName.includes(searchText);
+
+
+        /* -------------------------------------------------
+           CHECK STATE
+           ------------------------------------------------- */
+
+        const matchesState =
+            selectedState === "all" ||
+            cardState === selectedState;
+
+
+        /* -------------------------------------------------
+           CHECK CROP
+           ------------------------------------------------- */
+
+        const matchesCrop =
+            selectedCrop === "all" ||
+            cardCrop === selectedCrop;
+
+
+        /* -------------------------------------------------
+           SHOW / HIDE CARD
+           ------------------------------------------------- */
+
+        if (
+            matchesSearch &&
+            matchesState &&
+            matchesCrop
+        ) {
+
+            card.style.display = "block";
+
+            visibleCards++;
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    /* =====================================================
+       UPDATE RESULT COUNT
+       ===================================================== */
+
+    resultCount.textContent =
+        visibleCards + " crops";
+
+
+    /* =====================================================
+       SHOW NO RESULTS MESSAGE
+       ===================================================== */
+
+    if (visibleCards === 0) {
+
+        noResults.style.display = "block";
+
+    } else {
+
+        noResults.style.display = "none";
+
     }
-];
 
 
-let priceChart;
-let comparisonChart;
+    /* =====================================================
+       UPDATE LOCATION TEXT
+       ===================================================== */
 
+    if (selectedState === "all") {
 
-function loadMarketData() {
+        selectedLocation.textContent =
+            "All India";
 
-    showPriceSummary();
+    } else {
 
-    showMarketTable();
+        selectedLocation.textContent =
+            selectedState + ", India";
 
-    createPriceChart();
-
-    createComparisonChart();
+    }
 
 }
 
 
-function showPriceSummary() {
+/* =========================================================
+   SEARCH EVENT
+   ========================================================= */
 
-    const prices = marketData.map(function (item) {
-        return item.modalPrice;
-    });
+if (cropSearch) {
 
-    const highestPrice = Math.max(...prices);
-    const lowestPrice = Math.min(...prices);
+    cropSearch.addEventListener(
+        "input",
+        filterPrices
+    );
 
-    const total = prices.reduce(function (sum, price) {
-        return sum + price;
-    }, 0);
-
-    const averagePrice = Math.round(total / prices.length);
-
-
-    document.getElementById("best-current-price").textContent =
-        "₹" + highestPrice.toLocaleString("en-IN");
-
-    document.getElementById("average-price").textContent =
-        "₹" + averagePrice.toLocaleString("en-IN");
-
-    document.getElementById("lowest-price").textContent =
-        "₹" + lowestPrice.toLocaleString("en-IN");
-
-    document.getElementById("highest-price").textContent =
-        "₹" + highestPrice.toLocaleString("en-IN");
 }
 
 
-function showMarketTable() {
+/* =========================================================
+   STATE FILTER EVENT
+   ========================================================= */
 
-    const tableBody =
-        document.getElementById("market-table-body");
+if (stateFilter) {
 
-    tableBody.innerHTML = "";
+    stateFilter.addEventListener(
+        "change",
+        filterPrices
+    );
 
-
-    marketData.forEach(function (item) {
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${item.market}</td>
-            <td>${item.crop}</td>
-            <td>₹${item.minPrice.toLocaleString("en-IN")}</td>
-            <td>₹${item.maxPrice.toLocaleString("en-IN")}</td>
-            <td>₹${item.modalPrice.toLocaleString("en-IN")}</td>
-            <td>${item.arrival}</td>
-            <td>${item.updated}</td>
-        `;
-
-        tableBody.appendChild(row);
-
-    });
 }
 
 
-function createPriceChart() {
+/* =========================================================
+   CROP FILTER EVENT
+   ========================================================= */
 
-    const canvas =
-        document.getElementById("market-price-chart");
+if (cropFilter) {
 
-    const context = canvas.getContext("2d");
+    cropFilter.addEventListener(
+        "change",
+        filterPrices
+    );
+
+}
 
 
-    priceChart = new Chart(context, {
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
 
-        type: "line",
+if (mobileMenuButton && mainNav) {
 
-        data: {
+    mobileMenuButton.addEventListener(
+        "click",
+        function () {
 
-            labels: [
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
-                "Sun"
-            ],
+            // Open or close the mobile navigation
+            mainNav.classList.toggle("mobile-open");
 
-            datasets: [
 
-                {
-                    label: "Market Price",
+            const isOpen =
+                mainNav.classList.contains("mobile-open");
 
-                    data: [
-                        2700,
-                        2780,
-                        2850,
-                        2920,
-                        3010,
-                        3120,
-                        3200
-                    ],
 
-                    borderWidth: 2,
-
-                    tension: 0.3
-                },
-
-                {
-                    label: "Expected Price",
-
-                    data: [
-                        null,
-                        null,
-                        null,
-                        2920,
-                        3050,
-                        3250,
-                        3350
-                    ],
-
-                    borderWidth: 2,
-
-                    borderDash: [6, 6],
-
-                    tension: 0.3
-                }
-
-            ]
-
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-                    display: true
-                }
-
-            },
-
-            scales: {
-
-                y: {
-                    beginAtZero: false
-                }
-
-            }
+            mobileMenuButton.setAttribute(
+                "aria-expanded",
+                isOpen
+            );
 
         }
+    );
 
-    });
 }
 
 
-function createComparisonChart() {
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
 
-    const canvas =
-        document.getElementById("market-comparison-chart");
+if (notificationButton) {
 
-    const context = canvas.getContext("2d");
+    notificationButton.addEventListener(
+        "click",
+        function () {
 
-
-    comparisonChart = new Chart(context, {
-
-        type: "bar",
-
-        data: {
-
-            labels: [
-                "Pune",
-                "Nashik",
-                "Mumbai",
-                "Nagpur"
-            ],
-
-            datasets: [
-
-                {
-                    label: "Modal Price",
-
-                    data: [
-                        3200,
-                        3050,
-                        3250,
-                        3000
-                    ],
-
-                    borderWidth: 1
-                }
-
-            ]
-
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            scales: {
-
-                y: {
-                    beginAtZero: false
-                }
-
-            }
+            // Temporary notification for the prototype
+            alert(
+                "You have 1 new market update."
+            );
 
         }
+    );
 
-    });
 }
 
 
-document
-    .getElementById("apply-filters")
-    .addEventListener("click", function () {
+/* =========================================================
+   BACKEND CONNECTION
+   ========================================================= */
 
-        const selectedCrop =
-            document.getElementById("crop").value;
+/*
+    BACKEND TEAM:
 
-        console.log("Selected crop:", selectedCrop);
+    The price cards currently contain sample data.
 
-        loadMarketData();
+    Later, this section can be connected to the market
+    prices API.
 
-    });
+    The backend can provide:
+
+    - Crop name
+    - Market name
+    - State
+    - Current price
+    - Price change
+    - Last updated time
+
+    The existing HTML structure can remain the same.
+
+    The filtering/search functionality is already handled
+    on the frontend.
+*/
 
 
-const logoutButton =
-    document.getElementById("logout-button");
+/* =========================================================
+   INITIAL FILTER
+   ========================================================= */
 
-logoutButton.addEventListener("click", function () {
-
-    localStorage.removeItem("token");
-
-    window.location.href = "login.html";
-
-});
-
-
-loadMarketData();
+filterPrices();

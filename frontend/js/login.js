@@ -1,73 +1,125 @@
-const roleButtons = document.querySelectorAll(".role-button");
+/* =========================================================
+   KRISHISETU LOGIN PAGE
+   ========================================================= */
 
-let selectedRole = "farmer";
 
-roleButtons.forEach(function (button) {
+/* =========================================================
+   GET ELEMENTS
+   ========================================================= */
 
-    button.addEventListener("click", function () {
+const loginForm = document.getElementById("loginForm");
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+const loginMessage = document.getElementById("loginMessage");
 
-        roleButtons.forEach(function (item) {
-            item.classList.remove("active");
-        });
 
-        button.classList.add("active");
+/* =========================================================
+   SHOW / HIDE PASSWORD
+   ========================================================= */
 
-        selectedRole = button.getAttribute("data-role");
+if (togglePassword && passwordInput) {
+
+    togglePassword.addEventListener("click", function () {
+
+        // Show or hide the password
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+            togglePassword.textContent = "Hide";
+
+        } else {
+
+            passwordInput.type = "password";
+            togglePassword.textContent = "Show";
+
+        }
+
     });
-});
+
+}
 
 
-const loginButton = document.getElementById("login-button");
+/* =========================================================
+   PROTOTYPE LOGIN
+   ========================================================= */
 
-loginButton.addEventListener("click", function () {
+if (loginForm) {
 
-    const phone = document.getElementById("phone").value.trim();
-    const password = document.getElementById("password").value.trim();
+    loginForm.addEventListener("submit", function (event) {
 
-    if (phone === "") {
-        alert("Please enter your mobile number.");
-        return;
-    }
-
-    if (phone.length !== 10 || isNaN(phone)) {
-        alert("Please enter a valid 10-digit mobile number.");
-        return;
-    }
-
-    if (password === "") {
-        alert("Please enter your password.");
-        return;
-    }
-
-    const loginData = {
-        phone: phone,
-        password: password,
-        role: selectedRole
-    };
-
-    console.log("Login data:", loginData);
-
-    window.location.href = "dashboard.html";
-});
+        // Prevent the page from refreshing
+        event.preventDefault();
 
 
-const otpButton = document.getElementById("otp-button");
+        const phoneInput = document.getElementById("phone");
 
-otpButton.addEventListener("click", function () {
+        const phone = phoneInput.value.trim();
+        const password = passwordInput.value.trim();
 
-    const phone = document.getElementById("phone").value.trim();
 
-    if (phone === "") {
-        alert("Please enter your mobile number first.");
-        return;
-    }
+        // Clear old message
+        loginMessage.textContent = "";
 
-    if (phone.length !== 10 || isNaN(phone)) {
-        alert("Please enter a valid 10-digit mobile number.");
-        return;
-    }
 
-    console.log("OTP requested for:", phone);
+        /* -------------------------------------------------
+           CHECK MOBILE NUMBER
+           ------------------------------------------------- */
 
-    alert("OTP request is ready.");
-});
+        if (!/^\d{10}$/.test(phone)) {
+
+            loginMessage.textContent =
+                "Please enter a valid 10-digit mobile number.";
+
+            phoneInput.focus();
+
+            return;
+        }
+
+
+        /* -------------------------------------------------
+           CHECK PASSWORD
+           ------------------------------------------------- */
+
+        if (password.length === 0) {
+
+            loginMessage.textContent =
+                "Please enter your password.";
+
+            passwordInput.focus();
+
+            return;
+        }
+
+
+        /* -------------------------------------------------
+           PROTOTYPE LOGIN SUCCESS
+           -------------------------------------------------
+
+           For the current SIH prototype, any valid
+           10-digit mobile number and non-empty password
+           will allow access to the farmer dashboard.
+
+           BACKEND TEAM:
+           Replace this section with real authentication
+           when the API is ready.
+        */
+
+
+        loginMessage.textContent = "Login successful!";
+
+
+        // Store basic prototype information
+        localStorage.setItem("userPhone", phone);
+        localStorage.setItem("userRole", "farmer");
+
+
+        // Open the farmer dashboard
+        setTimeout(function () {
+
+            window.location.href = "dashboard.html";
+
+        }, 500);
+
+    });
+
+}
