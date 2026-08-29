@@ -268,20 +268,6 @@ GET    /api/grievance/:transactionId → View grievances (🔒)
 
 ---
 
-## 🎬 Demo Flow (10 Steps)
-
-1. **Farmer Login** — Ram logs in via OTP → sees dashboard with 20q Onion listed
-2. **List Produce** — Ram adds Grade-A Nashik Red Onion, 20 quintals
-3. **FPO Discovery** — FPO logs in, browses available lots in Nashik
-4. **Aggregation** — FPO selects 10 lots (200q), sets reserve ₹1,800/q
-5. **Price Comparison** — Net realization shows FPO bulk wins at ₹1,820/q
-6. **Buyer Bids** — Buyer A joins bidding room, bids ₹1,920/q
-7. **Competitive Bid** — Buyer B outbids at ₹1,950/q (live feed)
-8. **Deal Closed** — FPO accepts, transaction created
-9. **Payment** — Mock payment → escrow → released, farmer payouts calculated
-10. **QR Verification** — Transporter scans QR at pickup, delivery tracked
-
----
 
 ## 🔐 Security Notes
 
@@ -307,18 +293,6 @@ GET    /api/grievance/:transactionId → View grievances (🔒)
 
 ---
 
-## 🤝 Team
-
-Built for **Smart India Hackathon 2026**
-
-| Role | Responsibility |
-|------|---------------|
-| Backend Lead | Architecture, Turso DB, Auth, FPO Aggregation |
-| Backend Dev 2 | Market Intelligence, Net Realization Engine, Recommendations |
-| Backend Dev 3 | Real-Time Bidding, Logistics, Payments, QR |
-| Frontend Lead | React UI, Dashboards, PWA, Real-Time Bidding UI |
-
----
 
 ## 📄 License
 
