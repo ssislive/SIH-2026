@@ -1,5 +1,5 @@
 /* =========================================================
-   KRISHISETU — SIGN UP
+   KRISHISETU SIGN UP
    ========================================================= */
 
 * {
@@ -8,10 +8,13 @@
     box-sizing: border-box;
 }
 
+
 :root {
+
     --dark: #172016;
     --green: #355b35;
     --green-light: #e8eee3;
+
     --brown: #8e4a31;
     --brown-dark: #703722;
 
@@ -23,41 +26,48 @@
     --light-muted: #90958d;
 
     --border: rgba(29, 37, 29, 0.13);
+
     --error: #a34a3a;
+
 }
+
 
 html {
     min-height: 100%;
 }
 
+
 body {
+
     min-height: 100vh;
 
     display: flex;
+
     flex-direction: column;
+
+    color: var(--text);
 
     background:
         radial-gradient(
-            circle at 90% 10%,
+            circle at 10% 15%,
             rgba(220, 227, 210, 0.65),
             transparent 30%
         ),
         var(--cream);
-
-    color: var(--text);
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    overflow-x: hidden;
 }
+
 
 a {
     color: inherit;
     text-decoration: none;
 }
+
 
 button,
 input,
@@ -71,78 +81,107 @@ select {
    ========================================================= */
 
 .auth-header {
-    width: min(calc(100% - 40px), 1180px);
+
+    width:
+        min(
+            calc(100% - 40px),
+            1180px
+        );
 
     min-height: 76px;
 
     margin: 0 auto;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 20px;
+
 }
+
 
 .brand {
+
     display: flex;
+
     align-items: center;
+
     gap: 11px;
+
 }
 
+
 .brand-mark {
+
     width: 40px;
     height: 40px;
 
     display: grid;
+
     place-items: center;
 
     border-radius: 9px;
 
     background: var(--dark);
+
     color: var(--white);
 
     font-size: 11px;
+
     font-weight: 800;
 
     letter-spacing: 1px;
 
-    flex-shrink: 0;
 }
+
 
 .brand-text {
+
     display: flex;
+
     flex-direction: column;
+
 }
+
 
 .brand-text strong {
-    color: var(--dark);
 
     font-size: 16px;
-    line-height: 1.1;
+
+    color: var(--dark);
+
 }
 
+
 .brand-text small {
+
     margin-top: 3px;
 
     color: var(--muted);
 
     font-size: 8px;
+
 }
 
+
 .back-link {
+
     color: var(--muted);
 
     font-size: 10px;
+
     font-weight: 700;
 
-    white-space: nowrap;
-
-    transition: color 0.2s ease;
 }
 
+
 .back-link:hover {
+
     color: var(--brown);
+
 }
 
 
@@ -151,49 +190,62 @@ select {
    ========================================================= */
 
 .auth-main {
+
     flex: 1;
 
-    width: calc(100% - 40px);
+    width:
+        calc(100% - 40px);
 
     margin: 0 auto;
 
-    padding: 42px 0 70px;
+    padding:
+        55px 0 75px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
 }
 
-.auth-card {
-    width: min(100%, 570px);
 
-    padding: 42px 46px;
+.auth-card {
+
+    width:
+        min(100%, 560px);
+
+    padding:
+        43px 46px;
 
     background: var(--white);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     border-radius: 18px;
 
     box-shadow:
         0 20px 65px rgba(25, 32, 25, 0.07);
+
 }
 
 
-/* =========================================================
-   HEADING
-   ========================================================= */
-
 .section-label {
+
     color: var(--brown);
 
     font-size: 9px;
+
     font-weight: 800;
 
     letter-spacing: 2px;
+
 }
 
+
 .auth-heading h1 {
+
     margin-top: 9px;
 
     color: var(--dark);
@@ -203,21 +255,26 @@ select {
         "Times New Roman",
         serif;
 
-    font-size: clamp(38px, 5vw, 49px);
+    font-size:
+        clamp(38px, 5vw, 49px);
 
     font-weight: 400;
 
+    letter-spacing: -1.8px;
+
     line-height: 1.02;
 
-    letter-spacing: -1.8px;
 }
+
 
 .auth-heading h1 span {
+
     color: var(--brown);
+
 }
 
+
 .auth-heading > p:last-child {
-    max-width: 480px;
 
     margin-top: 14px;
 
@@ -226,6 +283,7 @@ select {
     font-size: 11px;
 
     line-height: 1.7;
+
 }
 
 
@@ -234,22 +292,28 @@ select {
    ========================================================= */
 
 #signupForm {
-    width: 100%;
 
-    margin-top: 29px;
+    margin-top: 30px;
+
 }
+
 
 .form-group {
-    width: 100%;
 
-    margin-top: 18px;
+    margin-top: 19px;
+
 }
+
 
 .form-group:first-child {
+
     margin-top: 0;
+
 }
 
+
 .form-group label {
+
     display: block;
 
     margin-bottom: 7px;
@@ -257,136 +321,126 @@ select {
     color: var(--dark);
 
     font-size: 10px;
+
     font-weight: 800;
+
 }
 
 
-/* =========================================================
-   INPUTS + SELECTS
-   ========================================================= */
+.input-wrapper,
+.password-wrapper {
 
-.form-group input,
-.form-group select {
-    display: block;
+    position: relative;
 
     width: 100%;
-    height: 48px;
 
-    padding: 0 14px;
+}
 
-    border: 1px solid var(--border);
+
+.input-wrapper input,
+.password-wrapper input,
+.form-group > input,
+.form-group > select {
+
+    width: 100%;
+
+    min-height: 47px;
+
+    border:
+        1px solid var(--border);
 
     border-radius: 8px;
 
     outline: none;
 
     background: var(--white);
+
     color: var(--dark);
 
-    font-size: 10px;
+    font-size: 11px;
 
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease;
+
 }
 
-.form-group input::placeholder {
-    color: #a0a49e;
+
+.input-wrapper input {
+
+    padding:
+        0 14px 0 52px;
+
 }
 
-.form-group input:focus,
-.form-group select:focus {
+
+.password-wrapper input {
+
+    padding:
+        0 68px 0 14px;
+
+}
+
+
+.form-group > input,
+.form-group > select {
+
+    padding:
+        0 14px;
+
+}
+
+
+.input-wrapper input:focus,
+.password-wrapper input:focus,
+.form-group > input:focus,
+.form-group > select:focus {
+
     border-color: var(--green);
 
     box-shadow:
         0 0 0 3px rgba(53, 91, 53, 0.10);
+
 }
 
-
-/* =========================================================
-   SELECTS
-   ========================================================= */
-
-.form-group select {
-    cursor: pointer;
-
-    appearance: auto;
-
-    text-overflow: ellipsis;
-}
-
-.form-group select:disabled {
-    background: #f2f2ed;
-
-    color: var(--light-muted);
-
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   MOBILE NUMBER
-   ========================================================= */
-
-.input-wrapper {
-    position: relative;
-
-    width: 100%;
-}
-
-.input-wrapper input {
-    padding-left: 52px;
-}
 
 .country-code {
+
     position: absolute;
 
     left: 14px;
+
     top: 50%;
 
-    transform: translateY(-50%);
-
-    z-index: 2;
+    transform:
+        translateY(-50%);
 
     color: var(--muted);
 
     font-size: 10px;
+
     font-weight: 800;
 
-    pointer-events: none;
+    z-index: 1;
+
 }
 
-
-/* =========================================================
-   PASSWORD
-   ========================================================= */
-
-.password-wrapper {
-    position: relative;
-
-    width: 100%;
-    height: 48px;
-}
-
-.password-wrapper input {
-    width: 100%;
-    height: 48px;
-
-    padding-right: 65px;
-}
 
 .password-toggle {
+
     position: absolute;
 
-    right: 8px;
+    right: 9px;
+
     top: 50%;
 
-    transform: translateY(-50%);
+    transform:
+        translateY(-50%);
 
-    min-width: 42px;
-    height: 30px;
+    min-height: 30px;
 
-    padding: 0 6px;
+    padding:
+        0 7px;
 
     border: 0;
 
@@ -397,13 +451,49 @@ select {
     color: var(--brown);
 
     font-size: 8px;
+
     font-weight: 800;
 
     cursor: pointer;
+
 }
 
+
 .password-toggle:hover {
-    background: rgba(142, 74, 49, 0.08);
+
+    background:
+        rgba(142, 74, 49, 0.08);
+
+}
+
+
+.field-error {
+
+    display: block;
+
+    min-height: 0;
+
+    margin-top: 5px;
+
+    color: var(--error);
+
+    font-size: 8px;
+
+}
+
+
+/* =========================================================
+   STATE / DISTRICT
+   ========================================================= */
+
+select:disabled {
+
+    background: #f4f4f0;
+
+    color: var(--light-muted);
+
+    cursor: not-allowed;
+
 }
 
 
@@ -412,47 +502,154 @@ select {
    ========================================================= */
 
 .form-row {
-    width: 100%;
 
     display: grid;
 
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
 
-    gap: 14px;
+    gap: 18px;
 
-    align-items: start;
 }
+
 
 .form-row .form-group {
-    width: 100%;
-    min-width: 0;
 
-    margin-top: 18px;
-}
+    margin-top: 19px;
 
-.form-row .field-error {
-    min-height: 14px;
 }
 
 
 /* =========================================================
-   ERRORS
+   ROLE SELECTION
    ========================================================= */
 
-.field-error {
+.role-options {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 8px;
+
+}
+
+
+.role-option {
+
+    position: relative;
+
+    cursor: pointer;
+
+}
+
+
+.role-option input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.role-option-content {
+
+    min-height: 72px;
+
+    padding: 13px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: var(--white);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.role-option-content:hover {
+
+    border-color: #9db89f;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.role-option input:checked + .role-option-content {
+
+    border-color: var(--green);
+
+    background: var(--green-light);
+
+    box-shadow:
+        0 4px 14px rgba(45, 84, 51, 0.08);
+
+}
+
+
+.role-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #eef4ed;
+
+    font-size: 18px;
+
+    flex-shrink: 0;
+
+}
+
+
+.role-option-content strong {
+
     display: block;
 
-    min-height: 14px;
+    font-size: 12px;
 
-    margin-top: 4px;
+    color: var(--dark);
 
-    color: var(--error);
+    margin-bottom: 3px;
 
-    font-size: 8px;
+}
 
-    line-height: 1.4;
+
+.role-option-content small {
+
+    display: block;
+
+    font-size: 9px;
+
+    color: var(--muted);
+
 }
 
 
@@ -461,27 +658,34 @@ select {
    ========================================================= */
 
 .submit-button {
+
     width: 100%;
-    min-height: 49px;
 
-    margin-top: 18px;
+    min-height: 48px;
 
-    padding: 0 18px;
+    margin-top: 27px;
+
+    padding:
+        0 18px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    gap: 12px;
+    gap: 13px;
 
     border: 0;
 
     border-radius: 8px;
 
     background: var(--brown);
+
     color: var(--white);
 
     font-size: 10px;
+
     font-weight: 800;
 
     cursor: pointer;
@@ -490,115 +694,158 @@ select {
         background 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
+
 }
 
+
 .submit-button:hover {
+
     background: var(--brown-dark);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
         0 9px 22px rgba(112, 55, 34, 0.17);
+
 }
+
 
 .submit-button:active {
-    transform: translateY(0);
+
+    transform:
+        translateY(0);
+
 }
+
 
 .submit-button span {
+
     font-size: 15px;
+
 }
 
+
 .submit-button.loading {
+
     opacity: 0.7;
 
     pointer-events: none;
+
 }
 
+
 .form-message {
+
     min-height: 17px;
 
-    margin-top: 9px;
-
-    color: var(--error);
+    margin-top: 11px;
 
     text-align: center;
 
+    color: var(--error);
+
     font-size: 9px;
+
 }
 
 
 /* =========================================================
-   LOGIN
+   LOGIN LINK
    ========================================================= */
 
 .auth-divider {
+
     position: relative;
 
-    margin: 23px 0 16px;
+    margin:
+        27px 0 17px;
 
     text-align: center;
+
 }
 
+
 .auth-divider::before {
+
     content: "";
 
     position: absolute;
 
     top: 50%;
+
     left: 0;
     right: 0;
 
     height: 1px;
 
     background: var(--border);
+
 }
 
+
 .auth-divider span {
+
     position: relative;
 
-    padding: 0 10px;
+    padding:
+        0 10px;
 
     background: var(--white);
 
     color: var(--light-muted);
 
     font-size: 8px;
+
 }
 
+
 .login-button {
+
     width: 100%;
+
     min-height: 46px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     border-radius: 8px;
 
     color: var(--dark);
 
     font-size: 10px;
+
     font-weight: 800;
 
     transition:
         border-color 0.2s ease,
         background 0.2s ease,
         transform 0.2s ease;
+
 }
 
+
 .login-button:hover {
+
     border-color: var(--green);
 
     background: var(--green-light);
 
-    transform: translateY(-1px);
+    transform:
+        translateY(-1px);
+
 }
 
+
 .terms-text {
-    margin-top: 17px;
+
+    margin-top: 19px;
 
     color: var(--light-muted);
 
@@ -607,6 +854,7 @@ select {
     line-height: 1.6;
 
     text-align: center;
+
 }
 
 
@@ -615,116 +863,160 @@ select {
    ========================================================= */
 
 .auth-footer {
-    width: min(calc(100% - 40px), 1180px);
+
+    width:
+        min(
+            calc(100% - 40px),
+            1180px
+        );
 
     margin: 0 auto;
 
-    padding: 18px 0 23px;
+    padding:
+        18px 0 23px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 15px;
 
-    border-top: 1px solid var(--border);
+    border-top:
+        1px solid var(--border);
 
     color: var(--light-muted);
 
     font-size: 8px;
+
 }
 
 
 /* =========================================================
-   TABLET
+   PHONE
    ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 
     .auth-header {
-        width: calc(100% - 28px);
+
+        width:
+            calc(100% - 28px);
 
         min-height: 67px;
+
     }
 
-    .auth-main {
-        width: calc(100% - 24px);
-
-        padding: 25px 0 45px;
-
-        align-items: flex-start;
-    }
-
-    .auth-card {
-        width: 100%;
-
-        padding: 32px 23px;
-
-        border-radius: 15px;
-    }
 
     .brand-mark {
+
         width: 36px;
         height: 36px;
+
     }
 
-    .brand-text strong {
-        font-size: 15px;
-    }
 
     .brand-text small {
+
         display: none;
+
     }
+
+
+    .brand-text strong {
+
+        font-size: 15px;
+
+    }
+
 
     .back-link {
+
         font-size: 9px;
+
     }
+
+
+    .auth-main {
+
+        width:
+            calc(100% - 24px);
+
+        padding:
+            25px 0 40px;
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .auth-card {
+
+        padding:
+            31px 21px;
+
+        border-radius: 15px;
+
+    }
+
 
     .auth-heading h1 {
-        font-size: clamp(37px, 11vw, 46px);
+
+        font-size:
+            clamp(37px, 12vw, 46px);
+
     }
+
 
     .auth-heading > p:last-child {
+
         font-size: 10px;
+
     }
 
-    .form-group input,
-    .form-group select {
-        height: 50px;
+
+    .input-wrapper input,
+    .password-wrapper input,
+    .form-group > input,
+    .form-group > select {
+
+        min-height: 49px;
 
         font-size: 11px;
+
     }
 
-    .password-wrapper {
-        height: 50px;
+
+    .form-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
     }
 
-    .password-wrapper input {
-        height: 50px;
+
+    .role-options {
+
+        grid-template-columns: 1fr;
+
     }
 
-    .password-wrapper input {
-        padding-left: 10px;
-        padding-right: 45px;
-    }
-
-    .password-toggle {
-        right: 4px;
-
-        min-width: 36px;
-
-        padding: 0;
-
-        font-size: 7px;
-    }
 
     .submit-button,
     .login-button {
+
         min-height: 50px;
+
     }
 
+
     .auth-footer {
-        width: calc(100% - 28px);
+
+        width:
+            calc(100% - 28px);
 
         flex-direction: column;
 
@@ -733,86 +1025,28 @@ select {
         gap: 5px;
 
         line-height: 1.5;
+
     }
+
 }
 
-
-/* =========================================================
-   NARROW PHONE
-   ========================================================= */
-
-/*
-   Below 480px there isn't enough horizontal room
-   for two password fields.
-
-   They automatically stack vertically.
-*/
-
-@media (max-width: 480px) {
-
-    .form-row {
-        grid-template-columns: 1fr;
-
-        gap: 0;
-    }
-
-    .form-row .form-group {
-        width: 100%;
-
-        margin-top: 18px;
-    }
-
-    .form-row .form-group:first-child {
-        margin-top: 18px;
-    }
-
-    .password-wrapper,
-    .password-wrapper input {
-        width: 100%;
-        height: 50px;
-    }
-
-    .password-wrapper input {
-        padding-left: 12px;
-        padding-right: 48px;
-    }
-
-    .password-toggle {
-        right: 6px;
-
-        min-width: 38px;
-
-        font-size: 7px;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONE
-   ========================================================= */
 
 @media (max-width: 360px) {
 
     .auth-card {
-        padding: 27px 14px;
+
+        padding:
+            27px 17px;
+
     }
 
-    .auth-header {
-        width: calc(100% - 24px);
+
+    .back-link {
+
+        font-size: 8px;
+
     }
 
-    .auth-heading h1 {
-        font-size: 34px;
-    }
-
-    .form-group input,
-    .form-group select {
-        font-size: 10px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
 }
 
 
@@ -825,7 +1059,9 @@ select {
     *,
     *::before,
     *::after {
+
         transition: none !important;
+
     }
 
 }

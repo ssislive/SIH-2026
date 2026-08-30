@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications | KrishiSetu</title>
+
+    <link rel="stylesheet" href="css/notifications.css">
+</head>
+
+<body>
+
+<div class="notifications-page">
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <a href="index.html" class="brand">
+            <span class="brand-mark">KS</span>
+
+            <span class="brand-text">
+                <strong>KrishiSetu</strong>
+                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+            </span>
+        </a>
+
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="market-prices.html">Market Prices</a>
+            <a href="sell-produce.html">Sell Produce</a>
+            <a href="support.html">Support</a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button active"
+                aria-label="Notifications"
+            >
+                ♧
+                <span></span>
+            </a>
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
+                F
+            </a>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <!-- INTRO -->
+        <section class="notifications-intro">
+
+            <div class="intro-copy">
+
+                <p class="section-label">
+                    YOUR UPDATES
+                </p>
+
+                <h1>
+                    Notifications.
+                </h1>
+
+                <p>
+                    Stay informed about your produce,
+                    buyers, market activity and important
+                    KrishiSetu updates.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="mark-all-button"
+                id="markAllButton"
+            >
+                Mark all as read
+            </button>
+
+        </section>
+
+
+        <!-- FILTERS -->
+        <section class="notification-controls">
+
+            <div class="filter-wrap">
+
+                <button
+                    type="button"
+                    class="notification-filter active"
+                    data-filter="all"
+                >
+                    All
+                </button>
+
+                <button
+                    type="button"
+                    class="notification-filter"
+                    data-filter="unread"
+                >
+                    Unread
+                </button>
+
+                <button
+                    type="button"
+                    class="notification-filter"
+                    data-filter="market"
+                >
+                    Market
+                </button>
+
+                <button
+                    type="button"
+                    class="notification-filter"
+                    data-filter="selling"
+                >
+                    Selling
+                </button>
+
+            </div>
+
+
+            <div class="unread-summary">
+
+                <span class="summary-dot"></span>
+
+                <span id="notificationCount">
+                    0 unread
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOTIFICATION LIST -->
+        <section
+            class="notification-flow"
+            id="notificationList"
+        >
+
+        </section>
+
+
+        <!-- EMPTY STATE -->
+        <section
+            class="empty-state"
+            id="emptyState"
+            hidden
+        >
+
+            <div class="empty-icon">
+                ✓
+            </div>
+
+            <h2>
+                You're all caught up.
+            </h2>
+
+            <p>
+                There are no notifications to show here right now.
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="js/notifications.js"></script>
+
+</body>
+</html>

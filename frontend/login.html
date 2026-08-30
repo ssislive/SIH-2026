@@ -61,6 +61,8 @@
 
             <form id="loginForm" novalidate>
 
+                <!-- MOBILE -->
+
                 <div class="form-group">
 
                     <label for="mobile">
@@ -92,6 +94,8 @@
 
                 </div>
 
+
+                <!-- PASSWORD -->
 
                 <div class="form-group">
 
@@ -135,6 +139,68 @@
 
                 </div>
 
+
+                <!-- ACCOUNT TYPE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Login as
+                    </label>
+
+                    <div class="role-options">
+
+                        <label class="role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="farmer"
+                                checked
+                            >
+
+                            <span class="role-option-content">
+                                <span class="role-icon">🌾</span>
+
+                                <span>
+                                    <strong>Farmer</strong>
+                                    <small>Sell & manage produce</small>
+                                </span>
+                            </span>
+
+                        </label>
+
+
+                        <label class="role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="buyer"
+                            >
+
+                            <span class="role-option-content">
+                                <span class="role-icon">🛒</span>
+
+                                <span>
+                                    <strong>Buyer</strong>
+                                    <small>Find & buy produce</small>
+                                </span>
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <small
+                        class="field-error"
+                        id="roleError"
+                    ></small>
+
+                </div>
+
+
+                <!-- SUBMIT -->
 
                 <button
                     type="submit"

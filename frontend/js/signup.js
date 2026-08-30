@@ -7,18 +7,29 @@
    ELEMENTS
    ========================================================= */
 
-const signupForm = document.getElementById("signupForm");
+const signupForm =
+    document.getElementById("signupForm");
 
-const fullName = document.getElementById("fullName");
-const mobile = document.getElementById("mobile");
+const fullName =
+    document.getElementById("fullName");
 
-const state = document.getElementById("state");
-const district = document.getElementById("district");
+const mobile =
+    document.getElementById("mobile");
 
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
+const state =
+    document.getElementById("state");
 
-const formMessage = document.getElementById("formMessage");
+const district =
+    document.getElementById("district");
+
+const password =
+    document.getElementById("password");
+
+const confirmPassword =
+    document.getElementById("confirmPassword");
+
+const formMessage =
+    document.getElementById("formMessage");
 
 
 /* =========================================================
@@ -828,6 +839,7 @@ const districts = {
         "Uttar Dinajpur"
     ],
 
+
     /* =====================================================
        UNION TERRITORIES
        ===================================================== */
@@ -908,92 +920,104 @@ const districts = {
    MOBILE NUMBER
    ========================================================= */
 
-mobile.addEventListener("input", function () {
+mobile.addEventListener(
+    "input",
+    function () {
 
-    this.value = this.value
-        .replace(/\D/g, "")
-        .slice(0, 10);
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
 
-});
+    }
+);
 
 
 /* =========================================================
    STATE → DISTRICT
    ========================================================= */
 
-state.addEventListener("change", function () {
+state.addEventListener(
+    "change",
+    function () {
 
-    const selectedState = this.value;
-
-    /* Reset district every time state changes */
-
-    district.innerHTML = "";
-
-    const defaultOption =
-        document.createElement("option");
-
-    defaultOption.value = "";
-
-    defaultOption.textContent =
-        selectedState
-            ? "Select your district"
-            : "Select your state first";
-
-    district.appendChild(defaultOption);
+        const selectedState =
+            this.value;
 
 
-    /* No state selected */
-
-    if (!selectedState) {
-
-        district.disabled = true;
-
-        return;
-    }
+        district.innerHTML = "";
 
 
-    /* Get districts */
-
-    const stateDistricts =
-        districts[selectedState];
+        const defaultOption =
+            document.createElement("option");
 
 
-    /* Safety check */
+        defaultOption.value = "";
 
-    if (
-        !stateDistricts ||
-        !Array.isArray(stateDistricts)
-    ) {
+
+        defaultOption.textContent =
+            selectedState
+                ? "Select your district"
+                : "Select your state first";
+
+
+        district.appendChild(
+            defaultOption
+        );
+
+
+        if (!selectedState) {
+
+            district.disabled = true;
+
+            return;
+
+        }
+
+
+        const stateDistricts =
+            districts[selectedState];
+
+
+        if (
+            !stateDistricts ||
+            !Array.isArray(stateDistricts)
+        ) {
+
+            district.disabled = false;
+
+            return;
+
+        }
+
+
+        stateDistricts.forEach(
+            function (districtName) {
+
+                const option =
+                    document.createElement("option");
+
+
+                option.value =
+                    districtName;
+
+
+                option.textContent =
+                    districtName;
+
+
+                district.appendChild(
+                    option
+                );
+
+            }
+        );
+
 
         district.disabled = false;
 
-        return;
     }
-
-
-    /* Add districts */
-
-    stateDistricts.forEach(function (districtName) {
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            districtName;
-
-        option.textContent =
-            districtName;
-
-        district.appendChild(option);
-
-    });
-
-
-    /* Enable district selector */
-
-    district.disabled = false;
-
-});
+);
 
 
 /* =========================================================
@@ -1002,52 +1026,56 @@ state.addEventListener("change", function () {
 
 document
     .querySelectorAll(".password-toggle")
-    .forEach(function (button) {
+    .forEach(
+        function (button) {
 
-        button.addEventListener(
-            "click",
-            function () {
+            button.addEventListener(
+                "click",
+                function () {
 
-                const targetId =
-                    this.dataset.target;
+                    const targetId =
+                        this.dataset.target;
 
-                const input =
-                    document.getElementById(
-                        targetId
+
+                    const input =
+                        document.getElementById(
+                            targetId
+                        );
+
+
+                    if (!input) {
+                        return;
+                    }
+
+
+                    const showingPassword =
+                        input.type === "password";
+
+
+                    input.type =
+                        showingPassword
+                            ? "text"
+                            : "password";
+
+
+                    this.textContent =
+                        showingPassword
+                            ? "Hide"
+                            : "Show";
+
+
+                    this.setAttribute(
+                        "aria-label",
+                        showingPassword
+                            ? "Hide password"
+                            : "Show password"
                     );
 
-                if (!input) {
-                    return;
                 }
+            );
 
-
-                const showingPassword =
-                    input.type === "password";
-
-
-                input.type =
-                    showingPassword
-                        ? "text"
-                        : "password";
-
-
-                this.textContent =
-                    showingPassword
-                        ? "Hide"
-                        : "Show";
-
-
-                this.setAttribute(
-                    "aria-label",
-                    showingPassword
-                        ? "Hide password"
-                        : "Show password"
-                );
-
-            }
-        );
-
-    });
+        }
+    );
 
 
 /* =========================================================
@@ -1058,11 +1086,13 @@ function clearErrors() {
 
     document
         .querySelectorAll(".field-error")
-        .forEach(function (element) {
+        .forEach(
+            function (element) {
 
-            element.textContent = "";
+                element.textContent = "";
 
-        });
+            }
+        );
 
 
     formMessage.textContent = "";
@@ -1105,15 +1135,26 @@ function validateSignup() {
     const nameValue =
         fullName.value.trim();
 
+
     const mobileValue =
         mobile.value.trim();
+
 
     const passwordValue =
         password.value;
 
+
     const confirmValue =
         confirmPassword.value;
 
+
+    const selectedRole =
+        document.querySelector(
+            'input[name="role"]:checked'
+        );
+
+
+    /* NAME */
 
     if (nameValue.length < 2) {
 
@@ -1123,10 +1164,17 @@ function validateSignup() {
         );
 
         valid = false;
+
     }
 
 
-    if (!/^[6-9]\d{9}$/.test(mobileValue)) {
+    /* MOBILE */
+
+    if (
+        !/^[6-9]\d{9}$/.test(
+            mobileValue
+        )
+    ) {
 
         setError(
             "mobileError",
@@ -1134,8 +1182,11 @@ function validateSignup() {
         );
 
         valid = false;
+
     }
 
+
+    /* STATE */
 
     if (!state.value) {
 
@@ -1145,8 +1196,11 @@ function validateSignup() {
         );
 
         valid = false;
+
     }
 
+
+    /* DISTRICT */
 
     if (!district.value) {
 
@@ -1156,8 +1210,25 @@ function validateSignup() {
         );
 
         valid = false;
+
     }
 
+
+    /* ROLE */
+
+    if (!selectedRole) {
+
+        setError(
+            "roleError",
+            "Please select Farmer or Buyer."
+        );
+
+        valid = false;
+
+    }
+
+
+    /* PASSWORD */
 
     if (passwordValue.length < 6) {
 
@@ -1167,8 +1238,11 @@ function validateSignup() {
         );
 
         valid = false;
+
     }
 
+
+    /* CONFIRM PASSWORD */
 
     if (confirmValue !== passwordValue) {
 
@@ -1178,6 +1252,7 @@ function validateSignup() {
         );
 
         valid = false;
+
     }
 
 
@@ -1197,41 +1272,151 @@ signupForm.addEventListener(
         event.preventDefault();
 
 
+        /* =================================================
+           VALIDATE
+           ================================================= */
+
         if (!validateSignup()) {
+
             return;
+
         }
 
 
-        const submitButton =
-            signupForm.querySelector(
-                ".submit-button"
-            );
+        /* =================================================
+           GET FORM DATA
+           ================================================= */
+
+        const nameValue =
+            fullName.value.trim();
 
 
-        submitButton.classList.add(
-            "loading"
-        );
+        const mobileValue =
+            mobile.value.trim();
 
 
-        /*
-            Store only the mobile number for the
-            frontend navigation flow.
+        const selectedRole =
+            document.querySelector(
+                'input[name="role"]:checked'
+            ).value;
 
-            Password is deliberately NOT stored.
-        */
+
+        /* =================================================
+           BACKEND HANDOFF
+           =================================================
+
+           Later replace the temporary frontend section
+           with:
+
+           POST /api/signup
+
+           {
+               "fullName": "...",
+               "mobile": "...",
+               "state": "...",
+               "district": "...",
+               "password": "...",
+               "role": "farmer"
+           }
+
+           Backend should:
+
+           - Create the account
+           - Hash the password
+           - Store the user's role
+           - Store profile information
+           - Return success/failure
+
+           Password should NOT be stored in
+           localStorage/sessionStorage.
+           ================================================= */
+
+
+        /* =================================================
+           TEMPORARY FRONTEND SESSION
+           =================================================
+
+           The role is stored here because our current
+           frontend is still running without the backend.
+
+           This is what allows common pages such as:
+
+               profile.html
+               notifications.html
+               support.html
+               market-prices.html
+
+           to know which type of user is active.
+           ================================================= */
 
         sessionStorage.setItem(
-            "krishisetuSignupMobile",
-            mobile.value.trim()
+            "krishisetuUserRole",
+            selectedRole
         );
 
 
-        /*
-            Move to login.
-        */
+        sessionStorage.setItem(
+            "krishisetuLoginMobile",
+            mobileValue
+        );
 
-        window.location.href =
-            "login.html";
+
+        /* =================================================
+           TEMPORARY PROFILE DATA
+           ================================================= */
+
+        const signupData = {
+
+            name:
+                nameValue,
+
+            mobile:
+                mobileValue,
+
+            state:
+                state.value,
+
+            district:
+                district.value,
+
+            role:
+                selectedRole
+
+        };
+
+
+        sessionStorage.setItem(
+            "krishisetuSignupData",
+            JSON.stringify(signupData)
+        );
+
+
+        /* =================================================
+           ROLE-BASED DASHBOARD
+           ================================================= */
+
+        if (
+            selectedRole === "farmer"
+        ) {
+
+            window.location.href =
+                "dashboard.html";
+
+            return;
+
+        }
+
+
+        if (
+            selectedRole === "buyer"
+        ) {
+
+            window.location.href =
+                "buyer-dashboard.html";
+
+            return;
+
+        }
 
     }
 );
