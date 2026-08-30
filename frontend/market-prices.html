@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Market Prices | KrishiSetu</title>
 
     <link rel="stylesheet" href="css/market-prices.css">
@@ -10,43 +12,84 @@
 
 <body>
 
-<div class="market-page">
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
-    <!-- HEADER -->
     <header class="site-header">
 
         <a href="index.html" class="brand">
-            <span class="brand-mark">KS</span>
+
+            <span class="brand-mark">
+                KS
+            </span>
 
             <span class="brand-text">
                 <strong>KrishiSetu</strong>
                 <small>CONNECTING FARMERS TO OPPORTUNITY</small>
             </span>
+
         </a>
 
+
         <nav class="main-nav" id="mainNav">
-            <a href="index.html">Home</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="market-prices.html" class="active">Market Prices</a>
-            <a href="sell-produce.html">Sell Produce</a>
-            <a href="support.html">Support</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="market-prices.html"
+                class="active"
+            >
+                Market Prices
+            </a>
+
+            <a
+                href="sell-produce.html"
+                id="sellNavLink"
+            >
+                Sell Produce
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
+
         </nav>
 
+
         <div class="header-actions">
-            <a href="notifications.html" class="notification-button" aria-label="Notifications">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
                 ♧
                 <span></span>
             </a>
 
-            <a href="profile.html" class="profile-button" aria-label="Profile">
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
                 F
             </a>
+
         </div>
 
+
         <button
+            type="button"
             class="menu-button"
             id="menuButton"
-            type="button"
             aria-label="Open navigation"
             aria-expanded="false"
         >
@@ -58,19 +101,37 @@
     </header>
 
 
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
     <main>
 
-        <!-- INTRO -->
+        <!-- HERO -->
+
         <section class="page-intro">
 
-            <p class="section-label">TODAY'S MARKET</p>
+            <p class="section-label">
+                TODAY'S MARKET
+            </p>
 
-            <h1>
+
+            <h1 id="marketPageTitle">
+
                 Know the market.
-                <span>Sell with confidence.</span>
+
+                <span id="marketPageTitleAccent">
+                    Sell with confidence.
+                </span>
+
             </h1>
 
-            <p class="intro-text">
+
+            <p
+                class="intro-text"
+                id="marketIntroText"
+            >
                 Explore agricultural prices by region, season and crop
                 to understand market opportunities before selling your produce.
             </p>
@@ -78,19 +139,30 @@
         </section>
 
 
-        <!-- FILTER PANEL -->
+
+        <!-- =================================================
+             FILTERS
+             ================================================= -->
+
         <section class="filter-panel">
 
             <div class="filter-heading">
 
-                <div class="location-icon">•</div>
+                <div class="location-icon">
+                    •
+                </div>
+
 
                 <div>
-                    <span class="small-label">MARKET REGION</span>
+
+                    <span class="small-label">
+                        MARKET REGION
+                    </span>
 
                     <strong id="selectedRegion">
                         Pune, Maharashtra
                     </strong>
+
                 </div>
 
             </div>
@@ -98,31 +170,55 @@
 
             <div class="filter-controls">
 
+
                 <!-- STATE -->
+
                 <div class="filter-field">
-                    <label for="stateSelect">State</label>
+
+                    <label for="stateSelect">
+                        State
+                    </label>
 
                     <div class="select-wrap">
-                        <select id="stateSelect"></select>
+
+                        <select id="stateSelect">
+                        </select>
+
                     </div>
+
                 </div>
+
 
 
                 <!-- DISTRICT -->
+
                 <div class="filter-field">
-                    <label for="districtSelect">District</label>
+
+                    <label for="districtSelect">
+                        District
+                    </label>
 
                     <div class="select-wrap">
-                        <select id="districtSelect"></select>
+
+                        <select id="districtSelect">
+                        </select>
+
                     </div>
+
                 </div>
 
 
+
                 <!-- SEASON -->
+
                 <div class="filter-field">
-                    <label for="seasonSelect">Season</label>
+
+                    <label for="seasonSelect">
+                        Season
+                    </label>
 
                     <div class="select-wrap">
+
                         <select id="seasonSelect">
 
                             <option value="all">
@@ -146,15 +242,23 @@
                             </option>
 
                         </select>
+
                     </div>
+
                 </div>
 
 
+
                 <!-- CROP TYPE -->
+
                 <div class="filter-field">
-                    <label for="cropTypeSelect">Crop Type</label>
+
+                    <label for="cropTypeSelect">
+                        Crop Type
+                    </label>
 
                     <div class="select-wrap">
+
                         <select id="cropTypeSelect">
 
                             <option value="all">
@@ -162,11 +266,15 @@
                             </option>
 
                         </select>
+
                     </div>
+
                 </div>
 
 
+
                 <!-- CROP -->
+
                 <div class="filter-field crop-filter">
 
                     <label for="cropSelect">
@@ -174,6 +282,7 @@
                     </label>
 
                     <div class="select-wrap">
+
                         <select id="cropSelect">
 
                             <option value="all">
@@ -181,6 +290,7 @@
                             </option>
 
                         </select>
+
                     </div>
 
                 </div>
@@ -190,7 +300,11 @@
         </section>
 
 
-        <!-- STATUS -->
+
+        <!-- =================================================
+             MARKET STATUS
+             ================================================= -->
+
         <div class="market-status">
 
             <span class="status-dot"></span>
@@ -206,12 +320,17 @@
         </div>
 
 
-        <!-- MARKET -->
+
+        <!-- =================================================
+             MARKET CARDS
+             ================================================= -->
+
         <section class="market-section">
 
             <div class="section-heading">
 
                 <div>
+
                     <p class="section-label">
                         CURRENT PRICES
                     </p>
@@ -219,16 +338,22 @@
                     <h2>
                         Today's rates
                     </h2>
+
                 </div>
 
             </div>
 
 
+            <!-- JS WILL INSERT CARDS HERE -->
+
             <div
                 class="market-grid"
                 id="marketGrid"
-            ></div>
+            >
+            </div>
 
+
+            <!-- NO RESULTS -->
 
             <div
                 class="empty-state"
@@ -236,7 +361,9 @@
                 hidden
             >
 
-                <div class="empty-icon">₹</div>
+                <div class="empty-icon">
+                    ₹
+                </div>
 
                 <h3>
                     No market data found
@@ -251,18 +378,26 @@
         </section>
 
 
-        <!-- NOTE -->
+
+        <!-- =================================================
+             MARKET NOTE
+             ================================================= -->
+
         <section class="market-note">
 
-            <div class="note-icon">₹</div>
+            <div class="note-icon">
+                ₹
+            </div>
+
 
             <div>
 
-                <h3>
+                <h3 id="marketNoteHeading">
                     Compare before you sell.
                 </h3>
 
-                <p>
+
+                <p id="marketNoteDescription">
                     Market prices can vary by location, crop quality,
                     season and market conditions. Use this information
                     to compare opportunities before listing your produce.
@@ -273,21 +408,37 @@
         </section>
 
 
-        <!-- CTA -->
+
+        <!-- =================================================
+             BOTTOM CTA
+             ================================================= -->
+
         <section class="bottom-action">
 
             <p class="section-label">
-                READY TO SELL?
+
+                <span id="marketCtaLabel">
+                    READY TO SELL?
+                </span>
+
             </p>
 
-            <h2>
+
+            <h2 id="marketCtaHeading">
+
                 Turn market information into
-                <span>better opportunities.</span>
+
+                <span id="marketCtaAccent">
+                    better opportunities.
+                </span>
+
             </h2>
+
 
             <a
                 href="sell-produce.html"
                 class="primary-button"
+                id="marketActionButton"
             >
                 Sell Your Produce →
             </a>
@@ -296,9 +447,14 @@
 
     </main>
 
-</div>
 
-<script src="js/market-prices.js"></script>
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="js/market-prices.js"></script>
 
 </body>
+
 </html>

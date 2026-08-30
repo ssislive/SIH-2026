@@ -1,43 +1,45 @@
 /* =========================================================
    KRISHISETU — MARKET PRICES
+   ROLE-AWARE MARKET PAGE
 
-   FILTER FLOW:
+   FARMER:
+   Sell with confidence.
+   Sell Your Produce →
 
-   STATE
-      ↓
-   DISTRICT
-      ↓
-   SEASON
-      ↓
-   CROP TYPE
-      ↓
-   CROP
-      ↓
-   MARKET PRICES
+   BUYER:
+   Buy with confidence.
+   Find Produce →
 
-   BACKEND READY:
-   The frontend data structure below is intentionally kept
-   close to what an API response can provide.
-
-   Future API example:
-
-       GET /api/market-prices
-
-   Possible parameters:
-
-       state
-       district
-       season
-       cropType
-       crop
-
-   Backend can replace marketData with API data without
-   requiring a redesign of this page.
    ========================================================= */
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   ROLE
+   ========================================================= */
+
+/*
+ * Your login/dashboard should store:
+ *
+ * sessionStorage.setItem(
+ *     "krishisetuUserRole",
+ *     "buyer"
+ * );
+ *
+ * OR
+ *
+ * sessionStorage.setItem(
+ *     "krishisetuUserRole",
+ *     "farmer"
+ * );
+ *
+ */
+
+const userRole =
+    sessionStorage.getItem("krishisetuUserRole") || "";
+
+
+/* =========================================================
+   ELEMENTS
    ========================================================= */
 
 const menuButton =
@@ -46,35 +48,291 @@ const menuButton =
 const mainNav =
     document.getElementById("mainNav");
 
+const stateSelect =
+    document.getElementById("stateSelect");
+
+const districtSelect =
+    document.getElementById("districtSelect");
+
+const seasonSelect =
+    document.getElementById("seasonSelect");
+
+const cropTypeSelect =
+    document.getElementById("cropTypeSelect");
+
+const cropSelect =
+    document.getElementById("cropSelect");
+
+const marketGrid =
+    document.getElementById("marketGrid");
+
+const emptyState =
+    document.getElementById("emptyState");
+
+const selectedRegion =
+    document.getElementById("selectedRegion");
+
+const lastUpdated =
+    document.getElementById("lastUpdated");
+
+const marketPageTitleAccent =
+    document.getElementById(
+        "marketPageTitleAccent"
+    );
+
+const marketIntroText =
+    document.getElementById(
+        "marketIntroText"
+    );
+
+const marketActionButton =
+    document.getElementById(
+        "marketActionButton"
+    );
+
+const marketCtaLabel =
+    document.getElementById(
+        "marketCtaLabel"
+    );
+
+const marketCtaHeading =
+    document.getElementById(
+        "marketCtaHeading"
+    );
+
+const marketCtaAccent =
+    document.getElementById(
+        "marketCtaAccent"
+    );
+
+const marketNoteHeading =
+    document.getElementById(
+        "marketNoteHeading"
+    );
+
+const marketNoteDescription =
+    document.getElementById(
+        "marketNoteDescription"
+    );
+
+const sellNavLink =
+    document.getElementById(
+        "sellNavLink"
+    );
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
 if (menuButton && mainNav) {
 
-    menuButton.addEventListener("click", () => {
+    menuButton.addEventListener(
+        "click",
+        () => {
 
-        const isOpen =
-            mainNav.classList.toggle("open");
-
-        menuButton.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
-
-    });
-
-
-    mainNav.querySelectorAll("a").forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            mainNav.classList.remove("open");
+            const isOpen =
+                mainNav.classList.toggle(
+                    "open"
+                );
 
             menuButton.setAttribute(
                 "aria-expanded",
-                "false"
+                String(isOpen)
+            );
+
+        }
+    );
+
+
+    mainNav
+        .querySelectorAll("a")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    mainNav.classList.remove(
+                        "open"
+                    );
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
             );
 
         });
 
-    });
+}
+
+
+/* =========================================================
+   ROLE-BASED CONTENT
+   ========================================================= */
+
+function setupMarketRoleContent() {
+
+    /* =====================================================
+       BUYER
+       ===================================================== */
+
+    if (userRole === "buyer") {
+
+        marketPageTitleAccent.textContent =
+            "Buy with confidence.";
+
+
+        marketIntroText.textContent =
+            "Explore agricultural prices by region, season and crop to understand market conditions before choosing the right produce to buy.";
+
+
+        marketCtaLabel.textContent =
+            "READY TO BUY?";
+
+
+        marketCtaHeading.innerHTML =
+            "Turn market information into <span>better purchases.</span>";
+
+
+        marketCtaAccent.textContent =
+            "better purchases.";
+
+
+        marketActionButton.textContent =
+            "Find Produce →";
+
+
+        /*
+         * IMPORTANT:
+         * Change this only if your buyer marketplace
+         * uses a different filename.
+         */
+
+        marketActionButton.href =
+            "buyer-dashboard.html";
+
+
+        marketNoteHeading.textContent =
+            "Compare before you buy.";
+
+
+        marketNoteDescription.textContent =
+            "Market prices can vary by location, crop quality, season and market conditions. Use this information to compare opportunities before choosing produce.";
+
+
+        /*
+         * Buyers don't need the farmer-only
+         * Sell Produce navigation item.
+         */
+
+        if (sellNavLink) {
+
+            sellNavLink.style.display =
+                "none";
+
+        }
+
+
+        return;
+    }
+
+
+    /* =====================================================
+       FARMER
+       ===================================================== */
+
+    if (userRole === "farmer") {
+
+        marketPageTitleAccent.textContent =
+            "Sell with confidence.";
+
+
+        marketIntroText.textContent =
+            "Explore agricultural prices by region, season and crop to understand market opportunities before selling your produce.";
+
+
+        marketCtaLabel.textContent =
+            "READY TO SELL?";
+
+
+        marketCtaHeading.innerHTML =
+            "Turn market information into <span>better opportunities.</span>";
+
+
+        marketCtaAccent.textContent =
+            "better opportunities.";
+
+
+        marketActionButton.textContent =
+            "Sell Your Produce →";
+
+
+        marketActionButton.href =
+            "sell-produce.html";
+
+
+        marketNoteHeading.textContent =
+            "Compare before you sell.";
+
+
+        marketNoteDescription.textContent =
+            "Market prices can vary by location, crop quality, season and market conditions. Use this information to compare opportunities before listing your produce.";
+
+
+        if (sellNavLink) {
+
+            sellNavLink.style.display =
+                "";
+
+        }
+
+
+        return;
+    }
+
+
+    /* =====================================================
+       NO ROLE / DEFAULT
+       ===================================================== */
+
+    marketPageTitleAccent.textContent =
+        "Make better decisions.";
+
+
+    marketIntroText.textContent =
+        "Explore agricultural prices by region, season and crop to understand current market opportunities.";
+
+
+    marketCtaLabel.textContent =
+        "EXPLORE THE MARKET";
+
+
+    marketCtaHeading.innerHTML =
+        "Turn market information into <span>better decisions.</span>";
+
+
+    marketCtaAccent.textContent =
+        "better decisions.";
+
+
+    marketActionButton.textContent =
+        "Explore Marketplace →";
+
+
+    marketActionButton.href =
+        "index.html";
+
+
+    marketNoteHeading.textContent =
+        "Compare before you decide.";
+
+
+    marketNoteDescription.textContent =
+        "Market prices can vary by location, crop quality, season and market conditions. Use this information to compare opportunities before making a decision.";
 
 }
 
@@ -491,9 +749,6 @@ const stateDistricts = {
         "Purulia"
     ],
 
-
-    /* UNION TERRITORIES */
-
     "Andaman and Nicobar Islands": [
         "South Andaman",
         "North and Middle Andaman",
@@ -571,108 +826,302 @@ const crops = [
 
     /* CEREALS */
 
-    { name: "Rice", type: "Cereals", season: "Kharif" },
-    { name: "Basmati Rice", type: "Cereals", season: "Kharif" },
-    { name: "Maize", type: "Cereals", season: "Kharif" },
-    { name: "Jowar", type: "Cereals", season: "Kharif" },
-    { name: "Bajra", type: "Cereals", season: "Kharif" },
-    { name: "Ragi", type: "Cereals", season: "Kharif" },
+    {
+        name: "Rice",
+        type: "Cereals",
+        season: "Kharif"
+    },
 
-    { name: "Wheat", type: "Cereals", season: "Rabi" },
-    { name: "Barley", type: "Cereals", season: "Rabi" },
+    {
+        name: "Basmati Rice",
+        type: "Cereals",
+        season: "Kharif"
+    },
+
+    {
+        name: "Maize",
+        type: "Cereals",
+        season: "Kharif"
+    },
+
+    {
+        name: "Jowar",
+        type: "Cereals",
+        season: "Kharif"
+    },
+
+    {
+        name: "Bajra",
+        type: "Cereals",
+        season: "Kharif"
+    },
+
+    {
+        name: "Ragi",
+        type: "Cereals",
+        season: "Kharif"
+    },
+
+    {
+        name: "Wheat",
+        type: "Cereals",
+        season: "Rabi"
+    },
+
+    {
+        name: "Barley",
+        type: "Cereals",
+        season: "Rabi"
+    },
 
 
     /* PULSES */
 
-    { name: "Chickpea", type: "Pulses", season: "Rabi" },
-    { name: "Masoor", type: "Pulses", season: "Rabi" },
-    { name: "Tur / Arhar", type: "Pulses", season: "Kharif" },
-    { name: "Urad", type: "Pulses", season: "Kharif" },
-    { name: "Moong", type: "Pulses", season: "Zaid" },
+    {
+        name: "Chickpea",
+        type: "Pulses",
+        season: "Rabi"
+    },
+
+    {
+        name: "Masoor",
+        type: "Pulses",
+        season: "Rabi"
+    },
+
+    {
+        name: "Tur / Arhar",
+        type: "Pulses",
+        season: "Kharif"
+    },
+
+    {
+        name: "Urad",
+        type: "Pulses",
+        season: "Kharif"
+    },
+
+    {
+        name: "Moong",
+        type: "Pulses",
+        season: "Zaid"
+    },
 
 
     /* OILSEEDS */
 
-    { name: "Mustard", type: "Oilseeds", season: "Rabi" },
-    { name: "Soybean", type: "Oilseeds", season: "Kharif" },
-    { name: "Groundnut", type: "Oilseeds", season: "Kharif" },
-    { name: "Sunflower", type: "Oilseeds", season: "Kharif" },
-    { name: "Sesame", type: "Oilseeds", season: "Kharif" },
+    {
+        name: "Mustard",
+        type: "Oilseeds",
+        season: "Rabi"
+    },
+
+    {
+        name: "Soybean",
+        type: "Oilseeds",
+        season: "Kharif"
+    },
+
+    {
+        name: "Groundnut",
+        type: "Oilseeds",
+        season: "Kharif"
+    },
+
+    {
+        name: "Sunflower",
+        type: "Oilseeds",
+        season: "Kharif"
+    },
+
+    {
+        name: "Sesame",
+        type: "Oilseeds",
+        season: "Kharif"
+    },
 
 
     /* VEGETABLES */
 
-    { name: "Potato", type: "Vegetables", season: "Rabi" },
-    { name: "Red Onion", type: "Vegetables", season: "Rabi" },
-    { name: "Cauliflower", type: "Vegetables", season: "Rabi" },
-    { name: "Cabbage", type: "Vegetables", season: "Rabi" },
-    { name: "Green Peas", type: "Vegetables", season: "Rabi" },
+    {
+        name: "Potato",
+        type: "Vegetables",
+        season: "Rabi"
+    },
 
-    { name: "Okra", type: "Vegetables", season: "Kharif" },
+    {
+        name: "Red Onion",
+        type: "Vegetables",
+        season: "Rabi"
+    },
 
-    { name: "Tomato", type: "Vegetables", season: "Year Round" },
-    { name: "Onion", type: "Vegetables", season: "Year Round" },
-    { name: "Brinjal", type: "Vegetables", season: "Year Round" },
-    { name: "Green Chilli", type: "Vegetables", season: "Year Round" },
+    {
+        name: "Cauliflower",
+        type: "Vegetables",
+        season: "Rabi"
+    },
+
+    {
+        name: "Cabbage",
+        type: "Vegetables",
+        season: "Rabi"
+    },
+
+    {
+        name: "Green Peas",
+        type: "Vegetables",
+        season: "Rabi"
+    },
+
+    {
+        name: "Okra",
+        type: "Vegetables",
+        season: "Kharif"
+    },
+
+    {
+        name: "Tomato",
+        type: "Vegetables",
+        season: "Year Round"
+    },
+
+    {
+        name: "Onion",
+        type: "Vegetables",
+        season: "Year Round"
+    },
+
+    {
+        name: "Brinjal",
+        type: "Vegetables",
+        season: "Year Round"
+    },
+
+    {
+        name: "Green Chilli",
+        type: "Vegetables",
+        season: "Year Round"
+    },
 
 
     /* FRUITS */
 
-    { name: "Mango", type: "Fruits", season: "Year Round" },
-    { name: "Banana", type: "Fruits", season: "Year Round" },
-    { name: "Apple", type: "Fruits", season: "Year Round" },
-    { name: "Pomegranate", type: "Fruits", season: "Year Round" },
-    { name: "Papaya", type: "Fruits", season: "Year Round" },
-    { name: "Orange", type: "Fruits", season: "Rabi" },
-    { name: "Grapes", type: "Fruits", season: "Rabi" },
+    {
+        name: "Mango",
+        type: "Fruits",
+        season: "Year Round"
+    },
+
+    {
+        name: "Banana",
+        type: "Fruits",
+        season: "Year Round"
+    },
+
+    {
+        name: "Apple",
+        type: "Fruits",
+        season: "Year Round"
+    },
+
+    {
+        name: "Pomegranate",
+        type: "Fruits",
+        season: "Year Round"
+    },
+
+    {
+        name: "Papaya",
+        type: "Fruits",
+        season: "Year Round"
+    },
+
+    {
+        name: "Orange",
+        type: "Fruits",
+        season: "Rabi"
+    },
+
+    {
+        name: "Grapes",
+        type: "Fruits",
+        season: "Rabi"
+    },
 
 
     /* CASH CROPS */
 
-    { name: "Cotton", type: "Cash Crops", season: "Kharif" },
-    { name: "Sugarcane", type: "Cash Crops", season: "Year Round" },
-    { name: "Jute", type: "Cash Crops", season: "Kharif" },
+    {
+        name: "Cotton",
+        type: "Cash Crops",
+        season: "Kharif"
+    },
+
+    {
+        name: "Sugarcane",
+        type: "Cash Crops",
+        season: "Year Round"
+    },
+
+    {
+        name: "Jute",
+        type: "Cash Crops",
+        season: "Kharif"
+    },
 
 
     /* SPICES */
 
-    { name: "Turmeric", type: "Spices", season: "Kharif" },
-    { name: "Ginger", type: "Spices", season: "Kharif" },
-    { name: "Cumin", type: "Spices", season: "Rabi" },
-    { name: "Coriander", type: "Spices", season: "Rabi" },
-    { name: "Cardamom", type: "Spices", season: "Year Round" },
+    {
+        name: "Turmeric",
+        type: "Spices",
+        season: "Kharif"
+    },
+
+    {
+        name: "Ginger",
+        type: "Spices",
+        season: "Kharif"
+    },
+
+    {
+        name: "Cumin",
+        type: "Spices",
+        season: "Rabi"
+    },
+
+    {
+        name: "Coriander",
+        type: "Spices",
+        season: "Rabi"
+    },
+
+    {
+        name: "Cardamom",
+        type: "Spices",
+        season: "Year Round"
+    },
 
 
     /* PLANTATION */
 
-    { name: "Tea", type: "Plantation", season: "Year Round" },
-    { name: "Coffee", type: "Plantation", season: "Year Round" }
+    {
+        name: "Tea",
+        type: "Plantation",
+        season: "Year Round"
+    },
+
+    {
+        name: "Coffee",
+        type: "Plantation",
+        season: "Year Round"
+    }
 
 ];
 
 
 /* =========================================================
    MARKET DATA
-   =========================================================
-
-   BACKEND HANDOFF:
-
-   Replace this array with API data later.
-
-   Expected object:
-
-   {
-       crop,
-       cropType,
-       season,
-       state,
-       district,
-       price,
-       unit,
-       change,
-       trend,
-       updatedAt
-   }
    ========================================================= */
 
 const marketData = [
@@ -849,105 +1298,97 @@ const marketData = [
 
 
 /* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const stateSelect =
-    document.getElementById("stateSelect");
-
-const districtSelect =
-    document.getElementById("districtSelect");
-
-const seasonSelect =
-    document.getElementById("seasonSelect");
-
-const cropTypeSelect =
-    document.getElementById("cropTypeSelect");
-
-const cropSelect =
-    document.getElementById("cropSelect");
-
-const marketGrid =
-    document.getElementById("marketGrid");
-
-const emptyState =
-    document.getElementById("emptyState");
-
-const selectedRegion =
-    document.getElementById("selectedRegion");
-
-const lastUpdated =
-    document.getElementById("lastUpdated");
-
-
-/* =========================================================
-   STATES
+   POPULATE STATES
    ========================================================= */
 
 function populateStates() {
 
     stateSelect.innerHTML = "";
 
+
     Object.keys(stateDistricts)
         .sort()
         .forEach(state => {
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
             option.value = state;
+
             option.textContent = state;
 
-            stateSelect.appendChild(option);
+            stateSelect.appendChild(
+                option
+            );
 
         });
 
-    stateSelect.value = "Maharashtra";
+
+    stateSelect.value =
+        "Maharashtra";
+
 }
 
 
 /* =========================================================
-   DISTRICTS
+   POPULATE DISTRICTS
    ========================================================= */
 
 function populateDistricts(state) {
 
     districtSelect.innerHTML = "";
 
+
     const districts =
         stateDistricts[state] || [];
+
 
     districts.forEach(district => {
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
         option.value = district;
+
         option.textContent = district;
 
-        districtSelect.appendChild(option);
+        districtSelect.appendChild(
+            option
+        );
 
     });
 
-    if (districts.includes("Pune")) {
 
-        districtSelect.value = "Pune";
+    if (
+        districts.includes("Pune")
+    ) {
 
-    } else if (districts.length > 0) {
+        districtSelect.value =
+            "Pune";
+
+    }
+
+    else if (
+        districts.length > 0
+    ) {
 
         districtSelect.value =
             districts[0];
 
     }
 
+
     updateRegionText();
+
 }
 
 
 /* =========================================================
-   CROP TYPES
-
-   Season determines which crop types are available.
+   POPULATE CROP TYPES
    ========================================================= */
 
 function populateCropTypes() {
@@ -955,32 +1396,47 @@ function populateCropTypes() {
     const selectedSeason =
         seasonSelect.value;
 
-    cropTypeSelect.innerHTML = "";
+
+    cropTypeSelect.innerHTML =
+        "";
+
 
     const allOption =
-        document.createElement("option");
+        document.createElement(
+            "option"
+        );
 
-    allOption.value = "all";
-    allOption.textContent = "All Crop Types";
+    allOption.value =
+        "all";
 
-    cropTypeSelect.appendChild(allOption);
+    allOption.textContent =
+        "All Crop Types";
+
+
+    cropTypeSelect.appendChild(
+        allOption
+    );
 
 
     const availableTypes =
-        [...new Set(
+        [
+            ...new Set(
 
-            crops
-                .filter(crop => {
+                crops
+                    .filter(crop => {
 
-                    return (
-                        selectedSeason === "all" ||
-                        crop.season === selectedSeason
-                    );
+                        return (
+                            selectedSeason === "all" ||
+                            crop.season === selectedSeason
+                        );
 
-                })
-                .map(crop => crop.type)
+                    })
+                    .map(crop =>
+                        crop.type
+                    )
 
-        )];
+            )
+        ];
 
 
     availableTypes
@@ -988,21 +1444,27 @@ function populateCropTypes() {
         .forEach(type => {
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
-            option.value = type;
-            option.textContent = type;
+            option.value =
+                type;
 
-            cropTypeSelect.appendChild(option);
+            option.textContent =
+                type;
+
+            cropTypeSelect.appendChild(
+                option
+            );
 
         });
+
 }
 
 
 /* =========================================================
-   CROPS
-
-   Season + crop type determine actual crops.
+   POPULATE CROPS
    ========================================================= */
 
 function populateCrops() {
@@ -1013,15 +1475,26 @@ function populateCrops() {
     const selectedType =
         cropTypeSelect.value;
 
-    cropSelect.innerHTML = "";
+
+    cropSelect.innerHTML =
+        "";
+
 
     const allOption =
-        document.createElement("option");
+        document.createElement(
+            "option"
+        );
 
-    allOption.value = "all";
-    allOption.textContent = "All Crops";
+    allOption.value =
+        "all";
 
-    cropSelect.appendChild(allOption);
+    allOption.textContent =
+        "All Crops";
+
+
+    cropSelect.appendChild(
+        allOption
+    );
 
 
     const availableCrops =
@@ -1032,9 +1505,11 @@ function populateCrops() {
                     selectedSeason === "all" ||
                     crop.season === selectedSeason;
 
+
                 const typeMatches =
                     selectedType === "all" ||
                     crop.type === selectedType;
+
 
                 return (
                     seasonMatches &&
@@ -1042,27 +1517,38 @@ function populateCrops() {
                 );
 
             })
-            .sort((a, b) =>
-                a.name.localeCompare(b.name)
+            .sort(
+                (a, b) =>
+                    a.name.localeCompare(
+                        b.name
+                    )
             );
 
 
     availableCrops.forEach(crop => {
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = crop.name;
-        option.textContent = crop.name;
+        option.value =
+            crop.name;
 
-        cropSelect.appendChild(option);
+        option.textContent =
+            crop.name;
+
+        cropSelect.appendChild(
+            option
+        );
 
     });
+
 }
 
 
 /* =========================================================
-   REGION TEXT
+   UPDATE REGION TEXT
    ========================================================= */
 
 function updateRegionText() {
@@ -1073,22 +1559,29 @@ function updateRegionText() {
     const state =
         stateSelect.value;
 
-    if (district && state) {
+
+    if (
+        district &&
+        state
+    ) {
 
         selectedRegion.textContent =
             `${district}, ${state}`;
 
-    } else {
+    }
+
+    else {
 
         selectedRegion.textContent =
             state || "India";
 
     }
+
 }
 
 
 /* =========================================================
-   MARKET FILTER
+   FILTER MARKET DATA
    ========================================================= */
 
 function getFilteredData() {
@@ -1144,20 +1637,25 @@ function getFilteredData() {
 
 
 /* =========================================================
-   MARKET CARD
+   CREATE MARKET CARD
    ========================================================= */
 
 function createMarketCard(item) {
 
     const card =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
+
 
     card.className =
         "market-card";
 
 
     const firstLetter =
-        item.crop.charAt(0).toUpperCase();
+        item.crop
+            .charAt(0)
+            .toUpperCase();
 
 
     const arrow =
@@ -1180,7 +1678,9 @@ function createMarketCard(item) {
                 ${firstLetter}
             </div>
 
-            <span class="price-change ${changeClass}">
+            <span
+                class="price-change ${changeClass}"
+            >
                 ${arrow} ${Math.abs(item.change)}%
             </span>
 
@@ -1229,7 +1729,9 @@ function createMarketCard(item) {
 
     `;
 
+
     return card;
+
 }
 
 
@@ -1242,19 +1744,25 @@ function renderMarketData() {
     const filteredData =
         getFilteredData();
 
-    marketGrid.innerHTML = "";
+
+    marketGrid.innerHTML =
+        "";
 
 
-    if (filteredData.length === 0) {
+    if (
+        filteredData.length === 0
+    ) {
 
-        emptyState.hidden = false;
+        emptyState.hidden =
+            false;
 
         return;
 
     }
 
 
-    emptyState.hidden = true;
+    emptyState.hidden =
+        true;
 
 
     filteredData.forEach(item => {
@@ -1268,6 +1776,7 @@ function renderMarketData() {
 
     lastUpdated.textContent =
         "Updated recently";
+
 }
 
 
@@ -1307,11 +1816,6 @@ districtSelect.addEventListener(
 
 /* =========================================================
    SEASON CHANGE
-
-   Season changes:
-   1. Crop types
-   2. Crops
-   3. Market results
    ========================================================= */
 
 seasonSelect.addEventListener(
@@ -1320,7 +1824,8 @@ seasonSelect.addEventListener(
 
         populateCropTypes();
 
-        cropTypeSelect.value = "all";
+        cropTypeSelect.value =
+            "all";
 
         populateCrops();
 
@@ -1332,8 +1837,6 @@ seasonSelect.addEventListener(
 
 /* =========================================================
    CROP TYPE CHANGE
-
-   Crop type changes available crops.
    ========================================================= */
 
 cropTypeSelect.addEventListener(
@@ -1366,19 +1869,30 @@ function initialiseMarketPage() {
 
     populateStates();
 
+
     populateDistricts(
         stateSelect.value
     );
 
+
     populateCropTypes();
+
 
     populateCrops();
 
+
     updateRegionText();
+
 
     renderMarketData();
 
 }
 
+
+/* =========================================================
+   START
+   ========================================================= */
+
+setupMarketRoleContent();
 
 initialiseMarketPage();
