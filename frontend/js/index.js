@@ -1,81 +1,308 @@
 /* =========================================================
    KRISHISETU LANDING PAGE
-   Main JavaScript
    ========================================================= */
 
 
 /* =========================================================
-   MOBILE MENU
+   MOBILE NAVIGATION
    ========================================================= */
 
-// Get the menu button and navigation
-const menuButton = document.getElementById("menuButton");
-const navLinks = document.getElementById("navLinks");
+const menuButton =
+    document.getElementById("menuButton");
+
+const mainNav =
+    document.getElementById("mainNav");
+
+const siteHeader =
+    document.querySelector(".site-header");
 
 
-// Open and close the mobile menu
-if (menuButton && navLinks) {
+if (
+    menuButton &&
+    mainNav &&
+    siteHeader
+) {
 
-    menuButton.addEventListener("click", function () {
+    menuButton.addEventListener(
+        "click",
+        function () {
 
-        // Show or hide the navigation
-        navLinks.classList.toggle("mobile-open");
-
-        // Check whether the menu is open
-        const isOpen = navLinks.classList.contains("mobile-open");
-
-        // Update the button state
-        menuButton.setAttribute("aria-expanded", isOpen);
-
-    });
-
-}
+            const isOpen =
+                mainNav.classList.toggle(
+                    "mobile-open"
+                );
 
 
-/* =========================================================
-   CLOSE MOBILE MENU
-   ========================================================= */
+            siteHeader.classList.toggle(
+                "menu-active",
+                isOpen
+            );
 
-// Close the menu after clicking a navigation link
-if (navLinks) {
 
-    const links = navLinks.querySelectorAll("a");
+            document.body.classList.toggle(
+                "menu-open",
+                isOpen
+            );
 
-    links.forEach(function (link) {
 
-        link.addEventListener("click", function () {
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
 
-            // Hide the mobile navigation
-            navLinks.classList.remove("mobile-open");
 
-            if (menuButton) {
-                menuButton.setAttribute("aria-expanded", "false");
-            }
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
+            );
+
+        }
+    );
+
+
+    /*
+        Close mobile navigation when a link is selected.
+    */
+
+    mainNav
+        .querySelectorAll("a")
+        .forEach(function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    mainNav.classList.remove(
+                        "mobile-open"
+                    );
+
+                    siteHeader.classList.remove(
+                        "menu-active"
+                    );
+
+                    document.body.classList.remove(
+                        "menu-open"
+                    );
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    menuButton.setAttribute(
+                        "aria-label",
+                        "Open navigation menu"
+                    );
+
+                }
+            );
 
         });
 
+}
+
+
+/* =========================================================
+   CLOSE MENU WHEN RESIZING TO DESKTOP
+   ========================================================= */
+
+window.addEventListener(
+    "resize",
+    function () {
+
+        if (
+            window.innerWidth > 700 &&
+            mainNav &&
+            siteHeader &&
+            menuButton
+        ) {
+
+            mainNav.classList.remove(
+                "mobile-open"
+            );
+
+            siteHeader.classList.remove(
+                "menu-active"
+            );
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                "Open navigation menu"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SMOOTH INTERNAL NAVIGATION
+   ========================================================= */
+
+document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function (event) {
+
+                const targetId =
+                    link.getAttribute("href");
+
+
+                if (
+                    !targetId ||
+                    targetId === "#"
+                ) {
+                    return;
+                }
+
+
+                const target =
+                    document.querySelector(
+                        targetId
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                const header =
+                    document.querySelector(
+                        ".site-header"
+                    );
+
+
+                const headerHeight =
+                    header
+                        ? header.offsetHeight
+                        : 0;
+
+
+                const targetPosition =
+                    target.getBoundingClientRect().top +
+                    window.scrollY -
+                    headerHeight -
+                    12;
+
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
     });
+
+
+/* =========================================================
+   UPDATE ACTIVE NAVIGATION
+   ========================================================= */
+
+const sections =
+    document.querySelectorAll(
+        "main section[id]"
+    );
+
+
+const navigationLinks =
+    document.querySelectorAll(
+        '.main-nav a[href^="#"]'
+    );
+
+
+if (
+    sections.length &&
+    navigationLinks.length
+) {
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+
+                        const currentId =
+                            entry.target.id;
+
+
+                        navigationLinks.forEach(
+                            function (link) {
+
+                                const matches =
+                                    link.getAttribute(
+                                        "href"
+                                    ) ===
+                                    `#${currentId}`;
+
+
+                                link.classList.toggle(
+                                    "active",
+                                    matches
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            },
+            {
+                rootMargin:
+                    "-35% 0px -55% 0px"
+            }
+        );
+
+
+    sections.forEach(
+        function (section) {
+
+            observer.observe(section);
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   BACKEND CONNECTION PLACEHOLDER
+   HERO / PAGE LOAD
    ========================================================= */
 
-/*
-    BACKEND NOTE:
+window.addEventListener(
+    "load",
+    function () {
 
-    The landing page does not currently need to fetch
-    dynamic information from the backend.
+        document.body.classList.add(
+            "page-loaded"
+        );
 
-    If the backend team later provides an API for things
-    such as market information, farmer statistics, or
-    other dynamic content, the fetch() code can be added
-    here.
-
-    Do NOT add fake API URLs.
-
-    The backend team should provide the actual endpoint
-    before the connection is created.
-*/
+    }
+);

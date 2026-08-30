@@ -1,125 +1,220 @@
 /* =========================================================
-   KRISHISETU LOGIN PAGE
+   KRISHISETU LOGIN
    ========================================================= */
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const mobileInput =
+    document.getElementById("mobile");
+
+const passwordInput =
+    document.getElementById("password");
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+const mobileError =
+    document.getElementById("mobileError");
+
+const passwordError =
+    document.getElementById("passwordError");
+
+const formMessage =
+    document.getElementById("formMessage");
+
+const forgotPassword =
+    document.getElementById("forgotPassword");
 
 
 /* =========================================================
-   GET ELEMENTS
+   MOBILE NUMBER
    ========================================================= */
 
-const loginForm = document.getElementById("loginForm");
-const passwordInput = document.getElementById("password");
-const togglePassword = document.getElementById("togglePassword");
-const loginMessage = document.getElementById("loginMessage");
+mobileInput.addEventListener(
+    "input",
+    function () {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+        mobileError.textContent = "";
+        formMessage.textContent = "";
+
+    }
+);
 
 
 /* =========================================================
-   SHOW / HIDE PASSWORD
+   PASSWORD VISIBILITY
    ========================================================= */
 
-if (togglePassword && passwordInput) {
+passwordToggle.addEventListener(
+    "click",
+    function () {
 
-    togglePassword.addEventListener("click", function () {
+        const isPassword =
+            passwordInput.type === "password";
 
-        // Show or hide the password
-        if (passwordInput.type === "password") {
 
-            passwordInput.type = "text";
-            togglePassword.textContent = "Hide";
+        passwordInput.type =
+            isPassword
+                ? "text"
+                : "password";
 
-        } else {
 
-            passwordInput.type = "password";
-            togglePassword.textContent = "Show";
+        this.textContent =
+            isPassword
+                ? "Hide"
+                : "Show";
 
-        }
 
-    });
+        this.setAttribute(
+            "aria-label",
+            isPassword
+                ? "Hide password"
+                : "Show password"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   VALIDATION
+   ========================================================= */
+
+function validateLogin() {
+
+    let valid = true;
+
+
+    mobileError.textContent = "";
+    passwordError.textContent = "";
+    formMessage.textContent = "";
+
+
+    const mobile =
+        mobileInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+
+    if (!/^[6-9]\d{9}$/.test(mobile)) {
+
+        mobileError.textContent =
+            "Enter a valid 10-digit Indian mobile number.";
+
+        valid = false;
+
+    }
+
+
+    if (password.length === 0) {
+
+        passwordError.textContent =
+            "Please enter your password.";
+
+        valid = false;
+
+    }
+
+
+    return valid;
 
 }
 
 
 /* =========================================================
-   PROTOTYPE LOGIN
+   LOGIN
    ========================================================= */
 
-if (loginForm) {
+loginForm.addEventListener(
+    "submit",
+    function (event) {
 
-    loginForm.addEventListener("submit", function (event) {
-
-        // Prevent the page from refreshing
         event.preventDefault();
 
 
-        const phoneInput = document.getElementById("phone");
-
-        const phone = phoneInput.value.trim();
-        const password = passwordInput.value.trim();
-
-
-        // Clear old message
-        loginMessage.textContent = "";
-
-
-        /* -------------------------------------------------
-           CHECK MOBILE NUMBER
-           ------------------------------------------------- */
-
-        if (!/^\d{10}$/.test(phone)) {
-
-            loginMessage.textContent =
-                "Please enter a valid 10-digit mobile number.";
-
-            phoneInput.focus();
+        if (!validateLogin()) {
 
             return;
+
         }
 
 
-        /* -------------------------------------------------
-           CHECK PASSWORD
-           ------------------------------------------------- */
-
-        if (password.length === 0) {
-
-            loginMessage.textContent =
-                "Please enter your password.";
-
-            passwordInput.focus();
-
-            return;
-        }
+        const submitButton =
+            loginForm.querySelector(
+                ".submit-button"
+            );
 
 
-        /* -------------------------------------------------
-           PROTOTYPE LOGIN SUCCESS
-           -------------------------------------------------
+        submitButton.classList.add(
+            "loading"
+        );
 
-           For the current SIH prototype, any valid
-           10-digit mobile number and non-empty password
-           will allow access to the farmer dashboard.
 
-           BACKEND TEAM:
-           Replace this section with real authentication
-           when the API is ready.
+        /*
+            FRONTEND HANDOFF
+
+            The backend team can replace this section with:
+
+                fetch("/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        mobile,
+                        password
+                    })
+                })
+
+            The backend should then return the authenticated
+            user/session information.
+
+            Until that API is connected, the page simply
+            provides the frontend flow.
         */
 
 
-        loginMessage.textContent = "Login successful!";
+        const mobile =
+            mobileInput.value.trim();
 
 
-        // Store basic prototype information
-        localStorage.setItem("userPhone", phone);
-        localStorage.setItem("userRole", "farmer");
+        /*
+            Temporary local session for frontend navigation.
+            This is NOT authentication.
+        */
+
+        sessionStorage.setItem(
+            "krishisetuLoginMobile",
+            mobile
+        );
 
 
-        // Open the farmer dashboard
-        setTimeout(function () {
+        window.location.href =
+            "dashboard.html";
 
-            window.location.href = "dashboard.html";
+    }
+);
 
-        }, 500);
 
-    });
+/* =========================================================
+   FORGOT PASSWORD
+   ========================================================= */
 
-}
+forgotPassword.addEventListener(
+    "click",
+    function (event) {
+
+        event.preventDefault();
+
+        formMessage.textContent =
+            "Please contact support to recover your account.";
+
+    }
+);

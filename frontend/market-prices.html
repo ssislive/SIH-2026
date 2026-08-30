@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta
-        name="description"
-        content="Check agricultural market prices across India with KrishiSetu."
-    >
-
     <title>Market Prices | KrishiSetu</title>
 
     <link rel="stylesheet" href="css/market-prices.css">
@@ -18,80 +10,44 @@
 
 <body>
 
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
+<div class="market-page">
 
-    <header class="market-header">
+    <!-- HEADER -->
+    <header class="site-header">
 
         <a href="index.html" class="brand">
+            <span class="brand-mark">KS</span>
 
-            <div class="brand-mark">
-                KS
-            </div>
-
-            <div class="brand-text">
-
-                <span class="brand-name">
-                    KrishiSetu
-                </span>
-
-                <span class="brand-tagline">
-                    Connecting farmers to opportunity
-                </span>
-
-            </div>
-
+            <span class="brand-text">
+                <strong>KrishiSetu</strong>
+                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+            </span>
         </a>
 
-
         <nav class="main-nav" id="mainNav">
-
-            <a href="dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="market-prices.html" class="active">
-                Market Prices
-            </a>
-
-            <a href="#">
-                Sell Produce
-            </a>
-
-            <a href="achievement.html">
-                Achievements
-            </a>
-
-            <a href="#">
-                Support
-            </a>
-
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="market-prices.html" class="active">Market Prices</a>
+            <a href="sell-produce.html">Sell Produce</a>
+            <a href="support.html">Support</a>
         </nav>
 
-
-        <div class="header-right">
-
-            <button
-                class="notification-button"
-                id="notificationButton"
-                aria-label="Notifications"
-            >
+        <div class="header-actions">
+            <a href="notifications.html" class="notification-button" aria-label="Notifications">
                 ♧
                 <span></span>
-            </button>
+            </a>
 
-            <div class="user-avatar">
+            <a href="profile.html" class="profile-button" aria-label="Profile">
                 F
-            </div>
-
+            </a>
         </div>
 
-
         <button
-            class="mobile-menu-button"
-            id="mobileMenuButton"
-            aria-label="Open menu"
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
             aria-expanded="false"
         >
             <span></span>
@@ -102,571 +58,192 @@
     </header>
 
 
-    <!-- =====================================================
-         MAIN
-         ===================================================== -->
+    <main>
 
-    <main class="market-main">
+        <!-- INTRO -->
+        <section class="page-intro">
 
+            <p class="section-label">TODAY'S MARKET</p>
 
-        <!-- =================================================
-             INTRO
-             ================================================= -->
+            <h1>
+                Know the market.
+                <span>Sell with confidence.</span>
+            </h1>
 
-        <section class="market-intro">
-
-            <div class="intro-content">
-
-                <p class="eyebrow">
-                    KNOW YOUR MARKET
-                </p>
-
-                <h1>
-                    Market prices,
-                    <span>made simple.</span>
-                </h1>
-
-                <p>
-                    Check current agricultural prices across
-                    markets in India and make better decisions
-                    about when and where to sell your produce.
-                </p>
-
-            </div>
-
-
-            <div class="intro-image">
-
-                <!--
-                    IMAGE PLACEHOLDER
-
-                    If you later add a market image, place it
-                    inside assets/images and connect it here.
-
-                    Example:
-                    assets/images/market-prices.jpg
-                -->
-
-                <div class="image-placeholder">
-
-                    <span class="market-symbol">
-                        ₹
-                    </span>
-
-                    <strong>
-                        Today's Market
-                    </strong>
-
-                    <small>
-                        Prices from markets across India
-                    </small>
-
-                </div>
-
-            </div>
+            <p class="intro-text">
+                Explore agricultural prices by region, season and crop
+                to understand market opportunities before selling your produce.
+            </p>
 
         </section>
 
 
-        <!-- =================================================
-             SEARCH + FILTERS
-             ================================================= -->
+        <!-- FILTER PANEL -->
+        <section class="filter-panel">
 
-        <section class="market-controls">
+            <div class="filter-heading">
 
-            <div class="search-box">
-
-                <span>
-                    🔍
-                </span>
-
-                <input
-                    type="text"
-                    id="cropSearch"
-                    placeholder="Search for a crop..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-
-            <div class="filter-group">
-
-                <select id="stateFilter">
-
-                    <option value="all">
-                        All States
-                    </option>
-
-                    <option value="Maharashtra">
-                        Maharashtra
-                    </option>
-
-                    <option value="Punjab">
-                        Punjab
-                    </option>
-
-                    <option value="Uttar Pradesh">
-                        Uttar Pradesh
-                    </option>
-
-                    <option value="Madhya Pradesh">
-                        Madhya Pradesh
-                    </option>
-
-                    <option value="Gujarat">
-                        Gujarat
-                    </option>
-
-                    <option value="Karnataka">
-                        Karnataka
-                    </option>
-
-                    <option value="West Bengal">
-                        West Bengal
-                    </option>
-
-                </select>
-
-
-                <select id="cropFilter">
-
-                    <option value="all">
-                        All Crops
-                    </option>
-
-                    <option value="wheat">
-                        Wheat
-                    </option>
-
-                    <option value="rice">
-                        Rice
-                    </option>
-
-                    <option value="onion">
-                        Onion
-                    </option>
-
-                    <option value="cotton">
-                        Cotton
-                    </option>
-
-                    <option value="maize">
-                        Maize
-                    </option>
-
-                </select>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             LOCATION INFORMATION
-             ================================================= -->
-
-        <section class="market-location">
-
-            <div class="location-left">
-
-                <div class="location-icon">
-                    +
-                </div>
+                <div class="location-icon">•</div>
 
                 <div>
+                    <span class="small-label">MARKET REGION</span>
 
-                    <span>
-                        SHOWING PRICES FOR
-                    </span>
-
-                    <strong id="selectedLocation">
-                        All India
+                    <strong id="selectedRegion">
+                        Pune, Maharashtra
                     </strong>
-
                 </div>
 
             </div>
 
 
-            <div class="update-info">
+            <div class="filter-controls">
 
-                <span class="live-dot"></span>
+                <!-- STATE -->
+                <div class="filter-field">
+                    <label for="stateSelect">State</label>
 
-                <span>
-                    Sample data • Ready for backend connection
-                </span>
+                    <div class="select-wrap">
+                        <select id="stateSelect"></select>
+                    </div>
+                </div>
+
+
+                <!-- DISTRICT -->
+                <div class="filter-field">
+                    <label for="districtSelect">District</label>
+
+                    <div class="select-wrap">
+                        <select id="districtSelect"></select>
+                    </div>
+                </div>
+
+
+                <!-- SEASON -->
+                <div class="filter-field">
+                    <label for="seasonSelect">Season</label>
+
+                    <div class="select-wrap">
+                        <select id="seasonSelect">
+
+                            <option value="all">
+                                All Seasons
+                            </option>
+
+                            <option value="Kharif">
+                                Kharif
+                            </option>
+
+                            <option value="Rabi">
+                                Rabi
+                            </option>
+
+                            <option value="Zaid">
+                                Zaid
+                            </option>
+
+                            <option value="Year Round">
+                                Year Round
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- CROP TYPE -->
+                <div class="filter-field">
+                    <label for="cropTypeSelect">Crop Type</label>
+
+                    <div class="select-wrap">
+                        <select id="cropTypeSelect">
+
+                            <option value="all">
+                                All Crop Types
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- CROP -->
+                <div class="filter-field crop-filter">
+
+                    <label for="cropSelect">
+                        Select Crop
+                    </label>
+
+                    <div class="select-wrap">
+                        <select id="cropSelect">
+
+                            <option value="all">
+                                All Crops
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <!-- =================================================
-             PRICE CARDS
-             ================================================= -->
+        <!-- STATUS -->
+        <div class="market-status">
 
-        <section class="prices-section">
+            <span class="status-dot"></span>
+
+            <span>
+                Market information available
+            </span>
+
+            <span id="lastUpdated">
+                Updated recently
+            </span>
+
+        </div>
+
+
+        <!-- MARKET -->
+        <section class="market-section">
 
             <div class="section-heading">
 
                 <div>
-
-                    <p class="eyebrow">
-                        TODAY'S PRICES
+                    <p class="section-label">
+                        CURRENT PRICES
                     </p>
 
                     <h2>
-                        Agricultural commodities
+                        Today's rates
                     </h2>
-
                 </div>
 
-                <span id="resultCount">
-                    6 crops
-                </span>
-
             </div>
 
 
             <div
-                class="price-grid"
-                id="priceGrid"
-            >
+                class="market-grid"
+                id="marketGrid"
+            ></div>
 
-                <!-- =================================================
-                     WHEAT
-                     ================================================= -->
-
-                <article
-                    class="price-card"
-                    data-crop="wheat"
-                    data-state="Maharashtra"
-                >
-
-                    <div class="crop-card-top">
-
-                        <div class="crop-image wheat-image">
-                            W
-                        </div>
-
-                        <span class="trend positive">
-                            ↑ 4.2%
-                        </span>
-
-                    </div>
-
-                    <p class="crop-category">
-                        CEREAL
-                    </p>
-
-                    <h3>
-                        Wheat
-                    </h3>
-
-                    <p class="market-name">
-                        Lasalgaon, Maharashtra
-                    </p>
-
-                    <div class="price-row">
-
-                        <strong>
-                            ₹2,450
-                        </strong>
-
-                        <span>
-                            / quintal
-                        </span>
-
-                    </div>
-
-                    <p class="updated">
-                        Updated 10 min ago
-                    </p>
-
-                </article>
-
-
-                <!-- =================================================
-                     RICE
-                     ================================================= -->
-
-                <article
-                    class="price-card"
-                    data-crop="rice"
-                    data-state="West Bengal"
-                >
-
-                    <div class="crop-card-top">
-
-                        <div class="crop-image rice-image">
-                            R
-                        </div>
-
-                        <span class="trend positive">
-                            ↑ 2.1%
-                        </span>
-
-                    </div>
-
-                    <p class="crop-category">
-                        CEREAL
-                    </p>
-
-                    <h3>
-                        Basmati Rice
-                    </h3>
-
-                    <p class="market-name">
-                        Bardhaman, West Bengal
-                    </p>
-
-                    <div class="price-row">
-
-                        <strong>
-                            ₹8,700
-                        </strong>
-
-                        <span>
-                            / quintal
-                        </span>
-
-                    </div>
-
-                    <p class="updated">
-                        Updated 8 min ago
-                    </p>
-
-                </article>
-
-
-                <!-- =================================================
-                     ONION
-                     ================================================= -->
-
-                <article
-                    class="price-card"
-                    data-crop="onion"
-                    data-state="Maharashtra"
-                >
-
-                    <div class="crop-card-top">
-
-                        <div class="crop-image onion-image">
-                            O
-                        </div>
-
-                        <span class="trend positive">
-                            ↑ 3.6%
-                        </span>
-
-                    </div>
-
-                    <p class="crop-category">
-                        VEGETABLE
-                    </p>
-
-                    <h3>
-                        Red Onion
-                    </h3>
-
-                    <p class="market-name">
-                        Nashik, Maharashtra
-                    </p>
-
-                    <div class="price-row">
-
-                        <strong>
-                            ₹2,180
-                        </strong>
-
-                        <span>
-                            / quintal
-                        </span>
-
-                    </div>
-
-                    <p class="updated">
-                        Updated 12 min ago
-                    </p>
-
-                </article>
-
-
-                <!-- =================================================
-                     COTTON
-                     ================================================= -->
-
-                <article
-                    class="price-card"
-                    data-crop="cotton"
-                    data-state="Gujarat"
-                >
-
-                    <div class="crop-card-top">
-
-                        <div class="crop-image cotton-image">
-                            C
-                        </div>
-
-                        <span class="trend negative">
-                            ↓ 1.1%
-                        </span>
-
-                    </div>
-
-                    <p class="crop-category">
-                        FIBRE CROP
-                    </p>
-
-                    <h3>
-                        Cotton
-                    </h3>
-
-                    <p class="market-name">
-                        Rajkot, Gujarat
-                    </p>
-
-                    <div class="price-row">
-
-                        <strong>
-                            ₹7,120
-                        </strong>
-
-                        <span>
-                            / quintal
-                        </span>
-
-                    </div>
-
-                    <p class="updated">
-                        Updated 15 min ago
-                    </p>
-
-                </article>
-
-
-                <!-- =================================================
-                     MAIZE
-                     ================================================= -->
-
-                <article
-                    class="price-card"
-                    data-crop="maize"
-                    data-state="Karnataka"
-                >
-
-                    <div class="crop-card-top">
-
-                        <div class="crop-image maize-image">
-                            M
-                        </div>
-
-                        <span class="trend positive">
-                            ↑ 1.8%
-                        </span>
-
-                    </div>
-
-                    <p class="crop-category">
-                        CEREAL
-                    </p>
-
-                    <h3>
-                        Maize
-                    </h3>
-
-                    <p class="market-name">
-                        Davangere, Karnataka
-                    </p>
-
-                    <div class="price-row">
-
-                        <strong>
-                            ₹2,280
-                        </strong>
-
-                        <span>
-                            / quintal
-                        </span>
-
-                    </div>
-
-                    <p class="updated">
-                        Updated 9 min ago
-                    </p>
-
-                </article>
-
-
-                <!-- =================================================
-                     MUSTARD
-                     ================================================= -->
-
-                <article
-                    class="price-card"
-                    data-crop="mustard"
-                    data-state="Rajasthan"
-                >
-
-                    <div class="crop-card-top">
-
-                        <div class="crop-image mustard-image">
-                            M
-                        </div>
-
-                        <span class="trend negative">
-                            ↓ 0.7%
-                        </span>
-
-                    </div>
-
-                    <p class="crop-category">
-                        OILSEED
-                    </p>
-
-                    <h3>
-                        Mustard Seed
-                    </h3>
-
-                    <p class="market-name">
-                        Jaipur, Rajasthan
-                    </p>
-
-                    <div class="price-row">
-
-                        <strong>
-                            ₹5,120
-                        </strong>
-
-                        <span>
-                            / quintal
-                        </span>
-
-                    </div>
-
-                    <p class="updated">
-                        Updated 17 min ago
-                    </p>
-
-                </article>
-
-            </div>
-
-
-            <!-- No results -->
 
             <div
-                id="noResults"
-                class="no-results"
+                class="empty-state"
+                id="emptyState"
+                hidden
             >
 
-                <strong>
-                    No crops found
-                </strong>
+                <div class="empty-icon">₹</div>
+
+                <h3>
+                    No market data found
+                </h3>
 
                 <p>
-                    Try changing your search or filters.
+                    Try another season, crop type, crop or region.
                 </p>
 
             </div>
@@ -674,30 +251,21 @@
         </section>
 
 
-        <!-- =================================================
-             HELPFUL INFORMATION
-             ================================================= -->
+        <!-- NOTE -->
+        <section class="market-note">
 
-        <section class="market-tip">
-
-            <div class="tip-icon">
-                ✓
-            </div>
+            <div class="note-icon">₹</div>
 
             <div>
 
-                <p class="eyebrow">
-                    A LITTLE TIP
-                </p>
-
-                <h2>
+                <h3>
                     Compare before you sell.
-                </h2>
+                </h3>
 
                 <p>
-                    Prices can vary between markets. Checking
-                    nearby markets may help you find a better
-                    opportunity for your produce.
+                    Market prices can vary by location, crop quality,
+                    season and market conditions. Use this information
+                    to compare opportunities before listing your produce.
                 </p>
 
             </div>
@@ -705,53 +273,32 @@
         </section>
 
 
+        <!-- CTA -->
+        <section class="bottom-action">
+
+            <p class="section-label">
+                READY TO SELL?
+            </p>
+
+            <h2>
+                Turn market information into
+                <span>better opportunities.</span>
+            </h2>
+
+            <a
+                href="sell-produce.html"
+                class="primary-button"
+            >
+                Sell Your Produce →
+            </a>
+
+        </section>
+
     </main>
 
+</div>
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
-
-    <footer class="market-footer">
-
-        <div>
-
-            <strong>
-                KrishiSetu
-            </strong>
-
-            <span>
-                Connecting farmers to opportunity
-            </span>
-
-        </div>
-
-
-        <div class="footer-links">
-
-            <a href="#">
-                About
-            </a>
-
-            <a href="#">
-                Support
-            </a>
-
-            <a href="#">
-                Privacy
-            </a>
-
-            <span>
-                © 2026
-            </span>
-
-        </div>
-
-    </footer>
-
-
-    <script src="js/market-prices.js"></script>
+<script src="js/market-prices.js"></script>
 
 </body>
-
 </html>

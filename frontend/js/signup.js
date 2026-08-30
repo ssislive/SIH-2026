@@ -1,119 +1,31 @@
 /* =========================================================
-   KRISHISETU DASHBOARD
+   KRISHISETU — SIGN UP
    ========================================================= */
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   ELEMENTS
    ========================================================= */
 
-const menuButton =
-    document.getElementById("menuButton");
+const signupForm = document.getElementById("signupForm");
 
-const mainNav =
-    document.getElementById("mainNav");
+const fullName = document.getElementById("fullName");
+const mobile = document.getElementById("mobile");
 
+const state = document.getElementById("state");
+const district = document.getElementById("district");
 
-if (menuButton && mainNav) {
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
 
-    menuButton.addEventListener(
-        "click",
-        function () {
-
-            const opened =
-                mainNav.classList.toggle("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                opened ? "true" : "false"
-            );
-
-            menuButton.setAttribute(
-                "aria-label",
-                opened
-                    ? "Close navigation"
-                    : "Open navigation"
-            );
-
-        }
-    );
-
-
-    /* Close mobile menu after clicking a link */
-
-    mainNav
-        .querySelectorAll("a")
-        .forEach(function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    mainNav.classList.remove("open");
-
-                    menuButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    menuButton.setAttribute(
-                        "aria-label",
-                        "Open navigation"
-                    );
-
-                }
-            );
-
-        });
-
-
-    /* Close if user taps outside */
-
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            const clickedInsideNav =
-                mainNav.contains(event.target);
-
-            const clickedMenu =
-                menuButton.contains(event.target);
-
-            if (
-                !clickedInsideNav &&
-                !clickedMenu
-            ) {
-
-                mainNav.classList.remove("open");
-
-                menuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
-
-        }
-    );
-
-}
+const formMessage = document.getElementById("formMessage");
 
 
 /* =========================================================
-   STATES
+   DISTRICTS
    ========================================================= */
 
-const stateSelect =
-    document.getElementById("stateSelect");
-
-const districtSelect =
-    document.getElementById("districtSelect");
-
-const regionDisplay =
-    document.getElementById("regionDisplay");
-
-
-const states = {
+const districts = {
 
     "Andhra Pradesh": [
         "Alluri Sitharama Raju",
@@ -122,6 +34,7 @@ const states = {
         "Annamayya",
         "Bapatla",
         "Chittoor",
+        "Dr. B. R. Ambedkar Konaseema",
         "East Godavari",
         "Eluru",
         "Guntur",
@@ -131,13 +44,15 @@ const states = {
         "Nandyal",
         "NTR",
         "Palnadu",
+        "Parvathipuram Manyam",
         "Prakasam",
+        "Sri Potti Sriramulu Nellore",
+        "Sri Sathya Sai",
         "Srikakulam",
         "Tirupati",
         "Visakhapatnam",
         "Vizianagaram",
-        "West Godavari",
-        "YSR Kadapa"
+        "West Godavari"
     ],
 
     "Arunachal Pradesh": [
@@ -147,6 +62,8 @@ const states = {
         "East Siang",
         "Itanagar Capital Complex",
         "Kamle",
+        "Kra Daadi",
+        "Kurung Kumey",
         "Lepa Rada",
         "Lohit",
         "Longding",
@@ -154,12 +71,13 @@ const states = {
         "Lower Siang",
         "Lower Subansiri",
         "Namsai",
-        "Pakke Kessang",
+        "Pakke-Kessang",
         "Papum Pare",
-        "Shi Yomi",
+        "Shi-Yomi",
         "Siang",
         "Tawang",
         "Tirap",
+        "Upper Dibang Valley",
         "Upper Siang",
         "Upper Subansiri",
         "West Kameng",
@@ -196,8 +114,11 @@ const states = {
         "Nalbari",
         "Sivasagar",
         "Sonitpur",
+        "South Salmara-Mankachar",
+        "Tamulpur",
         "Tinsukia",
-        "Udalguri"
+        "Udalguri",
+        "West Karbi Anglong"
     ],
 
     "Bihar": [
@@ -244,7 +165,7 @@ const states = {
     "Chhattisgarh": [
         "Balod",
         "Baloda Bazar",
-        "Balrampur",
+        "Balrampur-Ramanujganj",
         "Bastar",
         "Bemetara",
         "Bijapur",
@@ -256,16 +177,21 @@ const states = {
         "Gaurela-Pendra-Marwahi",
         "Janjgir-Champa",
         "Jashpur",
+        "Kabirdham",
         "Kanker",
+        "Khairagarh-Chhuikhadan-Gandai",
         "Kondagaon",
         "Korba",
         "Koriya",
         "Mahasamund",
+        "Manendragarh-Chirmiri-Bharatpur",
+        "Mohla-Manpur-Ambagarh Chowki",
         "Mungeli",
         "Narayanpur",
         "Raigarh",
         "Raipur",
         "Rajnandgaon",
+        "Sarangarh-Bilaigarh",
         "Sukma",
         "Surajpur",
         "Surguja"
@@ -373,7 +299,7 @@ const states = {
         "Palamu",
         "Ramgarh",
         "Ranchi",
-        "Sahebganj",
+        "Sahibganj",
         "Seraikela Kharsawan",
         "Simdega",
         "West Singhbhum"
@@ -409,7 +335,6 @@ const states = {
         "Udupi",
         "Uttara Kannada",
         "Vijayapura",
-        "Vijayanagara",
         "Yadgir"
     ],
 
@@ -457,12 +382,15 @@ const states = {
         "Katni",
         "Khandwa",
         "Khargone",
+        "Maihar",
         "Mandla",
         "Mandsaur",
+        "Mauganj",
         "Morena",
         "Narmadapuram",
         "Narsinghpur",
         "Neemuch",
+        "Niwari",
         "Panna",
         "Raisen",
         "Rajgarh",
@@ -488,11 +416,11 @@ const states = {
         "Ahmednagar",
         "Akola",
         "Amravati",
-        "Aurangabad",
         "Beed",
         "Bhandara",
         "Buldhana",
         "Chandrapur",
+        "Chhatrapati Sambhajinagar",
         "Dhule",
         "Gadchiroli",
         "Gondia",
@@ -546,8 +474,9 @@ const states = {
         "East Garo Hills",
         "East Jaintia Hills",
         "East Khasi Hills",
+        "Eastern West Khasi Hills",
         "North Garo Hills",
-        "Ri-Bhoi",
+        "Ri Bhoi",
         "South Garo Hills",
         "South West Garo Hills",
         "South West Khasi Hills",
@@ -642,6 +571,8 @@ const states = {
         "Patiala",
         "Rupnagar",
         "Sangrur",
+        "Shaheed Bhagat Singh Nagar",
+        "Sri Muktsar Sahib",
         "Tarn Taran"
     ],
 
@@ -711,6 +642,7 @@ const states = {
         "Perambalur",
         "Pudukkottai",
         "Ramanathapuram",
+        "Ranipet",
         "Salem",
         "Sivaganga",
         "Tenkasi",
@@ -719,6 +651,7 @@ const states = {
         "Thoothukudi",
         "Tiruchirappalli",
         "Tirunelveli",
+        "Tirupathur",
         "Tiruppur",
         "Tiruvallur",
         "Tiruvannamalai",
@@ -731,6 +664,7 @@ const states = {
     "Telangana": [
         "Adilabad",
         "Bhadradri Kothagudem",
+        "Hanamkonda",
         "Hyderabad",
         "Jagtial",
         "Jangaon",
@@ -820,8 +754,8 @@ const states = {
         "Kanpur Nagar",
         "Kasganj",
         "Kaushambi",
-        "Kheri",
         "Kushinagar",
+        "Lakhimpur Kheri",
         "Lalitpur",
         "Lucknow",
         "Maharajganj",
@@ -871,10 +805,9 @@ const states = {
     "West Bengal": [
         "Alipurduar",
         "Bankura",
-        "Paschim Bardhaman",
-        "Purba Bardhaman",
         "Birbhum",
         "Cooch Behar",
+        "Dakshin Dinajpur",
         "Darjeeling",
         "Hooghly",
         "Howrah",
@@ -886,12 +819,18 @@ const states = {
         "Murshidabad",
         "Nadia",
         "North 24 Parganas",
-        "South 24 Parganas",
-        "Uttar Dinajpur",
-        "Dakshin Dinajpur",
+        "Paschim Bardhaman",
         "Paschim Medinipur",
-        "Purba Medinipur"
+        "Purba Bardhaman",
+        "Purba Medinipur",
+        "Purulia",
+        "South 24 Parganas",
+        "Uttar Dinajpur"
     ],
+
+    /* =====================================================
+       UNION TERRITORIES
+       ===================================================== */
 
     "Andaman and Nicobar Islands": [
         "Nicobar",
@@ -952,16 +891,7 @@ const states = {
     ],
 
     "Lakshadweep": [
-        "Agatti",
-        "Amini",
-        "Andrott",
-        "Bitra",
-        "Chetlat",
-        "Kadmat",
-        "Kalpeni",
-        "Kavaratti",
-        "Kiltan",
-        "Minicoy"
+        "Lakshadweep"
     ],
 
     "Puducherry": [
@@ -975,152 +905,333 @@ const states = {
 
 
 /* =========================================================
-   LOAD STATES
+   MOBILE NUMBER
    ========================================================= */
 
-Object.keys(states)
-    .forEach(function (state) {
+mobile.addEventListener("input", function () {
+
+    this.value = this.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+
+});
+
+
+/* =========================================================
+   STATE → DISTRICT
+   ========================================================= */
+
+state.addEventListener("change", function () {
+
+    const selectedState = this.value;
+
+    /* Reset district every time state changes */
+
+    district.innerHTML = "";
+
+    const defaultOption =
+        document.createElement("option");
+
+    defaultOption.value = "";
+
+    defaultOption.textContent =
+        selectedState
+            ? "Select your district"
+            : "Select your state first";
+
+    district.appendChild(defaultOption);
+
+
+    /* No state selected */
+
+    if (!selectedState) {
+
+        district.disabled = true;
+
+        return;
+    }
+
+
+    /* Get districts */
+
+    const stateDistricts =
+        districts[selectedState];
+
+
+    /* Safety check */
+
+    if (
+        !stateDistricts ||
+        !Array.isArray(stateDistricts)
+    ) {
+
+        district.disabled = false;
+
+        return;
+    }
+
+
+    /* Add districts */
+
+    stateDistricts.forEach(function (districtName) {
 
         const option =
             document.createElement("option");
 
-        option.value = state;
+        option.value =
+            districtName;
 
-        option.textContent = state;
+        option.textContent =
+            districtName;
 
-        stateSelect.appendChild(option);
+        district.appendChild(option);
+
+    });
+
+
+    /* Enable district selector */
+
+    district.disabled = false;
+
+});
+
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+   ========================================================= */
+
+document
+    .querySelectorAll(".password-toggle")
+    .forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const targetId =
+                    this.dataset.target;
+
+                const input =
+                    document.getElementById(
+                        targetId
+                    );
+
+                if (!input) {
+                    return;
+                }
+
+
+                const showingPassword =
+                    input.type === "password";
+
+
+                input.type =
+                    showingPassword
+                        ? "text"
+                        : "password";
+
+
+                this.textContent =
+                    showingPassword
+                        ? "Hide"
+                        : "Show";
+
+
+                this.setAttribute(
+                    "aria-label",
+                    showingPassword
+                        ? "Hide password"
+                        : "Show password"
+                );
+
+            }
+        );
 
     });
 
 
 /* =========================================================
-   LOAD DISTRICTS
+   ERROR HELPERS
    ========================================================= */
 
-function loadDistricts(state) {
+function clearErrors() {
 
-    districtSelect.innerHTML = "";
+    document
+        .querySelectorAll(".field-error")
+        .forEach(function (element) {
 
-    const firstOption =
-        document.createElement("option");
+            element.textContent = "";
 
-    firstOption.value = "";
-
-    firstOption.textContent =
-        "Select District";
-
-    districtSelect.appendChild(
-        firstOption
-    );
+        });
 
 
-    const stateDistricts =
-        states[state] || [];
-
-
-    stateDistricts.forEach(
-        function (district) {
-
-            const option =
-                document.createElement("option");
-
-            option.value = district;
-
-            option.textContent = district;
-
-            districtSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    districtSelect.disabled =
-        stateDistricts.length === 0;
+    formMessage.textContent = "";
 
 }
 
 
-/* =========================================================
-   UPDATE REGION
-   ========================================================= */
+function setError(
+    elementId,
+    message
+) {
 
-function updateRegion() {
-
-    const state =
-        stateSelect.value;
-
-    const district =
-        districtSelect.value;
-
-
-    if (!state) {
-
-        regionDisplay.textContent =
-            "Select your region";
-
-        return;
-
-    }
-
-
-    if (!district) {
-
-        regionDisplay.textContent =
-            `${state}, India`;
-
-        return;
-
-    }
-
-
-    regionDisplay.textContent =
-        `${district}, ${state}, India`;
-
-}
-
-
-/* =========================================================
-   EVENTS
-   ========================================================= */
-
-stateSelect.addEventListener(
-    "change",
-    function () {
-
-        loadDistricts(
-            stateSelect.value
+    const element =
+        document.getElementById(
+            elementId
         );
 
-        updateRegion();
+
+    if (element) {
+
+        element.textContent =
+            message;
 
     }
-);
 
-
-districtSelect.addEventListener(
-    "change",
-    function () {
-
-        updateRegion();
-
-    }
-);
+}
 
 
 /* =========================================================
-   DEFAULT REGION
+   VALIDATION
    ========================================================= */
 
-stateSelect.value =
-    "Maharashtra";
+function validateSignup() {
 
-loadDistricts(
-    "Maharashtra"
+    clearErrors();
+
+    let valid = true;
+
+
+    const nameValue =
+        fullName.value.trim();
+
+    const mobileValue =
+        mobile.value.trim();
+
+    const passwordValue =
+        password.value;
+
+    const confirmValue =
+        confirmPassword.value;
+
+
+    if (nameValue.length < 2) {
+
+        setError(
+            "nameError",
+            "Please enter your full name."
+        );
+
+        valid = false;
+    }
+
+
+    if (!/^[6-9]\d{9}$/.test(mobileValue)) {
+
+        setError(
+            "mobileError",
+            "Enter a valid 10-digit Indian mobile number."
+        );
+
+        valid = false;
+    }
+
+
+    if (!state.value) {
+
+        setError(
+            "stateError",
+            "Please select your state or union territory."
+        );
+
+        valid = false;
+    }
+
+
+    if (!district.value) {
+
+        setError(
+            "districtError",
+            "Please select your district."
+        );
+
+        valid = false;
+    }
+
+
+    if (passwordValue.length < 6) {
+
+        setError(
+            "passwordError",
+            "Password must contain at least 6 characters."
+        );
+
+        valid = false;
+    }
+
+
+    if (confirmValue !== passwordValue) {
+
+        setError(
+            "confirmPasswordError",
+            "Passwords do not match."
+        );
+
+        valid = false;
+    }
+
+
+    return valid;
+
+}
+
+
+/* =========================================================
+   FORM SUBMISSION
+   ========================================================= */
+
+signupForm.addEventListener(
+    "submit",
+    function (event) {
+
+        event.preventDefault();
+
+
+        if (!validateSignup()) {
+            return;
+        }
+
+
+        const submitButton =
+            signupForm.querySelector(
+                ".submit-button"
+            );
+
+
+        submitButton.classList.add(
+            "loading"
+        );
+
+
+        /*
+            Store only the mobile number for the
+            frontend navigation flow.
+
+            Password is deliberately NOT stored.
+        */
+
+        sessionStorage.setItem(
+            "krishisetuSignupMobile",
+            mobile.value.trim()
+        );
+
+
+        /*
+            Move to login.
+        */
+
+        window.location.href =
+            "login.html";
+
+    }
 );
-
-districtSelect.value =
-    "Pune";
-
-updateRegion();

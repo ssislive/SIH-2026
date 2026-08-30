@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta
-        name="description"
-        content="Login to your KrishiSetu account."
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
     >
 
     <title>Login | KrishiSetu</title>
@@ -18,100 +16,58 @@
 
 <body>
 
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
-
-    <header class="login-header">
+    <header class="auth-header">
 
         <a href="index.html" class="brand">
 
-            <div class="brand-mark">
-                KS
-            </div>
+            <span class="brand-mark">KS</span>
 
-            <div class="brand-text">
-
-                <span class="brand-name">
-                    KrishiSetu
-                </span>
-
-                <span class="brand-tagline">
-                    Connecting farmers to opportunity
-                </span>
-
-            </div>
+            <span class="brand-text">
+                <strong>KrishiSetu</strong>
+                <small>Connecting Farmers to Opportunity</small>
+            </span>
 
         </a>
 
-
-        <a href="index.html" class="back-home">
+        <a href="index.html" class="back-link">
             ← Back to Home
         </a>
 
     </header>
 
 
-    <!-- =====================================================
-         LOGIN CONTENT
-         ===================================================== -->
+    <main class="auth-main">
 
-    <main class="login-page">
+        <section class="auth-card">
 
-        <section class="login-section">
+            <div class="auth-heading">
 
-            <!-- Small decorative agricultural element -->
-            <div class="top-decoration">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-
-            <div class="login-heading">
-
-                <p class="eyebrow">
-                    Welcome Back
+                <p class="section-label">
+                    WELCOME BACK
                 </p>
 
                 <h1>
-                    Welcome to
-                    <span>KrishiSetu</span>
+                    Login to
+                    <span>KrishiSetu.</span>
                 </h1>
 
-                <p class="login-intro">
-                    Login to access market prices, manage your
-                    produce and connect with buyers across India.
+                <p>
+                    Access market prices, manage your produce
+                    and connect with buyers.
                 </p>
 
             </div>
 
 
-            <!-- =================================================
-                 LOGIN FORM
-                 ================================================= -->
-
-            <!--
-                BACKEND CONNECTION:
-
-                The backend team will later connect this form
-                with the actual authentication API.
-
-                Do not add a fake API endpoint.
-            -->
-
-            <form id="loginForm" class="login-form">
-
-
-                <!-- Mobile number -->
+            <form id="loginForm" novalidate>
 
                 <div class="form-group">
 
-                    <label for="phone">
+                    <label for="mobile">
                         Mobile Number
                     </label>
 
-                    <div class="phone-input">
+                    <div class="input-wrapper">
 
                         <span class="country-code">
                             +91
@@ -119,19 +75,23 @@
 
                         <input
                             type="tel"
-                            id="phone"
-                            name="phone"
-                            placeholder="Enter your mobile number"
+                            id="mobile"
+                            name="mobile"
+                            inputmode="numeric"
                             maxlength="10"
-                            required
+                            autocomplete="tel"
+                            placeholder="Enter 10-digit mobile number"
                         >
 
                     </div>
 
+                    <small
+                        class="field-error"
+                        id="mobileError"
+                    ></small>
+
                 </div>
 
-
-                <!-- Password -->
 
                 <div class="form-group">
 
@@ -141,139 +101,90 @@
                             Password
                         </label>
 
-                        <a href="#" class="forgot-link">
+                        <a href="#" id="forgotPassword">
                             Forgot password?
                         </a>
 
                     </div>
 
-
-                    <div class="password-input">
+                    <div class="password-wrapper">
 
                         <input
                             type="password"
                             id="password"
                             name="password"
+                            autocomplete="current-password"
                             placeholder="Enter your password"
-                            required
                         >
 
                         <button
                             type="button"
-                            id="togglePassword"
                             class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Show password"
                         >
                             Show
                         </button>
 
                     </div>
 
+                    <small
+                        class="field-error"
+                        id="passwordError"
+                    ></small>
+
                 </div>
 
 
-                <!-- Remember me -->
-
-                <label class="remember-option">
-
-                    <input
-                        type="checkbox"
-                        id="rememberMe"
-                        name="rememberMe"
-                    >
-
-                    <span>
-                        Remember me
-                    </span>
-
-                </label>
-
-
-                <!-- Error / status message -->
-
-                <p
-                    id="loginMessage"
-                    class="login-message"
-                    aria-live="polite"
-                ></p>
-
-
-                <!-- Login -->
-
                 <button
                     type="submit"
-                    class="login-button"
+                    class="submit-button"
                 >
                     Login
                     <span>→</span>
                 </button>
 
+
+                <p
+                    class="form-message"
+                    id="formMessage"
+                    aria-live="polite"
+                ></p>
+
             </form>
 
 
-            <!-- =================================================
-                 REGISTER
-                 ================================================= -->
-
-            <div class="register-section">
-
-                <span>
-                    New to KrishiSetu?
-                </span>
-
-                <a href="#">
-                    Create an account
-                </a>
-
+            <div class="auth-divider">
+                <span>New to KrishiSetu?</span>
             </div>
 
 
-            <!-- =================================================
-                 PROTOTYPE INFORMATION
-                 ================================================= -->
-
-            <div class="prototype-note">
-
-                <span class="note-icon">
-                    i
-                </span>
-
-                <p>
-                    This is a prototype. Authentication will be
-                    connected with the backend.
-                </p>
-
-            </div>
+            <a
+                href="signup.html"
+                class="signup-button"
+            >
+                Create an Account
+            </a>
 
 
-            <!-- Small trust message -->
-
-            <div class="login-footer-message">
-
-                <span class="small-leaf">◆</span>
-
-                <span>
-                    Built for farmers across India
-                </span>
-
-            </div>
+            <p class="terms-text">
+                By continuing, you agree to use KrishiSetu
+                responsibly and provide accurate account information.
+            </p>
 
         </section>
 
     </main>
 
 
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
-
-    <footer class="site-footer">
+    <footer class="auth-footer">
 
         <span>
             © 2026 KrishiSetu
         </span>
 
         <span>
-            Built for Indian farmers
+            Built for India's agricultural community.
         </span>
 
     </footer>
