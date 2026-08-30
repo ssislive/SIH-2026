@@ -1,38 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Notifications | KrishiSetu</title>
 
-    <link rel="stylesheet" href="css/notifications.css">
+    <link
+        rel="stylesheet"
+        href="css/notifications.css"
+    >
 </head>
+
 
 <body>
 
 <div class="notifications-page">
 
-    <!-- HEADER -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
     <header class="site-header">
 
-        <a href="index.html" class="brand">
-            <span class="brand-mark">KS</span>
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <span class="brand-mark">
+                KS
+            </span>
 
             <span class="brand-text">
-                <strong>KrishiSetu</strong>
-                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+
+                <strong>
+                    KrishiSetu
+                </strong>
+
+                <small>
+                    CONNECTING FARMERS TO OPPORTUNITY
+                </small>
+
             </span>
+
         </a>
 
 
-        <nav class="main-nav" id="mainNav">
+        <nav
+            class="main-nav"
+            id="mainNav"
+        >
 
-            <a href="index.html">Home</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="market-prices.html">Market Prices</a>
-            <a href="sell-produce.html">Sell Produce</a>
-            <a href="support.html">Support</a>
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="market-prices.html">
+                Market Prices
+            </a>
+
+            <a href="sell-produce.html">
+                Sell Produce
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
 
         </nav>
 
@@ -48,9 +90,11 @@
                 <span></span>
             </a>
 
+
             <a
                 href="profile.html"
                 class="profile-button"
+                id="profileButton"
                 aria-label="Profile"
             >
                 F
@@ -59,6 +103,8 @@
         </div>
 
 
+        <!-- MOBILE MENU -->
+
         <button
             type="button"
             class="menu-button"
@@ -66,17 +112,23 @@
             aria-label="Open navigation"
             aria-expanded="false"
         >
+
             <span></span>
             <span></span>
             <span></span>
+
         </button>
 
     </header>
 
 
+
     <main>
 
-        <!-- INTRO -->
+        <!-- =================================================
+             INTRO
+             ================================================= -->
+
         <section class="notifications-intro">
 
             <div class="intro-copy">
@@ -85,11 +137,13 @@
                     YOUR UPDATES
                 </p>
 
-                <h1>
+
+                <h1 id="notificationHeading">
                     Notifications.
                 </h1>
 
-                <p>
+
+                <p id="notificationDescription">
                     Stay informed about your produce,
                     buyers, market activity and important
                     KrishiSetu updates.
@@ -109,42 +163,19 @@
         </section>
 
 
-        <!-- FILTERS -->
+
+        <!-- =================================================
+             FILTERS
+             ================================================= -->
+
         <section class="notification-controls">
 
-            <div class="filter-wrap">
+            <div
+                class="filter-wrap"
+                id="filterWrap"
+            >
 
-                <button
-                    type="button"
-                    class="notification-filter active"
-                    data-filter="all"
-                >
-                    All
-                </button>
-
-                <button
-                    type="button"
-                    class="notification-filter"
-                    data-filter="unread"
-                >
-                    Unread
-                </button>
-
-                <button
-                    type="button"
-                    class="notification-filter"
-                    data-filter="market"
-                >
-                    Market
-                </button>
-
-                <button
-                    type="button"
-                    class="notification-filter"
-                    data-filter="selling"
-                >
-                    Selling
-                </button>
+                <!-- JS populates filters -->
 
             </div>
 
@@ -162,16 +193,23 @@
         </section>
 
 
-        <!-- NOTIFICATION LIST -->
+
+        <!-- =================================================
+             NOTIFICATION LIST
+             ================================================= -->
+
         <section
             class="notification-flow"
             id="notificationList"
         >
-
         </section>
 
 
-        <!-- EMPTY STATE -->
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
         <section
             class="empty-state"
             id="emptyState"
@@ -182,11 +220,13 @@
                 ✓
             </div>
 
+
             <h2>
                 You're all caught up.
             </h2>
 
-            <p>
+
+            <p id="emptyMessage">
                 There are no notifications to show here right now.
             </p>
 
@@ -200,4 +240,5 @@
 <script src="js/notifications.js"></script>
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,31 +14,47 @@
 
 <div class="support-page">
 
-    <!-- ================= HEADER ================= -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <header class="site-header">
 
         <a href="index.html" class="brand">
-            <span class="brand-mark">KS</span>
+
+            <span class="brand-mark">
+                KS
+            </span>
 
             <span class="brand-text">
                 <strong>KrishiSetu</strong>
                 <small>CONNECTING FARMERS TO OPPORTUNITY</small>
             </span>
+
         </a>
 
 
         <nav class="main-nav" id="mainNav">
 
-            <a href="index.html">Home</a>
+            <a href="index.html">
+                Home
+            </a>
 
-            <a href="dashboard.html">Dashboard</a>
+            <a href="dashboard.html">
+                Dashboard
+            </a>
 
-            <a href="market-prices.html">Market Prices</a>
+            <a href="market-prices.html">
+                Market Prices
+            </a>
 
-            <a href="sell-produce.html">Sell Produce</a>
+            <a href="sell-produce.html" id="sellNavLink">
+                Sell Produce
+            </a>
 
-            <a href="support.html" class="active">Support</a>
+            <a href="support.html" class="active">
+                Support
+            </a>
 
         </nav>
 
@@ -56,6 +73,7 @@
             <a
                 href="profile.html"
                 class="profile-button"
+                id="profileButton"
                 aria-label="Profile"
             >
                 F
@@ -63,8 +81,6 @@
 
         </div>
 
-
-        <!-- MOBILE MENU -->
 
         <button
             class="menu-button"
@@ -83,7 +99,9 @@
 
     <main>
 
-        <!-- ================= INTRO ================= -->
+        <!-- =================================================
+             INTRO
+             ================================================= -->
 
         <section class="support-intro">
 
@@ -91,37 +109,42 @@
                 KRISHISETU SUPPORT
             </p>
 
-            <h1>
+            <h1 id="supportTitle">
                 We're here to<br>
                 <span>help you.</span>
             </h1>
 
-            <p>
+            <p id="supportDescription">
                 Get help with your account, market information,
-                produce listings or anything else you need while
-                using KrishiSetu.
+                listings and anything else you need while using
+                KrishiSetu.
             </p>
 
         </section>
 
 
-        <!-- ================= QUICK HELP ================= -->
+        <!-- =================================================
+             QUICK HELP
+             ================================================= -->
 
-        <section class="quick-help">
+        <section class="quick-help" id="quickHelp">
+
+
+            <!-- FARMER / BUYER CONTENT IS FILLED BY JS -->
 
             <article class="help-card">
 
-                <div class="help-icon">
+                <div class="help-icon" id="helpIconOne">
                     ?
                 </div>
 
                 <div>
 
-                    <h2>
+                    <h2 id="helpTitleOne">
                         Account Help
                     </h2>
 
-                    <p>
+                    <p id="helpTextOne">
                         Need help with your profile, login or
                         account information?
                     </p>
@@ -133,17 +156,17 @@
 
             <article class="help-card">
 
-                <div class="help-icon">
+                <div class="help-icon" id="helpIconTwo">
                     ₹
                 </div>
 
                 <div>
 
-                    <h2>
+                    <h2 id="helpTitleTwo">
                         Market Prices
                     </h2>
 
-                    <p>
+                    <p id="helpTextTwo">
                         Having trouble understanding market prices
                         or crop information?
                     </p>
@@ -155,19 +178,19 @@
 
             <article class="help-card">
 
-                <div class="help-icon">
+                <div class="help-icon" id="helpIconThree">
                     +
                 </div>
 
                 <div>
 
-                    <h2>
-                        Selling Produce
+                    <h2 id="helpTitleThree">
+                        General Help
                     </h2>
 
-                    <p>
-                        Need assistance with listing your produce
-                        or finding buyers?
+                    <p id="helpTextThree">
+                        Tell us what you need help with and we'll
+                        point you in the right direction.
                     </p>
 
                 </div>
@@ -177,115 +200,47 @@
         </section>
 
 
-        <!-- ================= MAIN SUPPORT AREA ================= -->
+        <!-- =================================================
+             MAIN SUPPORT AREA
+             ================================================= -->
 
         <section class="support-layout">
 
 
-            <!-- ================= FAQ ================= -->
+            <!-- =================================================
+                 FAQ
+                 ================================================= -->
 
             <article class="faq-card">
 
                 <div class="card-heading">
 
                     <p class="section-label">
-                        COMMON QUESTIONS
+                        <span id="faqLabel">
+                            COMMON QUESTIONS
+                        </span>
                     </p>
 
-                    <h2>
+                    <h2 id="faqHeading">
                         Frequently asked questions
                     </h2>
 
                 </div>
 
 
-                <div class="faq-list">
-
-                    <details class="faq-item">
-
-                        <summary>
-                            How do I update my profile?
-                            <span>+</span>
-                        </summary>
-
-                        <p>
-                            Open your Profile page and select
-                            Edit Profile. You can update your
-                            personal and farming information there.
-                        </p>
-
-                    </details>
+                <div class="faq-list" id="faqList">
 
 
-                    <details class="faq-item">
-
-                        <summary>
-                            How can I check market prices?
-                            <span>+</span>
-                        </summary>
-
-                        <p>
-                            Open Market Prices from the navigation
-                            menu to explore crop prices and filter
-                            information according to your needs.
-                        </p>
-
-                    </details>
-
-
-                    <details class="faq-item">
-
-                        <summary>
-                            How do I sell my produce?
-                            <span>+</span>
-                        </summary>
-
-                        <p>
-                            Use Sell Produce to create a listing
-                            containing your crop, quantity and
-                            other relevant information.
-                        </p>
-
-                    </details>
-
-
-                    <details class="faq-item">
-
-                        <summary>
-                            How can I contact a buyer?
-                            <span>+</span>
-                        </summary>
-
-                        <p>
-                            Buyers and selling opportunities can
-                            be explored through the relevant
-                            marketplace sections of KrishiSetu.
-                        </p>
-
-                    </details>
-
-
-                    <details class="faq-item">
-
-                        <summary>
-                            What if I find incorrect information?
-                            <span>+</span>
-                        </summary>
-
-                        <p>
-                            Send us a support request using the
-                            form on this page and describe the
-                            issue clearly.
-                        </p>
-
-                    </details>
+                    <!-- FAQ ITEMS ARE GENERATED BY JS -->
 
                 </div>
 
             </article>
 
 
-            <!-- ================= CONTACT FORM ================= -->
+            <!-- =================================================
+                 CONTACT SUPPORT
+                 ================================================= -->
 
             <article class="contact-card">
 
@@ -295,11 +250,11 @@
                         CONTACT SUPPORT
                     </p>
 
-                    <h2>
+                    <h2 id="contactHeading">
                         Tell us what you need.
                     </h2>
 
-                    <p>
+                    <p id="contactDescription">
                         Submit your question or issue and our
                         support team can assist you.
                     </p>
@@ -340,6 +295,8 @@
                             id="supportPhone"
                             name="phone"
                             type="tel"
+                            inputmode="numeric"
+                            maxlength="10"
                             placeholder="Enter your mobile number"
                             autocomplete="tel"
                             required
@@ -364,25 +321,7 @@
                                 Select a category
                             </option>
 
-                            <option value="Account">
-                                Account
-                            </option>
-
-                            <option value="Market Prices">
-                                Market Prices
-                            </option>
-
-                            <option value="Selling Produce">
-                                Selling Produce
-                            </option>
-
-                            <option value="Buyers">
-                                Buyers
-                            </option>
-
-                            <option value="Other">
-                                Other
-                            </option>
+                            <!-- OPTIONS ARE SET BY JS -->
 
                         </select>
 
@@ -399,6 +338,7 @@
                             id="supportSubject"
                             name="subject"
                             type="text"
+                            maxlength="120"
                             placeholder="Briefly describe the issue"
                             required
                         >
@@ -416,6 +356,7 @@
                             id="supportMessage"
                             name="message"
                             rows="5"
+                            maxlength="1000"
                             placeholder="Tell us how we can help..."
                             required
                         ></textarea>
@@ -427,7 +368,15 @@
                         type="submit"
                         class="submit-button"
                     >
-                        Send Support Request →
+
+                        <span class="button-text">
+                            Send Support Request
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
                     </button>
 
 
@@ -444,21 +393,25 @@
         </section>
 
 
-        <!-- ================= SUPPORT NOTE ================= -->
+        <!-- =================================================
+             SUPPORT NOTE
+             ================================================= -->
 
         <section class="support-note">
 
             <div>
 
                 <p class="section-label">
-                    KRISHISETU
+                    <span id="noteLabel">
+                        KRISHISETU
+                    </span>
                 </p>
 
-                <h2>
+                <h2 id="noteHeading">
                     Need help with something else?
                 </h2>
 
-                <p>
+                <p id="noteDescription">
                     Tell us what is happening and we'll help
                     you find the right direction.
                 </p>
