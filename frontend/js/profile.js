@@ -10,6 +10,14 @@
 
        sessionStorage.getItem("krishisetuUserRole")
 
+   IMPORTANT:
+
+       This page ONLY READS the current role.
+
+       It NEVER changes:
+
+           krishisetuUserRole
+
    FUTURE BACKEND:
 
        GET  /api/profile
@@ -399,10 +407,6 @@ const stateDistricts = {
 
 /* =========================================================
    DEMO PROFILE DATA
-
-   TEMPORARY FRONTEND DATA ONLY.
-
-   Backend will eventually replace this.
    ========================================================= */
 
 const demoUsers = {
@@ -484,17 +488,18 @@ const demoUsers = {
 
 /* =========================================================
    CURRENT ROLE
+   =========================================================
 
    IMPORTANT:
 
-   Login currently stores:
+   The profile page READS the role stored during login.
 
-       krishisetuUserRole
+   It does NOT change it.
 
-   Therefore profile reads the same session value.
+   Valid values:
 
-   If nothing exists, farmer is used only as a safe
-   frontend fallback.
+       farmer
+       buyer
    ========================================================= */
 
 const storedRole =
@@ -504,15 +509,51 @@ const storedRole =
 
 
 let currentRole =
+    storedRole === "farmer" ||
     storedRole === "buyer"
-        ? "buyer"
-        : "farmer";
+        ? storedRole
+        : "unknown";
 
 
-let profileData =
-    {
+/* =========================================================
+   PROFILE DATA
+   ========================================================= */
+
+let profileData;
+
+
+if (
+    currentRole === "farmer" ||
+    currentRole === "buyer"
+) {
+
+    profileData = {
         ...demoUsers[currentRole]
     };
+
+} else {
+
+    profileData = {
+
+        role: "unknown",
+
+        name: "User",
+
+        phone: "",
+
+        email: "",
+
+        state: "",
+
+        district: "",
+
+        memberSince: "",
+
+        verificationStatus: "Not verified"
+
+    };
+
+}
 
 
 /* =========================================================
@@ -579,6 +620,11 @@ const headerProfileButton =
         "headerProfileButton"
     );
 
+const brandLink =
+    document.getElementById(
+        "brandLink"
+    );
+
 
 /* =========================================================
    POPULATE STATES
@@ -586,7 +632,13 @@ const headerProfileButton =
 
 function populateStates() {
 
+    if (!editState) {
+        return;
+    }
+
+
     editState.innerHTML = "";
+
 
     Object.keys(stateDistricts)
         .sort()
@@ -623,7 +675,13 @@ function populateDistricts(
     selectedDistrict = ""
 ) {
 
+    if (!editDistrict) {
+        return;
+    }
+
+
     editDistrict.innerHTML = "";
+
 
     const districts =
         stateDistricts[
@@ -726,30 +784,108 @@ function addDetail(
 
 function renderNavigation(data) {
 
+    /*
+     * =====================================================
+     * FARMER
+     * =====================================================
+     */
+
     if (data.role === "farmer") {
 
         dashboardLink.href =
             "dashboard.html";
 
+        dashboardLink.textContent =
+            "Dashboard";
+
+
+        /*
+         * Common marketplace page.
+         *
+         * lots.html itself decides what interface to show
+         * based on krishisetuUserRole.
+         */
+
         roleActionLink.href =
-            "sell-produce.html";
+            "lots.html";
 
         roleActionLink.textContent =
-            "Sell Produce";
+            "Produce";
 
-    } else {
+
+        brandLink.href =
+            "dashboard.html";
+
+    }
+
+
+    /*
+     * =====================================================
+     * BUYER
+     * =====================================================
+     */
+
+    else if (data.role === "buyer") {
 
         dashboardLink.href =
             "buyer-dashboard.html";
 
+        dashboardLink.textContent =
+            "Dashboard";
+
+
+        /*
+         * Same common lots page.
+         *
+         * It must remain buyer-aware.
+         */
+
         roleActionLink.href =
-            "buyers.html";
+            "lots.html";
 
         roleActionLink.textContent =
-            "Find Produce";
+            "Produce";
+
+
+        brandLink.href =
+            "buyer-dashboard.html";
 
     }
 
+
+    /*
+     * =====================================================
+     * UNKNOWN
+     * =====================================================
+     */
+
+    else {
+
+        dashboardLink.href =
+            "#";
+
+        dashboardLink.textContent =
+            "Dashboard";
+
+
+        roleActionLink.href =
+            "lots.html";
+
+        roleActionLink.textContent =
+            "Marketplace";
+
+
+        brandLink.href =
+            "index.html";
+
+    }
+
+
+    /*
+     * =====================================================
+     * HEADER PROFILE INITIAL
+     * =====================================================
+     */
 
     headerProfileButton.textContent =
         data.name
@@ -838,7 +974,10 @@ function renderRoleDetails(data) {
                 : "—"
         );
 
-    } else {
+    }
+
+
+    else if (data.role === "buyer") {
 
         label.textContent =
             "BUYING INFORMATION";
@@ -905,67 +1044,77 @@ function renderProfile(data) {
     document.getElementById(
         "profileName"
     ).textContent =
-        data.name;
+        data.name || "User";
 
 
     document.getElementById(
         "profileLocation"
     ).textContent =
-        `${data.district}, ${data.state}`;
+        data.district && data.state
+            ? `${data.district}, ${data.state}`
+            : "Location";
 
 
     document.getElementById(
         "profileMemberSince"
     ).textContent =
-        data.memberSince;
+        data.memberSince || "—";
 
 
     document.getElementById(
         "roleBadge"
     ).textContent =
-        data.role;
+        data.role === "farmer"
+            ? "Farmer"
+            : data.role === "buyer"
+                ? "Buyer"
+                : "User";
 
 
     document.getElementById(
         "detailName"
     ).textContent =
-        data.name;
+        data.name || "—";
 
 
     document.getElementById(
         "detailPhone"
     ).textContent =
-        data.phone;
+        data.phone || "—";
 
 
     document.getElementById(
         "detailEmail"
     ).textContent =
-        data.email;
+        data.email || "—";
 
 
     document.getElementById(
         "detailRole"
     ).textContent =
-        data.role;
+        data.role === "farmer"
+            ? "Farmer"
+            : data.role === "buyer"
+                ? "Buyer"
+                : "—";
 
 
     document.getElementById(
         "detailState"
     ).textContent =
-        data.state;
+        data.state || "—";
 
 
     document.getElementById(
         "detailDistrict"
     ).textContent =
-        data.district;
+        data.district || "—";
 
 
     document.getElementById(
         "verificationStatus"
     ).textContent =
-        data.verificationStatus;
+        data.verificationStatus || "—";
 
 
     const introText =
@@ -979,10 +1128,19 @@ function renderProfile(data) {
         introText.textContent =
             "Keep your farming information updated so buyers can understand what you grow and what you can supply.";
 
-    } else {
+    }
+
+    else if (data.role === "buyer") {
 
         introText.textContent =
             "Keep your buying information updated so farmers can understand what produce you are looking for.";
+
+    }
+
+    else {
+
+        introText.textContent =
+            "Keep your information up to date.";
 
     }
 
@@ -1010,13 +1168,25 @@ function renderEditFields(data) {
         buyerEditBlock.style.display =
             "none";
 
-    } else {
+    }
+
+    else if (data.role === "buyer") {
 
         farmerEditBlock.style.display =
             "none";
 
         buyerEditBlock.style.display =
             "";
+
+    }
+
+    else {
+
+        farmerEditBlock.style.display =
+            "none";
+
+        buyerEditBlock.style.display =
+            "none";
 
     }
 
@@ -1048,7 +1218,7 @@ function openEditModal() {
 
 
     editState.value =
-        profileData.state;
+        profileData.state || "";
 
 
     populateDistricts(
@@ -1057,7 +1227,9 @@ function openEditModal() {
     );
 
 
-    /* FARMER */
+    /*
+     * FARMER
+     */
 
     if (
         profileData.role === "farmer"
@@ -1097,7 +1269,9 @@ function openEditModal() {
     }
 
 
-    /* BUYER */
+    /*
+     * BUYER
+     */
 
     if (
         profileData.role === "buyer"
@@ -1164,212 +1338,252 @@ function closeEditModal() {
    BUTTON EVENTS
    ========================================================= */
 
-editProfileButton.addEventListener(
-    "click",
-    openEditModal
-);
+if (editProfileButton) {
+
+    editProfileButton.addEventListener(
+        "click",
+        openEditModal
+    );
+
+}
 
 
-closeModalButton.addEventListener(
-    "click",
-    closeEditModal
-);
+if (closeModalButton) {
+
+    closeModalButton.addEventListener(
+        "click",
+        closeEditModal
+    );
+
+}
 
 
-cancelEditButton.addEventListener(
-    "click",
-    closeEditModal
-);
+if (cancelEditButton) {
+
+    cancelEditButton.addEventListener(
+        "click",
+        closeEditModal
+    );
+
+}
 
 
-/* Click outside modal */
+/* =========================================================
+   CLICK OUTSIDE MODAL
+   ========================================================= */
 
-editModal.addEventListener(
-    "click",
-    function (event) {
+if (editModal) {
 
-        if (
-            event.target === editModal
-        ) {
+    editModal.addEventListener(
+        "click",
+        function (event) {
 
-            closeEditModal();
+            if (
+                event.target === editModal
+            ) {
+
+                closeEditModal();
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
 /* =========================================================
    STATE → DISTRICT
    ========================================================= */
 
-editState.addEventListener(
-    "change",
-    function () {
+if (editState) {
 
-        populateDistricts(
-            editState.value
-        );
+    editState.addEventListener(
+        "change",
+        function () {
 
-    }
-);
+            populateDistricts(
+                editState.value
+            );
+
+        }
+    );
+
+}
 
 
 /* =========================================================
    SAVE PROFILE
    ========================================================= */
 
-profileForm.addEventListener(
-    "submit",
-    function (event) {
+if (profileForm) {
 
-        event.preventDefault();
+    profileForm.addEventListener(
+        "submit",
+        function (event) {
 
-
-        /* COMMON INFORMATION */
-
-        profileData.name =
-            document.getElementById(
-                "editName"
-            ).value.trim();
+            event.preventDefault();
 
 
-        profileData.phone =
-            document.getElementById(
-                "editPhone"
-            ).value.trim();
+            /*
+             * COMMON INFORMATION
+             */
 
-
-        profileData.email =
-            document.getElementById(
-                "editEmail"
-            ).value.trim();
-
-
-        profileData.state =
-            editState.value;
-
-
-        profileData.district =
-            editDistrict.value;
-
-
-        /* FARMER */
-
-        if (
-            profileData.role === "farmer"
-        ) {
-
-            profileData.farmSize =
+            profileData.name =
                 document.getElementById(
-                    "editFarmSize"
-                ).value;
-
-
-            profileData.experience =
-                document.getElementById(
-                    "editExperience"
-                ).value;
-
-
-            profileData.preferredSeason =
-                document.getElementById(
-                    "editSeason"
-                ).value;
-
-
-            profileData.typicalQuantity =
-                document.getElementById(
-                    "editQuantity"
+                    "editName"
                 ).value.trim();
 
 
-            profileData.crops =
+            profileData.phone =
                 document.getElementById(
-                    "editCrops"
-                ).value
-                    .split(",")
-                    .map(
-                        function (crop) {
-                            return crop.trim();
-                        }
-                    )
-                    .filter(
-                        function (crop) {
-                            return crop.length > 0;
-                        }
-                    );
+                    "editPhone"
+                ).value.trim();
+
+
+            profileData.email =
+                document.getElementById(
+                    "editEmail"
+                ).value.trim();
+
+
+            profileData.state =
+                editState.value;
+
+
+            profileData.district =
+                editDistrict.value;
+
+
+            /*
+             * FARMER
+             */
+
+            if (
+                profileData.role === "farmer"
+            ) {
+
+                profileData.farmSize =
+                    document.getElementById(
+                        "editFarmSize"
+                    ).value;
+
+
+                profileData.experience =
+                    document.getElementById(
+                        "editExperience"
+                    ).value;
+
+
+                profileData.preferredSeason =
+                    document.getElementById(
+                        "editSeason"
+                    ).value;
+
+
+                profileData.typicalQuantity =
+                    document.getElementById(
+                        "editQuantity"
+                    ).value.trim();
+
+
+                profileData.crops =
+                    document.getElementById(
+                        "editCrops"
+                    ).value
+                        .split(",")
+                        .map(
+                            function (crop) {
+
+                                return crop.trim();
+
+                            }
+                        )
+                        .filter(
+                            function (crop) {
+
+                                return crop.length > 0;
+
+                            }
+                        );
+
+            }
+
+
+            /*
+             * BUYER
+             */
+
+            if (
+                profileData.role === "buyer"
+            ) {
+
+                profileData.businessName =
+                    document.getElementById(
+                        "editBusinessName"
+                    ).value.trim();
+
+
+                profileData.purchaseRequirement =
+                    document.getElementById(
+                        "editRequirement"
+                    ).value.trim();
+
+
+                profileData.preferredCategory =
+                    document.getElementById(
+                        "editCategory"
+                    ).value;
+
+
+                profileData.preferredProduce =
+                    document.getElementById(
+                        "editProduce"
+                    ).value
+                        .split(",")
+                        .map(
+                            function (produce) {
+
+                                return produce.trim();
+
+                            }
+                        )
+                        .filter(
+                            function (produce) {
+
+                                return produce.length > 0;
+
+                            }
+                        );
+
+            }
+
+
+            /*
+             * IMPORTANT:
+             *
+             * We do NOT change:
+             *
+             * sessionStorage.setItem(
+             *     "krishisetuUserRole",
+             *     ...
+             * );
+             *
+             * The role belongs to the logged-in session.
+             */
+
+
+            renderProfile(
+                profileData
+            );
+
+
+            closeEditModal();
 
         }
+    );
 
-
-        /* BUYER */
-
-        if (
-            profileData.role === "buyer"
-        ) {
-
-            profileData.businessName =
-                document.getElementById(
-                    "editBusinessName"
-                ).value.trim();
-
-
-            profileData.purchaseRequirement =
-                document.getElementById(
-                    "editRequirement"
-                ).value.trim();
-
-
-            profileData.preferredCategory =
-                document.getElementById(
-                    "editCategory"
-                ).value;
-
-
-            profileData.preferredProduce =
-                document.getElementById(
-                    "editProduce"
-                ).value
-                    .split(",")
-                    .map(
-                        function (produce) {
-                            return produce.trim();
-                        }
-                    )
-                    .filter(
-                        function (produce) {
-                            return produce.length > 0;
-                        }
-                    );
-
-        }
-
-
-        /* =================================================
-           FRONTEND DEMO SAVE COMPLETE
-
-           FUTURE BACKEND:
-
-           PUT /api/profile
-
-           Backend should identify the user from the
-           authenticated session/token.
-
-           Do NOT trust a user ID sent by frontend.
-           ================================================= */
-
-
-        renderProfile(
-            profileData
-        );
-
-
-        closeEditModal();
-
-    }
-);
+}
 
 
 /* =========================================================
@@ -1382,6 +1596,7 @@ document.addEventListener(
 
         if (
             event.key === "Escape" &&
+            editModal &&
             !editModal.hidden
         ) {
 
@@ -1405,9 +1620,20 @@ renderProfile(
 
 
 /* =========================================================
-   BACKEND HANDOFF EXAMPLE
+   BACKEND HANDOFF
+   =========================================================
 
-   Later replace demoUsers/session logic with:
+   Later replace the demo profile loading with:
+
+       GET /api/profile
+
+   The backend should identify the user from the
+   authenticated session/token.
+
+   The frontend should NOT send a user ID and ask
+   the backend to load somebody else's profile.
+
+   Example:
 
    async function loadProfile() {
 
@@ -1415,9 +1641,11 @@ renderProfile(
            await fetch("/api/profile");
 
        if (!response.ok) {
+
            throw new Error(
                "Unable to load profile"
            );
+
        }
 
        profileData =
@@ -1429,8 +1657,11 @@ renderProfile(
        renderProfile(
            profileData
        );
+
    }
 
+
+   Save:
 
    async function saveProfile(data) {
 
@@ -1451,12 +1682,15 @@ renderProfile(
            );
 
        if (!response.ok) {
+
            throw new Error(
                "Unable to save profile"
            );
+
        }
 
        return response.json();
+
    }
 
    ========================================================= */

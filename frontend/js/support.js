@@ -8,8 +8,28 @@ ROLE-AWARE FRONTEND
 ROLE
 ========================================================= */
 
+const storedRole =
+    sessionStorage.getItem("krishisetuUserRole");
+
+const signupRole =
+    sessionStorage.getItem("krishisetuSignupRole");
+
+
+/*
+ * Login role has priority.
+ *
+ * We only READ the role here.
+ * We do NOT change the stored role.
+ */
+
 const userRole =
-    sessionStorage.getItem("krishisetuUserRole") || "";
+    storedRole === "buyer" || storedRole === "farmer"
+        ? storedRole
+        : (
+            signupRole === "buyer" || signupRole === "farmer"
+                ? signupRole
+                : ""
+        );
 
 
 /* =========================================================
@@ -93,6 +113,119 @@ const noteDescription =
 
 
 /* =========================================================
+ROLE-AWARE NAVIGATION
+========================================================= */
+
+function setupNavigation() {
+
+    /* =====================================================
+       FARMER
+       ===================================================== */
+
+    if (userRole === "farmer") {
+
+        if (dashboardNavLink) {
+
+            dashboardNavLink.href =
+                "dashboard.html";
+
+        }
+
+
+        if (sellNavLink) {
+
+            sellNavLink.href =
+                "lots.html";
+
+            sellNavLink.textContent =
+                "Produce";
+
+        }
+
+
+        if (profileInitial) {
+
+            profileInitial.textContent =
+                "F";
+
+        }
+
+
+        return;
+    }
+
+
+    /* =====================================================
+       BUYER
+       ===================================================== */
+
+    if (userRole === "buyer") {
+
+        if (dashboardNavLink) {
+
+            dashboardNavLink.href =
+                "buyer-dashboard.html";
+
+        }
+
+
+        if (sellNavLink) {
+
+            sellNavLink.href =
+                "lots.html";
+
+            sellNavLink.textContent =
+                "Produce";
+
+        }
+
+
+        if (profileInitial) {
+
+            profileInitial.textContent =
+                "B";
+
+        }
+
+
+        return;
+    }
+
+
+    /* =====================================================
+       NO ROLE
+       ===================================================== */
+
+    if (dashboardNavLink) {
+
+        dashboardNavLink.href =
+            "index.html";
+
+    }
+
+
+    if (sellNavLink) {
+
+        sellNavLink.href =
+            "lots.html";
+
+        sellNavLink.textContent =
+            "Produce";
+
+    }
+
+
+    if (profileInitial) {
+
+        profileInitial.textContent =
+            "F";
+
+    }
+
+}
+
+
+/* =========================================================
 MOBILE NAVIGATION
 ========================================================= */
 
@@ -105,6 +238,7 @@ if (menuButton && mainNav) {
             const isOpen =
                 mainNav.classList.toggle("open");
 
+
             menuButton.setAttribute(
                 "aria-expanded",
                 String(isOpen)
@@ -114,24 +248,30 @@ if (menuButton && mainNav) {
     );
 
 
-    mainNav.querySelectorAll("a")
-        .forEach(link => {
+    mainNav
+        .querySelectorAll("a")
+        .forEach(
+            link => {
 
-            link.addEventListener(
-                "click",
-                () => {
+                link.addEventListener(
+                    "click",
+                    () => {
 
-                    mainNav.classList.remove("open");
+                        mainNav.classList.remove(
+                            "open"
+                        );
 
-                    menuButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
 
-                }
-            );
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
 
-        });
+                    }
+                );
+
+            }
+        );
 
 }
 
@@ -263,11 +403,12 @@ function setupRoleContent() {
 
     if (userRole === "farmer") {
 
-        profileInitial.textContent =
-            "F";
+        if (profileInitial) {
 
-        dashboardNavLink.href =
-            "farmer-dashboard.html";
+            profileInitial.textContent =
+                "F";
+
+        }
 
 
         supportTitle.innerHTML =
@@ -281,8 +422,10 @@ function setupRoleContent() {
         helpIconOne.textContent =
             "+";
 
+
         helpTitleOne.textContent =
             "Sell Produce";
+
 
         helpTextOne.textContent =
             "Need help creating, updating or managing your produce listings?";
@@ -291,8 +434,10 @@ function setupRoleContent() {
         helpIconTwo.textContent =
             "₹";
 
+
         helpTitleTwo.textContent =
             "Market Prices";
+
 
         helpTextTwo.textContent =
             "Understand crop prices and use market information when deciding your selling price.";
@@ -301,8 +446,10 @@ function setupRoleContent() {
         helpIconThree.textContent =
             "?";
 
+
         helpTitleThree.textContent =
             "Find Buyers";
+
 
         helpTextThree.textContent =
             "Need help understanding how buyers discover and enquire about your produce?";
@@ -349,11 +496,12 @@ function setupRoleContent() {
 
     if (userRole === "buyer") {
 
-        profileInitial.textContent =
-            "B";
+        if (profileInitial) {
 
-        dashboardNavLink.href =
-            "buyer-dashboard.html";
+            profileInitial.textContent =
+                "B";
+
+        }
 
 
         supportTitle.innerHTML =
@@ -367,8 +515,10 @@ function setupRoleContent() {
         helpIconOne.textContent =
             "⌕";
 
+
         helpTitleOne.textContent =
             "Find Produce";
+
 
         helpTextOne.textContent =
             "Need help finding the right crop, quantity or produce listing?";
@@ -377,8 +527,10 @@ function setupRoleContent() {
         helpIconTwo.textContent =
             "₹";
 
+
         helpTitleTwo.textContent =
             "Market Prices";
+
 
         helpTextTwo.textContent =
             "Compare crop prices and understand market information before making a purchase.";
@@ -387,8 +539,10 @@ function setupRoleContent() {
         helpIconThree.textContent =
             "?";
 
+
         helpTitleThree.textContent =
             "Contact Farmers";
+
 
         helpTextThree.textContent =
             "Need help contacting a farmer or enquiring about available produce?";
@@ -433,11 +587,12 @@ function setupRoleContent() {
        NO ROLE / GENERAL
        ===================================================== */
 
-    profileInitial.textContent =
-        "F";
+    if (profileInitial) {
 
-    dashboardNavLink.href =
-        "index.html";
+        profileInitial.textContent =
+            "F";
+
+    }
 
 
     supportDescription.textContent =
@@ -447,8 +602,10 @@ function setupRoleContent() {
     helpIconOne.textContent =
         "?";
 
+
     helpTitleOne.textContent =
         "Account Help";
+
 
     helpTextOne.textContent =
         "Need help with your profile, login or account information?";
@@ -457,8 +614,10 @@ function setupRoleContent() {
     helpIconTwo.textContent =
         "₹";
 
+
     helpTitleTwo.textContent =
         "Market Prices";
+
 
     helpTextTwo.textContent =
         "Having trouble understanding market prices or crop information?";
@@ -467,8 +626,10 @@ function setupRoleContent() {
     helpIconThree.textContent =
         "+";
 
+
     helpTitleThree.textContent =
         "Marketplace Help";
+
 
     helpTextThree.textContent =
         "Need help buying produce or creating a produce listing?";
@@ -498,14 +659,18 @@ function setupCategories(categories) {
 
     supportCategory.innerHTML = "";
 
+
     const defaultOption =
         document.createElement("option");
+
 
     defaultOption.value =
         "";
 
+
     defaultOption.textContent =
         "Select a category";
+
 
     supportCategory.appendChild(
         defaultOption
@@ -518,11 +683,14 @@ function setupCategories(categories) {
             const option =
                 document.createElement("option");
 
+
             option.value =
                 category;
 
+
             option.textContent =
                 category;
+
 
             supportCategory.appendChild(
                 option
@@ -547,21 +715,30 @@ function renderFAQs(faqs) {
         faq => {
 
             const details =
-                document.createElement("details");
+                document.createElement(
+                    "details"
+                );
+
 
             details.className =
                 "faq-item";
 
 
             const summary =
-                document.createElement("summary");
+                document.createElement(
+                    "summary"
+                );
+
 
             summary.textContent =
                 faq.question;
 
 
             const icon =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
+
 
             icon.textContent =
                 "+";
@@ -573,7 +750,10 @@ function renderFAQs(faqs) {
 
 
             const answer =
-                document.createElement("p");
+                document.createElement(
+                    "p"
+                );
+
 
             answer.textContent =
                 faq.answer;
@@ -582,6 +762,7 @@ function renderFAQs(faqs) {
             details.appendChild(
                 summary
             );
+
 
             details.appendChild(
                 answer
@@ -613,6 +794,7 @@ if (supportForm) {
 
             formStatus.textContent =
                 "";
+
 
             formStatus.className =
                 "form-status";
@@ -674,9 +856,11 @@ if (supportForm) {
                 formStatus.textContent =
                     "Please enter a valid 10-digit Indian mobile number.";
 
+
                 formStatus.classList.add(
                     "error"
                 );
+
 
                 return;
             }
@@ -689,9 +873,11 @@ if (supportForm) {
                 formStatus.textContent =
                     "Please select a support category.";
 
+
                 formStatus.classList.add(
                     "error"
                 );
+
 
                 return;
             }
@@ -705,9 +891,11 @@ if (supportForm) {
                 formStatus.textContent =
                     "Please provide a subject and message.";
 
+
                 formStatus.classList.add(
                     "error"
                 );
+
 
                 return;
             }
@@ -766,5 +954,7 @@ if (supportForm) {
 /* =========================================================
 INITIALIZE
 ========================================================= */
+
+setupNavigation();
 
 setupRoleContent();

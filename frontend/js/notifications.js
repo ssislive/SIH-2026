@@ -127,10 +127,24 @@ const signupRole =
     );
 
 
+/*
+ * Only accept valid roles.
+ *
+ * IMPORTANT:
+ * This page NEVER changes the role.
+ *
+ * It only reads the existing role and
+ * adjusts the interface accordingly.
+ */
+
 const userRole =
-    storedRole ||
-    signupRole ||
-    "farmer";
+    storedRole === "buyer"
+        ? "buyer"
+        : storedRole === "farmer"
+            ? "farmer"
+            : signupRole === "buyer"
+                ? "buyer"
+                : "farmer";
 
 
 
@@ -192,6 +206,105 @@ const profileButton =
     );
 
 
+const dashboardLink =
+    document.getElementById(
+        "dashboardLink"
+    );
+
+
+const produceLink =
+    document.getElementById(
+        "produceLink"
+    );
+
+
+
+/* =========================================================
+   ROLE-BASED NAVIGATION
+   ========================================================= */
+
+function setupNavigation() {
+
+    if (userRole === "buyer") {
+
+        /*
+         * BUYER
+         */
+
+        if (dashboardLink) {
+
+            dashboardLink.href =
+                "buyer-dashboard.html";
+
+        }
+
+
+        /*
+         * Both roles use the same
+         * common lots.html page.
+         */
+
+        if (produceLink) {
+
+            produceLink.href =
+                "lots.html";
+
+            produceLink.textContent =
+                "Produce";
+
+        }
+
+
+        if (profileButton) {
+
+            profileButton.textContent =
+                "B";
+
+        }
+
+
+        return;
+    }
+
+
+    /*
+     * FARMER
+     */
+
+    if (dashboardLink) {
+
+        dashboardLink.href =
+            "dashboard.html";
+
+    }
+
+
+    /*
+     * Both roles use the same
+     * common lots.html page.
+     */
+
+    if (produceLink) {
+
+        produceLink.href =
+            "lots.html";
+
+        produceLink.textContent =
+            "Produce";
+
+    }
+
+
+    if (profileButton) {
+
+        profileButton.textContent =
+            "F";
+
+    }
+
+}
+
+
 
 /* =========================================================
    ROLE-BASED PAGE CONTENT
@@ -211,13 +324,6 @@ function setupRoleContent() {
 
         emptyMessage.textContent =
             "There are no buyer updates to show right now.";
-
-
-        if (profileButton) {
-
-            profileButton.textContent = "B";
-
-        }
 
         return;
     }
@@ -1212,6 +1318,8 @@ async function loadNotificationsFromBackend() {
 /* =========================================================
    INITIAL LOAD
    ========================================================= */
+
+setupNavigation();
 
 setupRoleContent();
 
