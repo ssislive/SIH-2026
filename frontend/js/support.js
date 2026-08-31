@@ -1,26 +1,29 @@
 /* =========================================================
-   KRISHISETU — SUPPORT
-   ROLE-AWARE FRONTEND
-   ========================================================= */
+KRISHISETU — SUPPORT
+ROLE-AWARE FRONTEND
+========================================================= */
 
 
 /* =========================================================
-   ROLE
-   ========================================================= */
+ROLE
+========================================================= */
 
 const userRole =
     sessionStorage.getItem("krishisetuUserRole") || "";
 
 
 /* =========================================================
-   ELEMENTS
-   ========================================================= */
+ELEMENTS
+========================================================= */
 
 const menuButton =
     document.getElementById("menuButton");
 
 const mainNav =
     document.getElementById("mainNav");
+
+const dashboardNavLink =
+    document.getElementById("dashboardNavLink");
 
 const supportTitle =
     document.getElementById("supportTitle");
@@ -79,6 +82,9 @@ const sellNavLink =
 const profileButton =
     document.getElementById("profileButton");
 
+const profileInitial =
+    document.getElementById("profileInitial");
+
 const noteHeading =
     document.getElementById("noteHeading");
 
@@ -87,8 +93,8 @@ const noteDescription =
 
 
 /* =========================================================
-   MOBILE NAVIGATION
-   ========================================================= */
+MOBILE NAVIGATION
+========================================================= */
 
 if (menuButton && mainNav) {
 
@@ -131,8 +137,8 @@ if (menuButton && mainNav) {
 
 
 /* =========================================================
-   FAQ DATA
-   ========================================================= */
+FAQ DATA
+========================================================= */
 
 const sharedFAQs = [
 
@@ -246,17 +252,23 @@ const buyerFAQs = [
 
 
 /* =========================================================
-   ROLE-BASED QUICK HELP
-   ========================================================= */
+ROLE-BASED QUICK HELP
+========================================================= */
 
 function setupRoleContent() {
-
 
     /* =====================================================
        FARMER
        ===================================================== */
 
     if (userRole === "farmer") {
+
+        profileInitial.textContent =
+            "F";
+
+        dashboardNavLink.href =
+            "farmer-dashboard.html";
+
 
         supportTitle.innerHTML =
             "We're here to<br><span>help you.</span>";
@@ -321,12 +333,10 @@ function setupRoleContent() {
         ]);
 
 
-        renderFAQs(
-            [
-                ...farmerFAQs,
-                ...sharedFAQs
-            ]
-        );
+        renderFAQs([
+            ...farmerFAQs,
+            ...sharedFAQs
+        ]);
 
 
         return;
@@ -338,6 +348,13 @@ function setupRoleContent() {
        ===================================================== */
 
     if (userRole === "buyer") {
+
+        profileInitial.textContent =
+            "B";
+
+        dashboardNavLink.href =
+            "buyer-dashboard.html";
+
 
         supportTitle.innerHTML =
             "We're here to<br><span>help you.</span>";
@@ -402,12 +419,10 @@ function setupRoleContent() {
         ]);
 
 
-        renderFAQs(
-            [
-                ...buyerFAQs,
-                ...sharedFAQs
-            ]
-        );
+        renderFAQs([
+            ...buyerFAQs,
+            ...sharedFAQs
+        ]);
 
 
         return;
@@ -417,6 +432,13 @@ function setupRoleContent() {
     /* =====================================================
        NO ROLE / GENERAL
        ===================================================== */
+
+    profileInitial.textContent =
+        "F";
+
+    dashboardNavLink.href =
+        "index.html";
+
 
     supportDescription.textContent =
         "Get help with your account, market information, produce listings, buying and anything else you need while using KrishiSetu.";
@@ -469,8 +491,8 @@ function setupRoleContent() {
 
 
 /* =========================================================
-   CATEGORY OPTIONS
-   ========================================================= */
+CATEGORY OPTIONS
+========================================================= */
 
 function setupCategories(categories) {
 
@@ -513,8 +535,8 @@ function setupCategories(categories) {
 
 
 /* =========================================================
-   FAQ RENDER
-   ========================================================= */
+FAQ RENDER
+========================================================= */
 
 function renderFAQs(faqs) {
 
@@ -577,8 +599,8 @@ function renderFAQs(faqs) {
 
 
 /* =========================================================
-   SUPPORT FORM
-   ========================================================= */
+SUPPORT FORM
+========================================================= */
 
 if (supportForm) {
 
@@ -700,29 +722,6 @@ if (supportForm) {
             );
 
 
-            /*
-             * BACKEND HANDOFF
-             *
-             * The backend can use:
-             *
-             * POST /api/support/tickets
-             *
-             * Payload:
-             *
-             * {
-             *     name,
-             *     phone,
-             *     category,
-             *     subject,
-             *     message,
-             *     role
-             * }
-             *
-             * The role field allows the backend to know whether
-             * the request came from a farmer or buyer.
-             */
-
-
             /* =================================================
                TEMPORARY FRONTEND DEMO
                ================================================= */
@@ -765,7 +764,7 @@ if (supportForm) {
 
 
 /* =========================================================
-   INITIALIZE
-   ========================================================= */
+INITIALIZE
+========================================================= */
 
 setupRoleContent();
