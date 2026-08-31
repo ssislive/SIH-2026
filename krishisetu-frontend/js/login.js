@@ -169,7 +169,7 @@ function validateLogin() {
     if (password.length === 0) {
 
         passwordError.textContent =
-            "Please enter your password.";
+            "Please enter your OTP.";
 
         valid = false;
 
@@ -196,176 +196,100 @@ function validateLogin() {
 
 
 /* =========================================================
+   FORGOT PASSWORD / GET OTP
+   ========================================================= */
+
+forgotPassword.addEventListener(
+    "click",
+    async function (event) {
+        event.preventDefault();
+        
+        const mobile = mobileInput.value.trim();
+        if (!/^[6-9]\d{9}$/.test(mobile)) {
+            mobileError.textContent = "Enter a valid 10-digit Indian mobile number first.";
+            return;
+        }
+
+        formMessage.textContent = "Sending OTP...";
+        formMessage.style.color = "blue";
+
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/send-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ phone: mobile })
+            });
+            const data = await response.json();
+            
+            if (response.ok) {
+                // For hackathon, auto-fill the OTP or show it
+                formMessage.textContent = "OTP Sent! Demo OTP: " + data.otp;
+                formMessage.style.color = "green";
+                passwordInput.value = data.otp; // Auto-fill for hackathon
+            } else {
+                formMessage.textContent = data.message || "Failed to send OTP.";
+                formMessage.style.color = "red";
+            }
+        } catch (err) {
+            formMessage.textContent = "Error connecting to server.";
+            formMessage.style.color = "red";
+        }
+    }
+);
+
+/* =========================================================
    LOGIN
    ========================================================= */
 
 loginForm.addEventListener(
     "submit",
-    function (event) {
-
+    async function (event) {
         event.preventDefault();
-
-
-        /* =================================================
-           VALIDATE
-           ================================================= */
 
         if (!validateLogin()) {
-
             return;
-
         }
 
+        const mobile = mobileInput.value.trim();
+        const otp = passwordInput.value;
+        const selectedRole = document.querySelector('input[name="role"]:checked').value.toUpperCase();
 
-        /* =================================================
-           GET LOGIN DATA
-           ================================================= */
+        formMessage.textContent = "Verifying...";
+        formMessage.style.color = "blue";
 
-        const mobile =
-            mobileInput.value.trim();
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/verify-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    phone: mobile,
+                    otp: otp,
+                    role: selectedRole,
+                    name: "Hackathon User", // Dummy name
+                    district: "Nashik" // Dummy district
+                })
+            });
+            const data = await response.json();
 
-        const password =
-            passwordInput.value;
+            if (response.ok) {
+                // Store real token and user data
+                localStorage.setItem("token", data.token);
+                sessionStorage.setItem("krishisetuUserRole", data.user.role.toLowerCase());
+                sessionStorage.setItem("krishisetuLoggedIn", "true");
+                sessionStorage.setItem("krishisetuLoginMobile", mobile);
 
-        const selectedRole =
-            document.querySelector(
-                'input[name="role"]:checked'
-            ).value;
-
-
-        /* =================================================
-           TEMPORARY FRONTEND LOGIN
-           =================================================
-
-           IMPORTANT:
-
-           This is NOT real authentication.
-
-           We are only storing enough information so
-           the other pages know who is currently logged in.
-
-           The role is the important part.
-
-           Common pages will read:
-
-               sessionStorage.getItem(
-                   "krishisetuUserRole"
-               );
-
-           ================================================= */
-
-
-        sessionStorage.setItem(
-            "krishisetuLoginMobile",
-            mobile
-        );
-
-
-        sessionStorage.setItem(
-            "krishisetuUserRole",
-            selectedRole
-        );
-
-
-        /* =================================================
-           OPTIONAL SESSION FLAG
-           =================================================
-
-           This lets other pages know that the user
-           has completed the demo login.
-
-           Later the backend session/token will replace
-           this.
-           ================================================= */
-
-        sessionStorage.setItem(
-            "krishisetuLoggedIn",
-            "true"
-        );
-
-
-        /* =================================================
-           BACKEND HANDOFF
-           =================================================
-
-           Later replace the temporary section above with:
-
-           fetch("/api/login", {
-               method: "POST",
-               headers: {
-                   "Content-Type": "application/json"
-               },
-               body: JSON.stringify({
-                   mobile: mobile,
-                   password: password
-               })
-           })
-
-           The backend should return something like:
-
-           {
-               "success": true,
-               "role": "farmer"
-           }
-
-           or:
-
-           {
-               "success": true,
-               "role": "buyer"
-           }
-
-           The frontend should then store the returned
-           role instead of trusting the selected role.
-
-           IMPORTANT:
-
-           The backend must determine the real role.
-           The frontend role selector is ONLY for this
-           temporary demo.
-           ================================================= */
-
-
-        /* =================================================
-           ROLE-BASED DASHBOARD
-           ================================================= */
-
-        if (selectedRole === "farmer") {
-
-            window.location.href =
-                "dashboard.html";
-
-            return;
-
+                if (data.user.role === "FARMER") {
+                    window.location.href = "dashboard.html";
+                } else {
+                    window.location.href = "buyer-dashboard.html";
+                }
+            } else {
+                formMessage.textContent = data.message || "Invalid OTP.";
+                formMessage.style.color = "red";
+            }
+        } catch (err) {
+            formMessage.textContent = "Error connecting to server.";
+            formMessage.style.color = "red";
         }
-
-
-        if (selectedRole === "buyer") {
-
-            window.location.href =
-                "buyer-dashboard.html";
-
-            return;
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   FORGOT PASSWORD
-   ========================================================= */
-
-forgotPassword.addEventListener(
-    "click",
-    function (event) {
-
-        event.preventDefault();
-
-
-        formMessage.textContent =
-            "Please contact support to recover your account.";
-
     }
 );

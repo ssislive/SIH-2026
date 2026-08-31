@@ -5,13 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 const generateToken = (userId, role) => {
   return jwt.sign(
     { id: userId, role },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET || "hackathon_secret_key",
     { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
   );
 };
 
 const verifyToken = (token) => {
-  return jwt.verify(token, process.env.JWT_SECRET);
+  return jwt.verify(token, process.env.JWT_SECRET || "hackathon_secret_key");
 };
 
 const findUserByPhone = async (phone) => {

@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const tursoClient = createClient({
-  url: process.env.TURSO_DATABASE_URL,
+  url: process.env.TURSO_DATABASE_URL || "file:./local.db",
   authToken: process.env.TURSO_AUTH_TOKEN,
 });
 

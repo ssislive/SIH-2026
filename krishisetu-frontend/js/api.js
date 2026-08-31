@@ -1,6 +1,6 @@
 const API_BASE_URL = "http://localhost:5000/api";
 
-const USE_MOCK_DATA = true;
+const USE_MOCK_DATA = false;
 
 
 async function apiRequest(endpoint, options = {}) {
@@ -48,44 +48,31 @@ async function apiRequest(endpoint, options = {}) {
 
 
 async function getDashboardData() {
-
-    return apiRequest("/dashboard");
+    return apiRequest("/farmer/summary");
 }
-
 
 async function getMarketPrices() {
-
-    return apiRequest("/market-prices");
+    return apiRequest("/market/prices");
 }
-
 
 async function getLots() {
-
-    return apiRequest("/lots");
+    return apiRequest("/farmer/lots/my-lots");
 }
-
 
 async function getBuyers() {
-
-    return apiRequest("/buyers");
+    return apiRequest("/buyer/lots"); // Changed buyers to buyer lots for now
 }
-
 
 async function getLiveBids() {
-
-    return apiRequest("/bids/live");
+    return apiRequest("/fpo/available-lots"); // Closest matching endpoint
 }
-
 
 async function getTransactions() {
-
-    return apiRequest("/transactions");
+    return apiRequest("/farmer/lots/my-lots");
 }
 
-
 async function getNotifications() {
-
-    return apiRequest("/notifications");
+    return apiRequest("/auth/me"); // Just a dummy real endpoint for now
 }
 
 
