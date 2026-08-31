@@ -18,24 +18,28 @@
    ========================================================= */
 
 /*
- * Your login/dashboard should store:
- *
- * sessionStorage.setItem(
- *     "krishisetuUserRole",
- *     "buyer"
- * );
- *
- * OR
- *
- * sessionStorage.setItem(
- *     "krishisetuUserRole",
- *     "farmer"
- * );
- *
- */
+
+- Your login/dashboard should store:
+-
+- sessionStorage.setItem(
+-
+    "krishisetuUserRole",
+    "buyer"
+- );
+-
+- OR
+-
+- sessionStorage.setItem(
+-
+    "krishisetuUserRole",
+    "farmer"
+- );
+
+*/
 
 const userRole =
     sessionStorage.getItem("krishisetuUserRole") || "";
+
 
 
 /* =========================================================
@@ -47,6 +51,9 @@ const menuButton =
 
 const mainNav =
     document.getElementById("mainNav");
+
+const dashboardNavLink =
+    document.getElementById("dashboardNavLink");
 
 const stateSelect =
     document.getElementById("stateSelect");
@@ -121,6 +128,7 @@ const sellNavLink =
     );
 
 
+
 /* =========================================================
    MOBILE NAVIGATION
    ========================================================= */
@@ -170,17 +178,28 @@ if (menuButton && mainNav) {
 }
 
 
+
 /* =========================================================
    ROLE-BASED CONTENT
    ========================================================= */
 
 function setupMarketRoleContent() {
 
+
     /* =====================================================
        BUYER
        ===================================================== */
 
     if (userRole === "buyer") {
+
+        /* ROLE-BASED DASHBOARD */
+        if (dashboardNavLink) {
+
+            dashboardNavLink.href =
+                "buyer-dashboard.html";
+
+        }
+
 
         marketPageTitleAccent.textContent =
             "Buy with confidence.";
@@ -238,7 +257,9 @@ function setupMarketRoleContent() {
 
 
         return;
+
     }
+
 
 
     /* =====================================================
@@ -246,6 +267,15 @@ function setupMarketRoleContent() {
        ===================================================== */
 
     if (userRole === "farmer") {
+
+        /* ROLE-BASED DASHBOARD */
+        if (dashboardNavLink) {
+
+            dashboardNavLink.href =
+                "farmer-dashboard.html";
+
+        }
+
 
         marketPageTitleAccent.textContent =
             "Sell with confidence.";
@@ -292,12 +322,22 @@ function setupMarketRoleContent() {
 
 
         return;
+
     }
+
 
 
     /* =====================================================
        NO ROLE / DEFAULT
        ===================================================== */
+
+    if (dashboardNavLink) {
+
+        dashboardNavLink.href =
+            "index.html";
+
+    }
+
 
     marketPageTitleAccent.textContent =
         "Make better decisions.";
@@ -335,6 +375,7 @@ function setupMarketRoleContent() {
         "Market prices can vary by location, crop quality, season and market conditions. Use this information to compare opportunities before making a decision.";
 
 }
+
 
 
 /* =========================================================
@@ -818,6 +859,7 @@ const stateDistricts = {
 };
 
 
+
 /* =========================================================
    CROP MASTER
    ========================================================= */
@@ -1120,6 +1162,7 @@ const crops = [
 ];
 
 
+
 /* =========================================================
    MARKET DATA
    ========================================================= */
@@ -1297,6 +1340,7 @@ const marketData = [
 ];
 
 
+
 /* =========================================================
    POPULATE STATES
    ========================================================= */
@@ -1330,6 +1374,7 @@ function populateStates() {
         "Maharashtra";
 
 }
+
 
 
 /* =========================================================
@@ -1385,6 +1430,7 @@ function populateDistricts(state) {
     updateRegionText();
 
 }
+
 
 
 /* =========================================================
@@ -1461,6 +1507,7 @@ function populateCropTypes() {
         });
 
 }
+
 
 
 /* =========================================================
@@ -1547,6 +1594,7 @@ function populateCrops() {
 }
 
 
+
 /* =========================================================
    UPDATE REGION TEXT
    ========================================================= */
@@ -1578,6 +1626,7 @@ function updateRegionText() {
     }
 
 }
+
 
 
 /* =========================================================
@@ -1634,6 +1683,7 @@ function getFilteredData() {
     });
 
 }
+
 
 
 /* =========================================================
@@ -1735,6 +1785,7 @@ function createMarketCard(item) {
 }
 
 
+
 /* =========================================================
    RENDER
    ========================================================= */
@@ -1780,6 +1831,7 @@ function renderMarketData() {
 }
 
 
+
 /* =========================================================
    STATE CHANGE
    ========================================================= */
@@ -1798,6 +1850,7 @@ stateSelect.addEventListener(
 );
 
 
+
 /* =========================================================
    DISTRICT CHANGE
    ========================================================= */
@@ -1812,6 +1865,7 @@ districtSelect.addEventListener(
 
     }
 );
+
 
 
 /* =========================================================
@@ -1835,6 +1889,7 @@ seasonSelect.addEventListener(
 );
 
 
+
 /* =========================================================
    CROP TYPE CHANGE
    ========================================================= */
@@ -1851,6 +1906,7 @@ cropTypeSelect.addEventListener(
 );
 
 
+
 /* =========================================================
    CROP CHANGE
    ========================================================= */
@@ -1859,6 +1915,7 @@ cropSelect.addEventListener(
     "change",
     renderMarketData
 );
+
 
 
 /* =========================================================
@@ -1887,6 +1944,7 @@ function initialiseMarketPage() {
     renderMarketData();
 
 }
+
 
 
 /* =========================================================
