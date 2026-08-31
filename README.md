@@ -68,46 +68,31 @@ krishisetu/
 ├── .gitignore
 ├── README.md
 ├── krishisetu-backend/
-│   ├── config/
-│   │   ├── turso.js              # Turso (libSQL) client setup
-│   │   └── mongo.js              # MongoDB connection
-│   ├── controllers/
-│   │   ├── authController.js     # OTP + JWT auth flow
-│   │   ├── farmerController.js   # Produce listing & summary
-│   │   ├── fpoController.js      # Lot aggregation
-│   │   ├── marketController.js   # Mandi prices & net realization
-│   │   ├── recommendationController.js  # Sale recommendations
-│   │   ├── buyerController.js    # Browse lots & transactions
-│   │   ├── logisticsController.js # Delivery tracking
-│   │   ├── paymentController.js  # Mock payment flow
-│   │   ├── qrController.js       # QR generate & verify
-│   │   └── grievanceController.js # Dispute ticketing
-│   ├── middleware/
-│   │   ├── auth.js               # JWT verification
-│   │   └── roleCheck.js          # Role-based access control
-│   ├── models/
-│   │   ├── schema.sql            # Turso SQL schema (7 tables)
-│   │   └── mongo/
-│   │       ├── BidLog.js         # Real-time bid history
-│   │       └── EvidenceLog.js    # Grievance evidence
-│   ├── routes/                   # Express route definitions
-│   ├── services/
-│   │   ├── otpService.js         # OTP generate/store/verify
-│   │   ├── authService.js        # JWT + user management
-│   │   ├── marketPriceService.js # Mandi price data
-│   │   ├── netRealizationEngine.js # 3-scenario net calculation
-│   │   ├── recommendationEngine.js # Weighted scoring engine
-│   │   ├── socketService.js      # Socket.io bidding rooms
-│   │   ├── qrService.js          # QR code generate/verify
-│   │   ├── paymentService.js     # Payment state machine
-│   │   └── logisticsService.js   # Delivery state machine
+│   ├── config/               # Database configs (turso, mongo)
+│   ├── controllers/          # API route controllers
+│   ├── middleware/           # Auth and role guards
+│   ├── models/               # SQL schema and Mongo models
+│   ├── routes/               # Express route definitions
+│   ├── services/             # Business logic (OTP, JWT, etc.)
 │   ├── scripts/
-│   │   └── seedDemoData.js       # Demo data seeder
-│   ├── server.js                 # Entry point
+│   │   └── seedDemoData.js   # Demo data seeder
+│   ├── local.db              # SQLite DB for hackathon fallback
+│   ├── server.js             # Entry point
 │   ├── package.json
-│   ├── package-lock.json
-│   └── .env                      # Secrets (not in git)
-└── krishisetu-frontend/          # (Coming soon)
+│   └── .env                  # Secrets (optional for hackathon)
+└── krishisetu-frontend/
+    ├── index.html            # Landing page
+    ├── login.html            # OTP Login page
+    ├── dashboard.html        # Farmer Dashboard
+    ├── buyer-dashboard.html  # Buyer Dashboard
+    ├── lots.html             # Market/Lots browsing
+    ├── bidding.html          # Live bidding interface
+    ├── css/                  # Stylesheets
+    ├── js/                   # Vanilla JS logic & API wrappers
+    │   ├── api.js            # Centralized backend fetch logic
+    │   ├── login.js          # Authentication flow
+    │   └── dashboard.js      # Dashboard state logic
+    └── assets/               # Images and icons
 ```
 
 ---
