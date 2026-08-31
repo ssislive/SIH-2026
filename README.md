@@ -51,16 +51,13 @@ KrishiSetu bridges the gap between farmers and buyers through:
 | Razorpay (Sandbox) | Payment simulation |
 | QRCode | Digital lot traceability |
 
-### Frontend (Upcoming)
+### Frontend
 | Technology | Purpose |
 |-----------|---------|
-| React 18 + TypeScript | UI framework |
-| Vite | Build tool |
-| Tailwind CSS + shadcn/ui | Styling & components |
-| Zustand | State management |
-| Socket.io Client | Real-time bidding UI |
-| Recharts | Data visualization |
-| Workbox (PWA) | Offline support for farmers |
+| HTML5 + Vanilla JS | Current Hackathon Prototype UI |
+| CSS3 | Styling & Layout |
+| React 18 + TypeScript | UI framework (Upcoming Next Phase) |
+| Zustand + Tailwind | State management & styling (Upcoming) |
 
 ---
 
@@ -143,9 +140,11 @@ cp .env.example .env   # (if .env.example exists)
 # OR create .env manually with the variables below
 ```
 
-### 3. Configure Environment Variables
+### 3. Configure Environment Variables (Optional for Hackathon)
 
-Create `krishisetu-backend/.env`:
+The backend is configured to fall back to a local SQLite database (`local.db`) and a default dummy JWT secret if no `.env` file is present. This ensures the prototype runs out-of-the-box. 
+
+If you want to use cloud databases, create `krishisetu-backend/.env`:
 
 ```env
 PORT=5000
@@ -155,43 +154,36 @@ NODE_ENV=development
 TURSO_DATABASE_URL="libsql://your-db-name.turso.io"
 TURSO_AUTH_TOKEN="your-turso-auth-token"
 
-# MongoDB
-MONGO_URI="mongodb+srv://user:pass@cluster.mongodb.net/krishisetu?retryWrites=true&w=majority"
-
 # JWT
 JWT_SECRET="your-super-secret-jwt-key-change-this"
-JWT_EXPIRES_IN="7d"
-
-# Razorpay (Sandbox)
-RAZORPAY_KEY_ID="rzp_test_xxxxxxxx"
-RAZORPAY_KEY_SECRET="your-razorpay-test-secret"
-
-# Frontend URL (for CORS)
-FRONTEND_URL="http://localhost:5173"
 ```
 
-### 4. Start the Backend
+### 4. Start the Backend (Terminal 1)
 
 ```bash
-# Development (auto-reload on file changes)
-npm run dev
+cd krishisetu-backend
 
-# OR Production
-npm start
+# Seed Demo Data (Creates local.db and populates it)
+node scripts/seedDemoData.js
+
+# Start the server (auto-reload on file changes)
+npm run dev
 ```
 
 Server starts at `http://localhost:5000`
 
-### 5. Seed Demo Data (Optional)
+### 5. Start the Frontend Prototype (Terminal 2)
+
+Since the frontend uses `fetch` to talk to the backend, it must be served via a local web server to avoid CORS issues.
 
 ```bash
-node scripts/seedDemoData.js
+cd krishisetu-frontend
+
+# Serve the static files using npx
+npx serve .
 ```
 
-Pre-populates:
-- 5 Farmers (Nashik, Pune, Ahmednagar)
-- 2 FPOs, 3 Buyers, 1 Transporter
-- 5 Farmer lots + 1 aggregated bulk lot (60q Onion)
+Open the URL provided by `serve` (usually `http://localhost:3000`) in your browser to interact with the prototype.
 
 ---
 
