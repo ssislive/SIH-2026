@@ -1919,4 +1919,3 @@ setupRoleInterface();
 startCountdownTicker();
 
 updateStatusBar();
-
